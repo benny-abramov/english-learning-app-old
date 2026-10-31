@@ -75,6 +75,10 @@ function SababaAppContent() {
             units={fullCurriculumData.units}
             currentUnitId={currentUnitId}
             onSelectUnit={handleSelectUnitFromRoadmap}
+            onNavigateToTab={(tab, unitId) => {
+              setCurrentUnitId(unitId);
+              setActiveTab(tab);
+            }}
             xpPoints={xpPoints}
           />
         );
@@ -84,6 +88,7 @@ function SababaAppContent() {
             key={`phonics-${currentUnit.id}`}
             exercises={currentUnit.phonicsExercises}
             onReward={handleReward}
+            onNavigateToTab={(tab) => setActiveTab(tab)}
           />
         );
       case 'verb_to_be':

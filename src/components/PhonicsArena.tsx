@@ -11,12 +11,16 @@ import {
   triggerCelebration
 } from '../utils/audio';
 
+import { BookOpen, Gamepad2 } from 'lucide-react';
+import { ActiveTab } from './TabletHeader';
+
 interface PhonicsArenaProps {
   exercises: PhonicsExercise[];
   onReward: (points: number) => void;
+  onNavigateToTab?: (tab: ActiveTab) => void;
 }
 
-export const PhonicsArena: React.FC<PhonicsArenaProps> = ({ exercises, onReward }) => {
+export const PhonicsArena: React.FC<PhonicsArenaProps> = ({ exercises, onReward, onNavigateToTab }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null);
   const [hasChecked, setHasChecked] = useState(false);
@@ -96,8 +100,81 @@ export const PhonicsArena: React.FC<PhonicsArenaProps> = ({ exercises, onReward 
 
   return (
     <div className="flex flex-col h-full space-y-4">
+      {/* Unit Scope & Vocab Navigation Explainer Banner */}
+      <div className="bg-gradient-to-r from-sky-50 via-indigo-50 to-purple-50 border border-sky-200/80 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2.5 text-slate-800">
+          <span className="text-xl">🔎</span>
+          <div>
+            <strong className="block text-slate-900 font-bold">
+              אתגר הבחנת צלילים (4 זוגות מילים פונטיים):
+            </strong>
+            <span className="text-slate-600">
+              כאן מתאמנים על הבחנת שמיעה בין צלילי היעד (P מול F). לכל 27 המילים של היחידה עברו ללשונית "אוצר מילים".
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0 self-stretch sm:self-auto">
+          {onNavigateToTab && (
+            <>
+              <button
+                type="button"
+                onClick={() => onNavigateToTab('vocab_glossary')}
+                className="flex-1 sm:flex-none px-3 py-1.5 bg-white hover:bg-purple-50 text-purple-700 font-bold border border-purple-200 rounded-xl transition-all cursor-pointer shadow-2xs flex items-center justify-center gap-1.5"
+                title="מעבר לרשימת כל 27 המילים של היחידה"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-purple-600" />
+                <span>כל 27 מילות היחידה ➔</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onNavigateToTab('vocab_challenge')}
+                className="flex-1 sm:flex-none px-3 py-1.5 bg-white hover:bg-amber-50 text-amber-800 font-bold border border-amber-200 rounded-xl transition-all cursor-pointer shadow-2xs flex items-center justify-center gap-1.5"
+                title="מעבר לאתגר 5 מילות תמונה-מילה"
+              >
+                <Gamepad2 className="w-3.5 h-3.5 text-amber-600" />
+                <span>אתגר תמונה-מילה (5)</span>
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
       {/* Top Exercise Header & Instructions with direct 'Listen' button next to exercise */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs">
+        {/* Quick Exercise Jump Chips */}
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-100">
+          <div className="flex items-center gap-1.5 overflow-x-auto py-1">
+            <span className="text-xs font-bold text-slate-500 ml-1">בחר זוג:</span>
+            {exercises.map((ex, idx) => {
+              const pairLabel = `${ex.targetWord.word} / ${ex.distractorWord.word}`;
+              const isSelected = idx === currentIndex;
+              return (
+                <button
+                  key={ex.id}
+                  onClick={() => {
+                    setCurrentIndex(idx);
+                    setSelectedWordId(null);
+                    setHasChecked(false);
+                  }}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold font-english transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-sky-600 text-white shadow-xs'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  {pairLabel}
+                </button>
+              );
+            })}
+          </div>
+
+          <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md shrink-0">
+            תרגיל {currentIndex + 1} מתוך {exercises.length}
+          </span>
+        </div>
+
         <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md">
