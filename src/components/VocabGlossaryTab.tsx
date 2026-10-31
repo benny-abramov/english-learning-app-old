@@ -76,11 +76,18 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
 }) => {
   const [activeTabMode, setActiveTabMode] = useState<TabMode>('grid');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>(currentUnit ? 'current_unit' : 'all');
   const [customWords, setCustomWords] = useState<Band1VocabWord[]>([]);
   const [favoriteWordIds, setFavoriteWordIds] = useState<Set<string>>(new Set());
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isPacksModalOpen, setIsPacksModalOpen] = useState(false);
+
+  // Sync selected category to current unit when currentUnit changes
+  useEffect(() => {
+    if (currentUnit) {
+      setSelectedCategory('current_unit');
+    }
+  }, [currentUnit?.id]);
 
   // New Word Form State
   const [newWord, setNewWord] = useState('');
@@ -98,6 +105,12 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [knownCardIds, setKnownCardIds] = useState<Set<string>>(new Set());
+
+  // Reset card index when category or unit changes
+  useEffect(() => {
+    setCardIndex(0);
+    setIsFlipped(false);
+  }, [selectedCategory, currentUnit?.id]);
 
   // Quiz State
   const [quizQuestionIndex, setQuizQuestionIndex] = useState(0);
@@ -189,30 +202,30 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
 
   // Filtered words based on category and search query
   const filteredWords = useMemo(() => {
-    return combinedWordList.filter((item) => {
-      // Category filter
-      if (selectedCategory === 'current_unit') {
-        const currentIds = new Set((currentUnit?.vocabulary || vocabList).map((w) => w.id));
-        if (!currentIds.has(item.id)) return false;
-      } else if (selectedCategory === 'custom') {
-        if (!item.isCustom) return false;
-      } else if (selectedCategory === 'favorites') {
-        if (!favoriteWordIds.has(item.id)) return false;
-      } else if (selectedCategory !== 'all') {
-        if (item.category !== selectedCategory) return false;
-      }
+    let baseList: Band1VocabWord[] = combinedWordList;
 
-      // Search query filter
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase().trim();
+    if (selectedCategory === 'current_unit' && currentUnit) {
+      baseList = currentUnit.vocabulary && currentUnit.vocabulary.length > 0 ? currentUnit.vocabulary : vocabList;
+    } else if (selectedCategory === 'custom') {
+      baseList = combinedWordList.filter((item) => (item as any).isCustom);
+    } else if (selectedCategory === 'favorites') {
+      baseList = combinedWordList.filter((item) => favoriteWordIds.has(item.id));
+    } else if (selectedCategory !== 'all') {
+      baseList = combinedWordList.filter((item) => item.category === selectedCategory);
+    }
+
+    // Search query filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      return baseList.filter((item) => {
         const matchesEn = item.word.toLowerCase().includes(query);
         const matchesHe = item.hebrewTranslation.includes(query);
         const matchesCategory = item.category?.toLowerCase().includes(query);
         return matchesEn || matchesHe || matchesCategory;
-      }
+      });
+    }
 
-      return true;
-    });
+    return baseList;
   }, [combinedWordList, selectedCategory, searchQuery, currentUnit, vocabList, favoriteWordIds]);
 
   // Handle Audio Playback
@@ -352,13 +365,14 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
   // QUIZ GENERATION & CONTROLS
   // ----------------------------------------------------
   const quizQuestions = useMemo(() => {
-    const pool = combinedWordList.length >= 4 ? combinedWordList : fullCurriculumWordPoolFallback;
-    // Generate 6 quick questions
-    const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 8);
+    const questionTargets = filteredWords.length >= 4 ? filteredWords : (combinedWordList.length >= 4 ? combinedWordList : fullCurriculumWordPoolFallback);
+    const distractorPool = combinedWordList.length >= 4 ? combinedWordList : fullCurriculumWordPoolFallback;
+    // Generate up to 8 quick questions
+    const shuffled = [...questionTargets].sort(() => 0.5 - Math.random()).slice(0, 8);
 
     return shuffled.map((target) => {
       // 3 wrong distractors
-      const distractors = pool
+      const distractors = distractorPool
         .filter((w) => w.id !== target.id)
         .sort(() => 0.5 - Math.random())
         .slice(0, 3)
@@ -372,7 +386,7 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
         correctAnswer: target.hebrewTranslation
       };
     });
-  }, [combinedWordList]);
+  }, [filteredWords, combinedWordList]);
 
   const currentQuizItem = quizQuestions[quizQuestionIndex] || quizQuestions[0];
 
@@ -548,6 +562,20 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
 
             {/* Filter Chips */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-xs font-semibold">
+              {currentUnit && (
+                <button
+                  onClick={() => setSelectedCategory('current_unit')}
+                  className={`px-3.5 py-1.5 rounded-xl whitespace-nowrap transition-all font-bold cursor-pointer flex items-center gap-1.5 ${
+                    selectedCategory === 'current_unit'
+                      ? 'bg-rose-600 text-white shadow-xs ring-2 ring-rose-400/50'
+                      : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+                  }`}
+                >
+                  <span>🎯</span>
+                  <span>יחידה {currentUnit.unitNumber}: {currentUnit.titleHe} ({currentUnit.vocabulary?.length || 27} מילים)</span>
+                </button>
+              )}
+
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors cursor-pointer ${
@@ -556,21 +584,8 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                הכל ({combinedWordList.length})
+                כל המילון ({combinedWordList.length})
               </button>
-
-              {currentUnit && (
-                <button
-                  onClick={() => setSelectedCategory('current_unit')}
-                  className={`px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors cursor-pointer ${
-                    selectedCategory === 'current_unit'
-                      ? 'bg-rose-600 text-white shadow-2xs'
-                      : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
-                  }`}
-                >
-                  יחידה {currentUnit.unitNumber}: {currentUnit.titleHe}
-                </button>
-              )}
 
               {customWords.length > 0 && (
                 <button
@@ -598,6 +613,46 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
                   {cat}
                 </button>
               ))}
+            </div>
+
+            {/* Active Filter Summary Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-2 px-1 pt-2 text-xs text-slate-600 border-t border-slate-100">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-bold text-slate-800">
+                  {selectedCategory === 'current_unit' && currentUnit
+                    ? `🎯 מציג ${filteredWords.length} מילות יחידה ${currentUnit.unitNumber}: ${currentUnit.titleHe}`
+                    : selectedCategory === 'all'
+                    ? `📚 מציג את כל ${filteredWords.length} המילים במאגר`
+                    : selectedCategory === 'custom'
+                    ? `⭐ מציג ${filteredWords.length} מילים אישיות שהוספת`
+                    : selectedCategory === 'favorites'
+                    ? `❤️ מציג ${filteredWords.length} מילים מועדפות`
+                    : `🏷️ מציג ${filteredWords.length} מילים בנושא ${selectedCategory}`}
+                </span>
+                {searchQuery && (
+                  <span className="text-sky-600 font-semibold">
+                    (סינון לפי חיפוש: &quot;{searchQuery}&quot;)
+                  </span>
+                )}
+              </div>
+
+              {selectedCategory !== 'all' ? (
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory('all')}
+                  className="text-xs text-sky-600 hover:text-sky-800 font-bold underline cursor-pointer"
+                >
+                  הצג את כל המילון ({combinedWordList.length} מילים) ➔
+                </button>
+              ) : currentUnit ? (
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory('current_unit')}
+                  className="text-xs text-rose-600 hover:text-rose-800 font-bold underline cursor-pointer"
+                >
+                  חזרה ל-27 מילות יחידה {currentUnit.unitNumber} ➔
+                </button>
+              ) : null}
             </div>
           </div>
 
