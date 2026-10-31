@@ -42,8 +42,17 @@ export const StudentAuthModal: React.FC<StudentAuthModalProps> = ({ isOpen, onCl
     try {
       await signIn();
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'שגיאה בהתחברות';
-      setAuthError(msg.includes('popup-closed-by-user') ? 'חלון ההתחברות נסגר. אנא נסו שוב.' : 'אירעה שגיאה בהתחברות Google.');
+      const errObj = err as { code?: string; message?: string };
+      const code = errObj?.code || '';
+      const msg = errObj?.message || '';
+
+      if (code === 'auth/unauthorized-domain' || msg.includes('unauthorized-domain')) {
+        setAuthError('דומיין זה טרם הוגדר ב-Firebase Console: יש להוסיף את כתובת הדומיין של Vercel תחת Firebase Console > Authentication > Settings > Authorized domains.');
+      } else if (code === 'auth/popup-closed-by-user' || msg.includes('popup-closed-by-user')) {
+        setAuthError('חלון ההתחברות נסגר על ידי המשתמש. אנא נסו שוב.');
+      } else {
+        setAuthError(`אירעה שגיאה בהתחברות Google: ${msg || 'אנא נסו שוב.'}`);
+      }
     }
   };
 
