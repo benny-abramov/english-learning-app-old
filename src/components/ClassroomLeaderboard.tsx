@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   Trophy, 
@@ -14,7 +14,10 @@ import {
   Target,
   GraduationCap,
   Calendar,
-  Compass
+  Compass,
+  CloudCheck,
+  UserCheck,
+  Settings
 } from 'lucide-react';
 import { 
   getRankedLeaderboard, 
@@ -23,6 +26,8 @@ import {
 } from '../services/leaderboardService';
 import { speakEnglish, playGentleSuccessTone } from '../utils/audio';
 import { ActiveTab } from './TabletHeader';
+import { useAuth } from '../contexts/AuthContext';
+import { subscribeToClassroomScores, ClassroomScoreEntry } from '../services/firebase';
 
 interface ClassroomLeaderboardProps {
   xpPoints: number;
@@ -37,19 +42,43 @@ export const ClassroomLeaderboard: React.FC<ClassroomLeaderboardProps> = ({
   onNavigateToExercise,
   compact = false
 }) => {
+  const { user, profile, setIsAuthModalOpen } = useAuth();
   const [scope, setScope] = useState<'class' | 'grade'>('class');
   const [timeframe, setTimeframe] = useState<'weekly' | 'allTime'>('weekly');
   const [celebratedId, setCelebratedId] = useState<string | null>(null);
+  const [liveScores, setLiveScores] = useState<ClassroomScoreEntry[]>([]);
+
+  const activeClassCode = profile?.classCode || 'ד׳2';
+  const effectiveXp = profile ? profile.xp : xpPoints;
+  const effectiveStreak = profile ? profile.streak : streakDays;
+
+  // Real-time Firestore classroom subscription
+  useEffect(() => {
+    const unsubscribe = subscribeToClassroomScores(
+      activeClassCode,
+      (scores) => {
+        setLiveScores(scores);
+      },
+      (err) => {
+        console.warn('Real-time score sync fallback to local cache:', err);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [activeClassCode]);
 
   // Compute live ranking
   const stats = useMemo(() => {
-    return getRankedLeaderboard(xpPoints, streakDays, {
+    return getRankedLeaderboard(effectiveXp, effectiveStreak, {
       scope,
       timeframe,
-      studentNameHe: 'אני (אתה)',
-      studentClassName: 'ד׳2'
+      studentNameHe: profile?.displayName || 'אני (אתה)',
+      studentClassName: activeClassCode,
+      currentUserId: user?.uid,
+      avatarPhotoUrl: profile?.photoURL,
+      liveScores
     });
-  }, [xpPoints, streakDays, scope, timeframe]);
+  }, [effectiveXp, effectiveStreak, scope, timeframe, profile, activeClassCode, user, liveScores]);
 
   const handleCheerStudent = (entry: RankedLeaderboardEntry) => {
     setCelebratedId(entry.id);
@@ -147,8 +176,30 @@ export const ClassroomLeaderboard: React.FC<ClassroomLeaderboardProps> = ({
             </div>
           </div>
 
-          {/* Filtering Toggles */}
+          {/* Filtering Toggles & Live Cloud Status */}
           <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+            {/* Live Cloud Status / Login Button */}
+            {user ? (
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                title="ניהול פרופיל והחלפת כיתה"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>חי בענן · {profile?.displayName || 'תלמיד'} ({activeClassCode})</span>
+                <Settings className="w-3.5 h-3.5 text-emerald-600" />
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                title="התחברו עם Google להשתתפות בדירוג הכיתתי החי"
+              >
+                <UserCheck className="w-3.5 h-3.5 text-indigo-600" />
+                <span>התחברו ללוח המובילים</span>
+              </button>
+            )}
+
             {/* Scope Toggle */}
             <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/80">
               <button
@@ -160,7 +211,7 @@ export const ClassroomLeaderboard: React.FC<ClassroomLeaderboardProps> = ({
                 }`}
               >
                 <Users className="w-3.5 h-3.5 text-indigo-600" />
-                <span>כיתה ד׳2</span>
+                <span>כיתה {activeClassCode}</span>
               </button>
               <button
                 onClick={() => setScope('grade')}
@@ -171,7 +222,7 @@ export const ClassroomLeaderboard: React.FC<ClassroomLeaderboardProps> = ({
                 }`}
               >
                 <GraduationCap className="w-3.5 h-3.5 text-sky-600" />
-                <span>כל שכבת ד׳</span>
+                <span>כל השכבה</span>
               </button>
             </div>
 

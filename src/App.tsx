@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabletHeader, ActiveTab, DeviceMode } from './components/TabletHeader';
 import { PhonicsArena } from './components/PhonicsArena';
@@ -16,25 +16,38 @@ import { UnseenReadingLab } from './components/UnseenReadingLab';
 import { CobeOralLab } from './components/CobeOralLab';
 import { VocabChallengeArena } from './components/VocabChallengeArena';
 import { SchemaInspectorModal } from './components/SchemaInspectorModal';
+import { StudentAuthModal } from './components/StudentAuthModal';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { fullCurriculumData } from './data/curriculumData';
 import { playXpEarnedTone } from './utils/audio';
 import { BookOpen, RotateCw, MapPin } from 'lucide-react';
 
-export default function App() {
+function SababaAppContent() {
+  const { user, profile, isAuthModalOpen, setIsAuthModalOpen, recordExerciseReward } = useAuth();
   const [activeTab, setActiveTab] = useState<ActiveTab>('roadmap');
   const [currentUnitId, setCurrentUnitId] = useState<string>(fullCurriculumData.units[0].id);
-  const [xpPoints, setXpPoints] = useState(480);
-  const [completedExercisesToday, setCompletedExercisesToday] = useState(7);
-  const [streakDays] = useState(5);
+  const [localXp, setLocalXp] = useState(480);
+  const [localCompletedExercisesToday, setLocalCompletedExercisesToday] = useState(7);
+  const [localStreakDays, setLocalStreakDays] = useState(5);
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('fluid');
   const [isSchemaModalOpen, setIsSchemaModalOpen] = useState(false);
 
+  // Sync state with cloud profile if logged in
+  const xpPoints = profile ? profile.xp : localXp;
+  const completedExercisesToday = profile ? profile.dailyExercisesDone : localCompletedExercisesToday;
+  const streakDays = profile ? profile.streak : localStreakDays;
+
   const currentUnit = fullCurriculumData.units.find(u => u.id === currentUnitId) || fullCurriculumData.units[0];
 
-  const handleReward = (points: number) => {
-    setXpPoints(prev => prev + points);
-    setCompletedExercisesToday(prev => prev + 1);
+  const handleReward = async (points: number) => {
+    // Play sound immediately
     playXpEarnedTone(points);
+
+    // Record via AuthContext to sync with Firestore and update daily goals & leaderboard
+    const result = await recordExerciseReward(points);
+    setLocalXp(result.newXp);
+    setLocalCompletedExercisesToday(result.newDone);
+    setLocalStreakDays(result.newStreak);
   };
 
   const handleSelectUnitFromRoadmap = (unitId: string) => {
@@ -151,10 +164,10 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.div
           key={`${activeTab}-${currentUnit.id}`}
-          initial={{ opacity: 0, y: 12, scale: 0.995 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -8, scale: 0.995 }}
-          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.22, ease: 'easeOut' }}
           className="w-full"
         >
           {renderActiveModule()}
@@ -164,18 +177,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100/80 text-slate-900 flex flex-col font-hebrew">
+    <div className="min-h-screen bg-slate-100 flex flex-col text-slate-800 font-hebrew">
       {/* Top Application Bar */}
       <TabletHeader
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={(tab) => setActiveTab(tab)}
         units={fullCurriculumData.units}
         currentUnitId={currentUnitId}
-        onSelectUnit={setCurrentUnitId}
+        onSelectUnit={(id) => setCurrentUnitId(id)}
         xpPoints={xpPoints}
         streakDays={streakDays}
         deviceMode={deviceMode}
-        onDeviceModeChange={setDeviceMode}
+        onDeviceModeChange={(mode) => setDeviceMode(mode)}
         onOpenSchemaModal={() => setIsSchemaModalOpen(true)}
       />
 
@@ -246,7 +259,7 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <WeeklyConsistencyChart
                 completedToday={completedExercisesToday}
-                dailyGoal={5}
+                dailyGoal={profile?.dailyGoal || 5}
               />
               <ClassroomLeaderboard
                 xpPoints={xpPoints}
@@ -311,9 +324,9 @@ export default function App() {
               Sababa English © 2026
             </span>
             <span className="hidden sm:inline" aria-hidden="true">·</span>
-            <span>Ministry of Education Band I & Band II Curriculum (12 Units · 144+ Words)</span>
+            <span>Ministry of Education Band I & Band II Curriculum (12 Units · 384 Words)</span>
             <span className="hidden sm:inline" aria-hidden="true">·</span>
-            <span>Unseen Reading Lab · COBE Spoken English · CEFR A1-A2</span>
+            <span>Firebase Cloud Sync & Classroom Leaderboard Active</span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -335,6 +348,20 @@ export default function App() {
         onClose={() => setIsSchemaModalOpen(false)}
         moduleData={fullCurriculumData}
       />
+
+      {/* Student Firebase Login & Profile Modal */}
+      <StudentAuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <SababaAppContent />
+    </AuthProvider>
   );
 }

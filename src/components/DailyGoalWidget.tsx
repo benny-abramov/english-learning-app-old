@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Target, CheckCircle2, Trophy, Sparkles, Clock, Edit3, X, Check, Flame } from 'lucide-react';
+import { Target, CheckCircle2, Trophy, Sparkles, Clock, Edit3, X, CloudCheck, Flame, UserCheck } from 'lucide-react';
 import { playSuccessSound, triggerCelebration, speakEnglish } from '../utils/audio';
+import { useAuth } from '../contexts/AuthContext';
 
 export type GoalMetric = 'exercises' | 'minutes' | 'xp';
 
@@ -19,32 +20,42 @@ export const DailyGoalWidget: React.FC<DailyGoalWidgetProps> = ({
   streakDays,
   onGoalCompleted
 }) => {
+  const { user, profile, updateDailyGoal, setIsAuthModalOpen } = useAuth();
   const [metric, setMetric] = useState<GoalMetric>('exercises');
-  const [targetExercises, setTargetExercises] = useState<number>(10);
+  const [targetExercises, setTargetExercises] = useState<number>(profile?.dailyGoal || 10);
   const [targetMinutes, setTargetMinutes] = useState<number>(15);
   const [targetXp, setTargetXp] = useState<number>(150);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [hasCelebratedCompletion, setHasCelebratedCompletion] = useState<boolean>(false);
 
-  // Load from localStorage if available
+  // Sync state when profile changes
   useEffect(() => {
-    try {
-      const savedGoal = localStorage.getItem('sababa_daily_goal');
-      if (savedGoal) {
-        const parsed = JSON.parse(savedGoal);
-        if (parsed.metric) setMetric(parsed.metric);
-        if (parsed.targetExercises) setTargetExercises(parsed.targetExercises);
-        if (parsed.targetMinutes) setTargetMinutes(parsed.targetMinutes);
-        if (parsed.targetXp) setTargetXp(parsed.targetXp);
+    if (profile) {
+      setTargetExercises(profile.dailyGoal);
+    } else {
+      try {
+        const savedGoal = localStorage.getItem('sababa_daily_goal');
+        if (savedGoal) {
+          const parsed = JSON.parse(savedGoal);
+          if (parsed.metric) setMetric(parsed.metric);
+          if (parsed.targetExercises) setTargetExercises(parsed.targetExercises);
+          if (parsed.targetMinutes) setTargetMinutes(parsed.targetMinutes);
+          if (parsed.targetXp) setTargetXp(parsed.targetXp);
+        }
+      } catch {
+        // Ignore storage errors
       }
-    } catch {
-      // Ignore storage errors in restricted iframes
     }
-  }, []);
+  }, [profile]);
 
   const saveGoal = (newMetric: GoalMetric, value: number) => {
     setMetric(newMetric);
-    if (newMetric === 'exercises') setTargetExercises(value);
+    if (newMetric === 'exercises') {
+      setTargetExercises(value);
+      if (profile) {
+        updateDailyGoal(value);
+      }
+    }
     if (newMetric === 'minutes') setTargetMinutes(value);
     if (newMetric === 'xp') setTargetXp(value);
 
@@ -64,10 +75,13 @@ export const DailyGoalWidget: React.FC<DailyGoalWidgetProps> = ({
     setIsEditing(false);
   };
 
-  // Current progress calculation
+  // Current progress calculation - use cloud profile if user signed in
+  const activeCompletedExercises = profile ? profile.dailyExercisesDone : completedExercises;
+  const activeStreakDays = profile ? profile.streak : streakDays;
+
   const currentVal =
     metric === 'exercises'
-      ? completedExercises
+      ? activeCompletedExercises
       : metric === 'minutes'
       ? sessionMinutes
       : currentXpEarnedToday;
@@ -149,12 +163,30 @@ export const DailyGoalWidget: React.FC<DailyGoalWidgetProps> = ({
           </div>
 
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-md font-hebrew">
                 {metricLabels[metric].label}
               </span>
+
+              {/* Cloud Sync Status Badge */}
+              {user ? (
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                  <CloudCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>מסונכרן ב-Firebase ☁️</span>
+                </span>
+              ) : (
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-2 py-0.5 rounded-md transition-colors cursor-pointer"
+                  title="התחברו כדי לשמור בין המחשב בבית הספר לסמארטפון בבית"
+                >
+                  <UserCheck className="w-3 h-3" />
+                  <span>התחברו לסנכרון ענן</span>
+                </button>
+              )}
+
               <span className="text-xs text-slate-500 font-mono">
-                {streakDays} ימי רצף 🔥
+                {activeStreakDays} ימי רצף 🔥
               </span>
             </div>
 

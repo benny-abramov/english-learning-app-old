@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen, FileText, Mic, Gamepad2 } from 'lucide-react';
+import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen, FileText, Mic, Gamepad2, User, CloudCheck } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
 import { VoiceSettingsModal } from './VoiceSettingsModal';
+import { useAuth } from '../contexts/AuthContext';
 
 export type ActiveTab = 'roadmap' | 'phonics' | 'verb_to_be' | 'sentence_builder' | 'suffix_collector' | 'vocab_glossary' | 'vocab_challenge' | 'unseen_lab' | 'cobe_oral' | 'achievements' | 'leaderboard' | 'parent_portal';
 export type DeviceMode = 'fluid' | 'tablet_landscape' | 'tablet_portrait' | 'mobile';
@@ -32,6 +33,7 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
   onDeviceModeChange,
   onOpenSchemaModal
 }) => {
+  const { user, profile, setIsAuthModalOpen } = useAuth();
   const currentUnit = units.find(u => u.id === currentUnitId) || units[0];
   const [muted, setMuted] = useState(isSoundMuted());
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
@@ -311,6 +313,43 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             <span>{streakDays}d</span>
           </div>
 
+          {/* Student Profile / Cloud Login Button */}
+          {user && profile ? (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="flex items-center gap-2 px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-950 rounded-xl border border-indigo-200/90 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+              title="פרופיל תלמיד/ה מסונכרן ב-Firebase (לחצו לעריכה)"
+            >
+              {profile.photoURL ? (
+                <img 
+                  src={profile.photoURL} 
+                  alt={profile.displayName} 
+                  className="w-5 h-5 rounded-full object-cover border border-indigo-300 shrink-0" 
+                />
+              ) : (
+                <div className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold shrink-0">
+                  {profile.displayName.charAt(0)}
+                </div>
+              )}
+              <span className="hidden xl:inline max-w-[85px] truncate font-hebrew">
+                {profile.displayName}
+              </span>
+              <span className="text-[10px] bg-indigo-200/80 text-indigo-800 px-1.5 py-0.5 rounded-md font-hebrew font-bold">
+                {profile.classCode}
+              </span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="מסונכרן בענן" />
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs shadow-indigo-600/20 shrink-0"
+              title="התחברות לחשבון כיתה ושמירת נתונים בענן"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>התחברות</span>
+            </button>
+          )}
+
           {/* JSON Schema Modal Trigger */}
           <button
             onClick={onOpenSchemaModal}
@@ -325,17 +364,28 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
 
       {/* Mobile/Tablet Tab Bar */}
       <div className="flex lg:hidden items-center justify-between gap-2 overflow-x-auto mt-2 pt-2 border-t border-slate-100 pb-1 scrollbar-none">
-        <select
-          value={currentUnitId}
-          onChange={(e) => onSelectUnit(e.target.value)}
-          className="text-xs font-bold text-slate-800 bg-slate-100 px-2 py-1.5 rounded-lg border border-slate-200 shrink-0"
-        >
-          {units.map((u) => (
-            <option key={u.id} value={u.id}>
-              יח׳ {u.unitNumber}: {u.titleHe}
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center gap-2 shrink-0">
+          <select
+            value={currentUnitId}
+            onChange={(e) => onSelectUnit(e.target.value)}
+            className="text-xs font-bold text-slate-800 bg-slate-100 px-2 py-1.5 rounded-lg border border-slate-200 shrink-0"
+          >
+            {units.map((u) => (
+              <option key={u.id} value={u.id}>
+                יח׳ {u.unitNumber}: {u.titleHe}
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="p-1.5 text-xs font-bold rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 shrink-0 flex items-center gap-1 cursor-pointer"
+            title="התחברות תלמיד"
+          >
+            <User className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-bold">{user ? (profile?.displayName.split(' ')[0] || 'פרופיל') : 'התחבר'}</span>
+          </button>
+        </div>
 
         <div className="flex items-center gap-1">
           <button

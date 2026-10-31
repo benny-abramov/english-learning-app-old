@@ -259,10 +259,21 @@ export interface LeaderboardQueryOptions {
   timeframe: 'weekly' | 'allTime';
   studentNameHe?: string;
   studentClassName?: string;
+  currentUserId?: string;
+  avatarPhotoUrl?: string;
+  liveScores?: Array<{
+    studentId: string;
+    displayName: string;
+    photoURL?: string;
+    classCode: string;
+    xp: number;
+    streak: number;
+    dailyExercisesDone: number;
+  }>;
 }
 
 /**
- * Computes ranked leaderboard integrating the active student's live XP
+ * Computes ranked leaderboard integrating the active student's live XP and live classmates from Firestore
  */
 export function getRankedLeaderboard(
   currentUserXp: number,
@@ -271,19 +282,20 @@ export function getRankedLeaderboard(
 ): LeaderboardStats {
   const currentClassName = options.studentClassName || 'ד׳2';
   const currentStudentName = options.studentNameHe || 'אני (אתה)';
+  const currentUserId = options.currentUserId || 'cm-current-user';
 
   // Approximate user's weekly XP proportion based on streak and total XP
   const userWeeklyXp = Math.round(currentUserXp * 0.35) + (currentUserStreak * 10);
 
   // Current user's live profile
   const userProfile: ClassmateProfile = {
-    id: 'cm-current-user',
+    id: currentUserId,
     nameHe: currentStudentName,
     nameEn: 'You (Student)',
-    avatarEmoji: '⚡',
+    avatarEmoji: options.avatarPhotoUrl ? '👤' : '⚡',
     avatarBg: 'bg-indigo-600 text-white border-indigo-700 shadow-md ring-2 ring-indigo-400',
     textColor: 'text-indigo-900',
-    grade: '4th',
+    grade: currentClassName.includes('ה') ? '5th' : '4th',
     className: currentClassName,
     baseXp: currentUserXp,
     weeklyXp: userWeeklyXp,
@@ -294,7 +306,37 @@ export function getRankedLeaderboard(
     isCurrentUser: true
   };
 
-  // 1. Filter classmates according to selected scope
+  // Convert live Firestore classmate scores
+  const liveClassmates: ClassmateProfile[] = (options.liveScores || [])
+    .filter(ls => ls.studentId !== currentUserId)
+    .map((ls, idx) => {
+      const emojis = ['🌟', '🦁', '🦉', '🚀', '🦄', '🐬', '🐼', '🦊'];
+      const bgColors = [
+        'bg-amber-100 border-amber-300 text-amber-800',
+        'bg-sky-100 border-sky-300 text-sky-800',
+        'bg-purple-100 border-purple-300 text-purple-800',
+        'bg-emerald-100 border-emerald-300 text-emerald-800'
+      ];
+      return {
+        id: ls.studentId,
+        nameHe: ls.displayName,
+        nameEn: ls.displayName,
+        avatarEmoji: emojis[idx % emojis.length],
+        avatarBg: bgColors[idx % bgColors.length],
+        textColor: 'text-slate-800',
+        grade: (ls.classCode.includes('ה') ? '5th' : '4th') as '4th' | '5th',
+        className: ls.classCode.replace(/_/g, ' '),
+        baseXp: ls.xp,
+        weeklyXp: Math.round(ls.xp * 0.35) + (ls.streak * 10),
+        streakDays: ls.streak,
+        favoriteSkillHe: 'אוצר מילים',
+        favoriteSkillEn: 'Vocabulary Ace',
+        recentBadgeHe: 'שותף כיתתי ⚡',
+        isCurrentUser: false
+      };
+    });
+
+  // 1. Filter default classmates according to selected scope
   let candidates = MOCK_CLASSMATES.filter(cm => {
     if (options.scope === 'class') {
       return cm.className === currentClassName;
@@ -302,8 +344,12 @@ export function getRankedLeaderboard(
     return true; // entire grade
   });
 
-  // Combine user with candidates
-  const allProfiles = [...candidates, userProfile];
+  // Filter out any default mock entries whose names match live ones
+  const liveNames = new Set(liveClassmates.map(l => l.nameHe.toLowerCase()));
+  candidates = candidates.filter(c => !liveNames.has(c.nameHe.toLowerCase()));
+
+  // Combine live classmates + user + fallback candidates
+  const allProfiles = [...liveClassmates, ...candidates, userProfile];
 
   // 2. Map displayed XP according to timeframe and sort descending
   const sorted = allProfiles
