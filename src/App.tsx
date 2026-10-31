@@ -139,7 +139,10 @@ function SababaAppContent() {
       case 'unseen_lab':
         return (
           <UnseenReadingLab
+            key={`unseen-lab-${currentUnit.id}`}
+            currentUnit={currentUnit}
             onReward={handleReward}
+            onNavigateToUnit={(unitId) => setCurrentUnitId(unitId)}
           />
         );
       case 'cobe_oral':

@@ -1,21 +1,56 @@
-import React, { useState } from 'react';
-import { Volume2, CheckCircle2, XCircle, Search, HelpCircle, BookOpen, Star, RefreshCw, ZoomIn, ZoomOut, Compass } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Volume2, CheckCircle2, XCircle, Search, HelpCircle, BookOpen, Star, RefreshCw, ZoomIn, ZoomOut, Sparkles, Layers, ArrowRight } from 'lucide-react';
 import { unseenPassagesData } from '../data/unseenPassagesData';
 import { ReadingPassage, ReadingQuestion } from '../types/readingAndOral';
+import { CurriculumUnit } from '../types/curriculum';
 import { speakEnglish, playSuccessSound, playSoftRetrySound, triggerCelebration } from '../utils/audio';
 
 interface UnseenReadingLabProps {
+  currentUnit?: CurriculumUnit;
   onReward: (points: number) => void;
+  onNavigateToUnit?: (unitId: string) => void;
 }
 
-export const UnseenReadingLab: React.FC<UnseenReadingLabProps> = ({ onReward }) => {
-  const [selectedPassageId, setSelectedPassageId] = useState<string>(unseenPassagesData[0].id);
+export const UnseenReadingLab: React.FC<UnseenReadingLabProps> = ({
+  currentUnit,
+  onReward,
+  onNavigateToUnit
+}) => {
+  // Determine default passage based on currentUnit
+  const getInitialPassageId = () => {
+    if (currentUnit) {
+      const unitPassage = unseenPassagesData.find(
+        (p) => p.unitId === currentUnit.id || p.unitNumber === currentUnit.unitNumber
+      );
+      if (unitPassage) return unitPassage.id;
+    }
+    return unseenPassagesData[0].id;
+  };
+
+  const [selectedPassageId, setSelectedPassageId] = useState<string>(getInitialPassageId);
   const [activeLineHighlight, setActiveLineHighlight] = useState<number | null>(null);
   const [highlightedEvidenceLines, setHighlightedEvidenceLines] = useState<number[]>([]);
   const [answersState, setAnswersState] = useState<Record<string, number | null>>({});
   const [submittedQuestions, setSubmittedQuestions] = useState<Record<string, boolean>>({});
   const [fontSize, setFontSize] = useState<'normal' | 'large'>('normal');
   const [activeGlossaryWord, setActiveGlossaryWord] = useState<string | null>(null);
+
+  // When currentUnit prop changes, update selected passage if it exists
+  useEffect(() => {
+    if (currentUnit) {
+      const match = unseenPassagesData.find(
+        (p) => p.unitId === currentUnit.id || p.unitNumber === currentUnit.unitNumber
+      );
+      if (match) {
+        setSelectedPassageId(match.id);
+        setActiveLineHighlight(null);
+        setHighlightedEvidenceLines([]);
+        setAnswersState({});
+        setSubmittedQuestions({});
+        setActiveGlossaryWord(null);
+      }
+    }
+  }, [currentUnit?.id]);
 
   const currentPassage: ReadingPassage =
     unseenPassagesData.find((p) => p.id === selectedPassageId) || unseenPassagesData[0];
@@ -86,49 +121,104 @@ export const UnseenReadingLab: React.FC<UnseenReadingLabProps> = ({ onReward }) 
     (q) => submittedQuestions[q.id] && answersState[q.id] === q.correctOptionIndex
   ).length;
 
+  const isCurrentUnitPassage =
+    currentUnit &&
+    (currentPassage.unitId === currentUnit.id || currentPassage.unitNumber === currentUnit.unitNumber);
+
   return (
     <div className="flex flex-col space-y-4">
       {/* Top Banner & Passage Selector */}
       <div className="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5" />
-                מעבדת הבנת הנקרא (Unseen Lab)
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                תואם מבחני משרד החינוך (מיצ״ב / שאלון A)
-              </span>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  מעבדת הבנת הנקרא (Unseen Lab)
+                </span>
+                {currentUnit && (
+                  <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+                    יחידה {currentUnit.unitNumber}: {currentUnit.titleHe}
+                  </span>
+                )}
+                <span className="text-xs text-slate-500 font-medium">
+                  מותאם לכל 12 יחידות הלימוד (Band I & II)
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                {currentPassage.titleHe}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                קראו את הקטע הייעודי של היחידה, האזינו למספרי השורות, ומצאו רמזים ישירות מהטקסט לתשובות מדויקות!
+              </p>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              קריאה מודרכת ואיסוף רמזים מהטקסט
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              קראו את הקטע, הקשיבו להגייה התקנית עם מספרי השורות, וענו על שאלות עם אימות רמזים מהטקסט!
-            </p>
+
+            {/* Quick Return to Current Unit passage if browsing another */}
+            {currentUnit && !isCurrentUnitPassage && (
+              <button
+                onClick={() => {
+                  const match = unseenPassagesData.find(
+                    (p) => p.unitId === currentUnit.id || p.unitNumber === currentUnit.unitNumber
+                  );
+                  if (match) handleSelectPassage(match.id);
+                }}
+                className="self-start md:self-auto px-3.5 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
+              >
+                <span>חזרה לקטע של יחידה {currentUnit.unitNumber}</span>
+                <ArrowRight className="w-3.5 h-3.5 rotate-180" />
+              </button>
+            )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            {unseenPassagesData.map((passage, idx) => {
-              const isSelected = passage.id === currentPassage.id;
-              return (
-                <button
-                  key={passage.id}
-                  onClick={() => handleSelectPassage(passage.id)}
-                  className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                    isSelected
-                      ? 'bg-sky-600 text-white shadow-xs'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                  }`}
-                >
-                  <span className="w-5 h-5 rounded-full bg-white/20 text-center flex items-center justify-center text-[10px] font-mono">
-                    {idx + 1}
-                  </span>
-                  <span>{passage.titleHe}</span>
-                </button>
-              );
-            })}
+          {/* Unit Passages Selector Strip (All 12 Units + Bonus) */}
+          <div className="pt-3 border-t border-slate-100">
+            <div className="flex items-center gap-2 mb-2">
+              <Layers className="w-3.5 h-3.5 text-slate-400" />
+              <span className="text-xs font-bold text-slate-700">בחירת קטע קריאה לפי יחידות הלימוד:</span>
+            </div>
+
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
+              {unseenPassagesData.map((passage) => {
+                const isSelected = passage.id === currentPassage.id;
+                const isThisCurrentUnit =
+                  currentUnit &&
+                  (passage.unitId === currentUnit.id || passage.unitNumber === currentUnit.unitNumber);
+
+                return (
+                  <button
+                    key={passage.id}
+                    onClick={() => handleSelectPassage(passage.id)}
+                    className={`px-3 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap ${
+                      isSelected
+                        ? 'bg-sky-600 text-white shadow-xs ring-2 ring-sky-300'
+                        : isThisCurrentUnit
+                        ? 'bg-indigo-50 border border-indigo-200 text-indigo-800 hover:bg-indigo-100'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                    }`}
+                  >
+                    <span
+                      className={`w-5 h-5 rounded-full text-center flex items-center justify-center text-[10px] font-mono ${
+                        isSelected
+                          ? 'bg-white/25 text-white'
+                          : isThisCurrentUnit
+                          ? 'bg-indigo-600 text-white font-bold'
+                          : 'bg-slate-200 text-slate-700'
+                      }`}
+                    >
+                      {passage.unitNumber ? passage.unitNumber : '★'}
+                    </span>
+                    <span>
+                      {passage.unitNumber ? `יחידה ${passage.unitNumber}` : 'בונוס'}
+                    </span>
+                    {isThisCurrentUnit && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -141,9 +231,16 @@ export const UnseenReadingLab: React.FC<UnseenReadingLabProps> = ({ onReward }) 
             {/* Passage Header Bar */}
             <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
               <div>
-                <span className="text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md font-english">
-                  {currentPassage.band} · {currentPassage.gradeLevel}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md font-english">
+                    {currentPassage.band} · {currentPassage.gradeLevel}
+                  </span>
+                  {currentPassage.unitNumber && (
+                    <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">
+                      יחידה {currentPassage.unitNumber}
+                    </span>
+                  )}
+                </div>
                 <h3 className="text-lg sm:text-xl font-bold font-english text-slate-900 mt-1">
                   {currentPassage.titleEn}
                 </h3>

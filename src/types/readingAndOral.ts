@@ -31,6 +31,8 @@ export interface ReadingQuestion {
 
 export interface ReadingPassage {
   id: string;
+  unitId?: string;
+  unitNumber?: number;
   titleEn: string;
   titleHe: string;
   band: 'Band I' | 'Band II';
