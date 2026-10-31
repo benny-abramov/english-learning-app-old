@@ -260,7 +260,7 @@ function SababaAppContent() {
         {deviceMode === 'fluid' && (
           <div className="max-w-6xl mx-auto space-y-4">
             {/* Guest Welcome & Sign-In Callout */}
-            {!user && (
+            {!profile && (
               <div className="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-3xl p-4 sm:p-5 text-white shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fadeIn">
                 <div className="flex items-center gap-3.5">
                   <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shrink-0 shadow-inner">
@@ -271,7 +271,7 @@ function SababaAppContent() {
                       ברוכים הבאים ל-Sababa English! רוצים לשמור נקודות ורצף יומי?
                     </h3>
                     <p className="text-xs sm:text-sm text-sky-100 font-medium mt-0.5">
-                      התחברו עם חשבון Google, בחרו כיתה (ד׳1–ה׳3) והתחרו בלוח המובילים הכיתתי ב-Firebase!
+                      התחברו בשניות עם שם וכיתה (ללא צורך במייל!), עם חשבון Google או אימייל בית-ספרי, והתחרו בלוח המובילים!
                     </p>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ function SababaAppContent() {
                   onClick={() => setIsAuthModalOpen(true)}
                   className="px-5 py-2.5 rounded-2xl bg-white text-indigo-700 hover:bg-sky-50 active:scale-95 font-black text-xs sm:text-sm transition-all shadow-sm cursor-pointer whitespace-nowrap self-stretch sm:self-auto text-center shrink-0"
                 >
-                  התחברות תלמיד/ה 🚀
+                  כניסת תלמידים 🚀
                 </button>
               </div>
             )}

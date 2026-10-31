@@ -314,7 +314,7 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
           </div>
 
           {/* Student Profile / Cloud Login Button */}
-          {user && profile ? (
+          {profile ? (
             <button
               onClick={() => setIsAuthModalOpen(true)}
               className="flex items-center gap-2 px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-950 rounded-xl border border-indigo-200/90 text-xs font-bold transition-all cursor-pointer shadow-2xs"

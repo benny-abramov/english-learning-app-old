@@ -5,6 +5,10 @@ import {
   GoogleAuthProvider, 
   signOut, 
   onAuthStateChanged,
+  signInAnonymously,
+  updateProfile,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   User as FirebaseUser
 } from 'firebase/auth';
 import { 
@@ -136,6 +140,45 @@ export async function loginWithGoogle(): Promise<FirebaseUser> {
   }
 }
 
+// Quick Student login without Gmail (Anonymous Auth + Display Name)
+export async function loginWithAnonymousStudent(displayName: string): Promise<FirebaseUser> {
+  try {
+    const result = await signInAnonymously(auth);
+    if (displayName.trim()) {
+      await updateProfile(result.user, { displayName: displayName.trim() });
+    }
+    return result.user;
+  } catch (error) {
+    console.error('Anonymous Student Sign-In failed:', error);
+    throw error;
+  }
+}
+
+// Email & Password login (Works with any email: school @education.gov.il, outlook, yahoo, etc.)
+export async function loginWithEmail(email: string, pass: string): Promise<FirebaseUser> {
+  try {
+    const result = await signInWithEmailAndPassword(auth, email.trim(), pass);
+    return result.user;
+  } catch (error) {
+    console.error('Email Sign-In failed:', error);
+    throw error;
+  }
+}
+
+// Register with Email & Password
+export async function registerWithEmail(email: string, pass: string, displayName: string): Promise<FirebaseUser> {
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email.trim(), pass);
+    if (displayName.trim()) {
+      await updateProfile(result.user, { displayName: displayName.trim() });
+    }
+    return result.user;
+  } catch (error) {
+    console.error('Email Registration failed:', error);
+    throw error;
+  }
+}
+
 export async function logoutUser(): Promise<void> {
   await signOut(auth);
 }
@@ -146,7 +189,8 @@ export async function getOrCreateStudentProfile(
   initialClassCode: string = 'ד׳2',
   initialXp: number = 480,
   initialStreak: number = 5,
-  initialDailyDone: number = 7
+  initialDailyDone: number = 7,
+  customDisplayName?: string
 ): Promise<StudentProfile> {
   const userDocPath = `users/${user.uid}`;
   const userDocRef = doc(db, 'users', user.uid);
@@ -156,25 +200,52 @@ export async function getOrCreateStudentProfile(
     const snap = await getDoc(userDocRef);
     if (snap.exists()) {
       const data = snap.data() as StudentProfile;
+      // If student updated their display name or classCode
+      let needsUpdate = false;
+      let resolvedName = data.displayName;
+      if (customDisplayName && customDisplayName.trim() && customDisplayName !== data.displayName) {
+        resolvedName = customDisplayName.trim();
+        needsUpdate = true;
+      }
+      if (initialClassCode && initialClassCode !== data.classCode) {
+        data.classCode = initialClassCode;
+        needsUpdate = true;
+      }
+
       // If date changed, reset today's daily exercise counter
       if (data.lastExerciseDate !== today) {
         const updatedProfile: StudentProfile = {
           ...data,
+          displayName: resolvedName,
           dailyExercisesDone: 0,
           lastExerciseDate: today,
           updatedAt: new Date().toISOString()
         };
         await setDoc(userDocRef, updatedProfile, { merge: true });
+        await syncStudentToLeaderboard(updatedProfile);
         return updatedProfile;
       }
+
+      if (needsUpdate) {
+        const updatedProfile: StudentProfile = {
+          ...data,
+          displayName: resolvedName,
+          updatedAt: new Date().toISOString()
+        };
+        await setDoc(userDocRef, updatedProfile, { merge: true });
+        await syncStudentToLeaderboard(updatedProfile);
+        return updatedProfile;
+      }
+
       return data;
     }
 
     // New student profile
+    const finalName = customDisplayName?.trim() || user.displayName?.trim() || (user.isAnonymous ? 'תלמיד/ה' : user.email?.split('@')[0] || 'תלמיד/ה');
     const newProfile: StudentProfile = {
       uid: user.uid,
-      displayName: user.displayName || 'תלמיד/ה',
-      email: user.email || '',
+      displayName: finalName,
+      email: user.email || (user.isAnonymous ? 'כניסת תלמיד (ללא מייל)' : ''),
       photoURL: user.photoURL || '',
       classCode: initialClassCode,
       grade: initialClassCode.includes('ה') ? '5th' : '4th',
@@ -197,6 +268,7 @@ export async function getOrCreateStudentProfile(
     handleFirestoreError(error, OperationType.WRITE, userDocPath);
   }
 }
+
 
 // Save updated student profile and leaderboard entry
 export async function saveStudentProfile(profile: StudentProfile): Promise<void> {
