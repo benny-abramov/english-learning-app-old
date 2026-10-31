@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy } from 'lucide-react';
+import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
+import { VoiceSettingsModal } from './VoiceSettingsModal';
 
 export type ActiveTab = 'roadmap' | 'phonics' | 'verb_to_be' | 'sentence_builder' | 'suffix_collector' | 'vocab_glossary' | 'achievements' | 'leaderboard' | 'parent_portal';
 export type DeviceMode = 'fluid' | 'tablet_landscape' | 'tablet_portrait' | 'mobile';
@@ -33,6 +34,7 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
 }) => {
   const currentUnit = units.find(u => u.id === currentUnitId) || units[0];
   const [muted, setMuted] = useState(isSoundMuted());
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
 
   const handleToggleMute = () => {
     const newMuted = toggleSoundMute();
@@ -236,6 +238,16 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             )}
           </button>
 
+          {/* Voice Settings Selector */}
+          <button
+            onClick={() => setIsVoiceModalOpen(true)}
+            className="p-2 text-slate-500 hover:text-sky-700 hover:bg-sky-50 rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+            title="הגדרות קול והגייה (בחירת קול מורה נשי/גברי)"
+          >
+            <Headphones className="w-4 h-4 text-sky-600" />
+            <span className="hidden xl:inline text-xs font-bold text-sky-700">קול מורה</span>
+          </button>
+
           {/* Gamification Points Badge - clickable to view achievements */}
           <button
             onClick={() => onTabChange('achievements')}
@@ -344,6 +356,12 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Voice Settings & Pronunciation Modal */}
+      <VoiceSettingsModal
+        isOpen={isVoiceModalOpen}
+        onClose={() => setIsVoiceModalOpen(false)}
+      />
     </header>
   );
 };

@@ -48,8 +48,153 @@ function getAudioContext(): AudioContext | null {
   return audioCtx;
 }
 
+// Voice selection preferences and voice caching
+let preferredGender: 'female' | 'male' = 'female';
+let selectedVoiceURI: string | null = null;
+let cachedVoices: SpeechSynthesisVoice[] = [];
+
+// Initialize voice caching & load saved preferences
+if (typeof window !== 'undefined') {
+  try {
+    const savedGender = localStorage.getItem('sababa_voice_gender');
+    if (savedGender === 'male' || savedGender === 'female') {
+      preferredGender = savedGender;
+    }
+    const savedURI = localStorage.getItem('sababa_voice_uri');
+    if (savedURI) {
+      selectedVoiceURI = savedURI;
+    }
+  } catch {
+    // Ignore storage errors
+  }
+
+  if ('speechSynthesis' in window) {
+    const updateVoices = () => {
+      cachedVoices = window.speechSynthesis.getVoices();
+    };
+    updateVoices();
+    window.speechSynthesis.onvoiceschanged = updateVoices;
+  }
+}
+
+export function getVoiceGender(): 'female' | 'male' {
+  return preferredGender;
+}
+
+export function setVoiceGender(gender: 'female' | 'male'): void {
+  preferredGender = gender;
+  try {
+    localStorage.setItem('sababa_voice_gender', gender);
+  } catch {
+    // Ignore
+  }
+}
+
+export function getSelectedVoiceURI(): string | null {
+  return selectedVoiceURI;
+}
+
+export function setSelectedVoiceURI(uri: string | null): void {
+  selectedVoiceURI = uri;
+  try {
+    if (uri) {
+      localStorage.setItem('sababa_voice_uri', uri);
+    } else {
+      localStorage.removeItem('sababa_voice_uri');
+    }
+  } catch {
+    // Ignore
+  }
+}
+
+export function getAvailableEnglishVoices(): SpeechSynthesisVoice[] {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return [];
+  const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
+  return voices.filter((v) => v.lang.startsWith('en') && !isRoboticDistortedVoice(v.name));
+}
+
+function isRoboticDistortedVoice(name: string): boolean {
+  const lower = name.toLowerCase();
+  const blacklisted = [
+    'bad news', 'bells', 'cellos', 'trinoids', 'zarvox', 'whisper', 
+    'wobble', 'organ', 'boing', 'albert', 'deranged', 'hysterical', 
+    'pipe organ', 'junior'
+  ];
+  return blacklisted.some((b) => lower.includes(b));
+}
+
 /**
- * Text-to-Speech using native Web Speech API with elementary school English cadence
+ * Find the most natural, human-sounding voice available in the current browser.
+ * Strongly prioritizes natural female educator voices (Google US English, Samantha, Jenny, Aria)
+ * to avoid metallic robotic artifacts.
+ */
+export function getBestVoice(): SpeechSynthesisVoice | null {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+  const voices = cachedVoices.length > 0 ? cachedVoices : window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return null;
+
+  // 1. User explicitly picked a specific voice URI
+  if (selectedVoiceURI) {
+    const userChoice = voices.find((v) => v.voiceURI === selectedVoiceURI);
+    if (userChoice) return userChoice;
+  }
+
+  const englishVoices = voices.filter((v) => v.lang.startsWith('en') && !isRoboticDistortedVoice(v.name));
+  if (englishVoices.length === 0) return voices[0] || null;
+
+  if (preferredGender === 'female') {
+    // Tier 1: Premium online / neural / warm female teacher voices
+    const topTierFemaleNames = [
+      'google us english', // High clarity standard female on Chrome/Android
+      'google uk english female',
+      'jenny', // Microsoft Natural Jenny
+      'aria',  // Microsoft Natural Aria
+      'samantha', // Apple macOS / iOS top natural female
+      'victoria',
+      'karen',
+      'ava',
+      'moira',
+      'tessa',
+      'fiona',
+      'serena',
+      'allison',
+      'zira' // Microsoft Zira female
+    ];
+
+    for (const name of topTierFemaleNames) {
+      const match = englishVoices.find((v) => v.name.toLowerCase().includes(name));
+      if (match) return match;
+    }
+
+    // Tier 2: Any English voice with "female", "natural", or "neural"
+    const generalFemale = englishVoices.find((v) => {
+      const n = v.name.toLowerCase();
+      return (
+        n.includes('female') ||
+        ((n.includes('natural') || n.includes('neural') || n.includes('online')) &&
+          !n.includes('guy') && !n.includes('david') && !n.includes('mark') && !n.includes('george'))
+      );
+    });
+    if (generalFemale) return generalFemale;
+  } else {
+    // User prefers male voice:
+    const topTierMaleNames = ['guy', 'david', 'alex', 'daniel', 'fred', 'george', 'google uk english male'];
+    for (const name of topTierMaleNames) {
+      const match = englishVoices.find((v) => v.name.toLowerCase().includes(name));
+      if (match) return match;
+    }
+  }
+
+  // Tier 3: Any high quality en-US / en-GB voice
+  const standardEn = englishVoices.find((v) => v.lang.startsWith('en-US')) ||
+                     englishVoices.find((v) => v.lang.startsWith('en-GB')) ||
+                     englishVoices[0];
+  return standardEn || null;
+}
+
+/**
+ * Text-to-Speech using native Web Speech API with smooth, natural cadence
+ * Configured at natural 1.0 pitch to eliminate metallic comb-filtering.
  */
 export function speakEnglish(text: string, rate: number = 0.85, onEnd?: () => void): void {
   if (isAudioMuted) {
@@ -57,37 +202,38 @@ export function speakEnglish(text: string, rate: number = 0.85, onEnd?: () => vo
     return;
   }
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-    console.warn('Speech synthesis not supported');
     if (onEnd) onEnd();
     return;
   }
 
-  window.speechSynthesis.cancel(); // Cancel any ongoing speech
+  try {
+    window.speechSynthesis.cancel(); // Cancel any ongoing speech
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = rate; // Slightly slower for 4th/5th grade Israeli learners
-  utterance.pitch = 1.05; // Slightly friendly kid-oriented pitch
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = rate; // Clear, measured pace for ESL learners
+    utterance.pitch = 1.0; // Clean natural human formant (no metallic DSP shift)
 
-  if (onEnd) {
-    utterance.onend = () => onEnd();
-    utterance.onerror = () => onEnd();
+    if (onEnd) {
+      utterance.onend = () => onEnd();
+      utterance.onerror = () => onEnd();
+    }
+
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.error('Speech error:', err);
+    if (onEnd) onEnd();
   }
-
-  const voices = window.speechSynthesis.getVoices();
-  const preferredVoice = voices.find(
-    (v) => (v.lang.startsWith('en-US') || v.lang.startsWith('en-GB')) && !v.name.includes('Bad')
-  );
-  if (preferredVoice) {
-    utterance.voice = preferredVoice;
-  }
-
-  window.speechSynthesis.speak(utterance);
 }
 
 /**
  * Speak isolated phonics target sound and word using Web Speech API
- * Specially tuned to help Israeli students distinguish /p/ (plosive pop) from /f/ (fricative wind).
+ * Specially tuned with natural female voice for clear Hebrew P vs F distinction.
  */
 export function speakPhonicsTargetSound(letter: string, word?: string, onEnd?: () => void): void {
   if (isAudioMuted) {
@@ -99,44 +245,46 @@ export function speakPhonicsTargetSound(letter: string, word?: string, onEnd?: (
     return;
   }
 
-  window.speechSynthesis.cancel();
+  try {
+    window.speechSynthesis.cancel();
 
-  let phrase = '';
-  const upper = letter.toUpperCase();
+    let phrase = '';
+    const upper = letter.toUpperCase();
 
-  if (upper === 'P') {
-    phrase = word ? `Letter P. Sound puh. ${word}.` : 'Letter P. Sound puh.';
-  } else if (upper === 'F') {
-    phrase = word ? `Letter F. Sound fff. ${word}.` : 'Letter F. Sound fff.';
-  } else if (upper === 'B') {
-    phrase = word ? `Letter B. Sound buh. ${word}.` : 'Letter B. Sound buh.';
-  } else if (upper === 'V') {
-    phrase = word ? `Letter V. Sound vvv. ${word}.` : 'Letter V. Sound vvv.';
-  } else if (upper === 'TH') {
-    phrase = word ? `Letters T H. Sound thhh. ${word}.` : 'Letters T H. Sound thhh.';
-  } else {
-    phrase = word ? `Sound ${letter}... ${word}.` : `Sound ${letter}.`;
+    if (upper === 'P') {
+      phrase = word ? `Letter P. Sound puh. ${word}.` : 'Letter P. Sound puh.';
+    } else if (upper === 'F') {
+      phrase = word ? `Letter F. Sound fff. ${word}.` : 'Letter F. Sound fff.';
+    } else if (upper === 'B') {
+      phrase = word ? `Letter B. Sound buh. ${word}.` : 'Letter B. Sound buh.';
+    } else if (upper === 'V') {
+      phrase = word ? `Letter V. Sound vvv. ${word}.` : 'Letter V. Sound vvv.';
+    } else if (upper === 'TH') {
+      phrase = word ? `Letters T H. Sound thhh. ${word}.` : 'Letters T H. Sound thhh.';
+    } else {
+      phrase = word ? `Sound ${letter}... ${word}.` : `Sound ${letter}.`;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(phrase);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.78; // Measured natural educational tempo
+    utterance.pitch = 1.0; // Natural warm pitch
+
+    if (onEnd) {
+      utterance.onend = () => onEnd();
+      utterance.onerror = () => onEnd();
+    }
+
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.error('Phonics speech error:', err);
+    if (onEnd) onEnd();
   }
-
-  const utterance = new SpeechSynthesisUtterance(phrase);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.74; // Measured slow cadence for clear phonics decoding
-  utterance.pitch = 1.05;
-
-  if (onEnd) {
-    utterance.onend = () => onEnd();
-    utterance.onerror = () => onEnd();
-  }
-
-  const voices = window.speechSynthesis.getVoices();
-  const preferredVoice = voices.find(
-    (v) => (v.lang.startsWith('en-US') || v.lang.startsWith('en-GB')) && !v.name.includes('Bad')
-  );
-  if (preferredVoice) {
-    utterance.voice = preferredVoice;
-  }
-
-  window.speechSynthesis.speak(utterance);
 }
 
 /**
@@ -152,36 +300,38 @@ export function speakPhonemeOnly(letter: string, onEnd?: () => void): void {
     return;
   }
 
-  window.speechSynthesis.cancel();
+  try {
+    window.speechSynthesis.cancel();
 
-  const upper = letter.toUpperCase();
-  let phonemeText = '';
-  if (upper === 'P') phonemeText = 'Puh... puh!';
-  else if (upper === 'F') phonemeText = 'Fff... fff!';
-  else if (upper === 'B') phonemeText = 'Buh... buh!';
-  else if (upper === 'V') phonemeText = 'Vvv... vvv!';
-  else if (upper === 'TH') phonemeText = 'Thh... thh!';
-  else phonemeText = letter;
+    const upper = letter.toUpperCase();
+    let phonemeText = '';
+    if (upper === 'P') phonemeText = 'Puh... puh!';
+    else if (upper === 'F') phonemeText = 'Fff... fff!';
+    else if (upper === 'B') phonemeText = 'Buh... buh!';
+    else if (upper === 'V') phonemeText = 'Vvv... vvv!';
+    else if (upper === 'TH') phonemeText = 'Thh... thh!';
+    else phonemeText = letter;
 
-  const utterance = new SpeechSynthesisUtterance(phonemeText);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.7;
-  utterance.pitch = 1.1;
+    const utterance = new SpeechSynthesisUtterance(phonemeText);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.75;
+    utterance.pitch = 1.0;
 
-  if (onEnd) {
-    utterance.onend = () => onEnd();
-    utterance.onerror = () => onEnd();
+    if (onEnd) {
+      utterance.onend = () => onEnd();
+      utterance.onerror = () => onEnd();
+    }
+
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.error('Phoneme speech error:', err);
+    if (onEnd) onEnd();
   }
-
-  const voices = window.speechSynthesis.getVoices();
-  const preferredVoice = voices.find(
-    (v) => (v.lang.startsWith('en-US') || v.lang.startsWith('en-GB')) && !v.name.includes('Bad')
-  );
-  if (preferredVoice) {
-    utterance.voice = preferredVoice;
-  }
-
-  window.speechSynthesis.speak(utterance);
 }
 
 /**
