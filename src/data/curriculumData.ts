@@ -14,18 +14,18 @@ export const fullCurriculumData: CurriculumModule = {
     authors: 'Ministry of Education Band I Curriculum Consultant & Senior Tech Architect',
     learningObjectives: {
       en: [
-        'Master the 4 critical Israeli phonetic hurdles: P vs F, B vs V, short /ɪ/ vs long /iː/, and the interdental "TH" sound.',
-        'Overcome Hebrew zero-copula syntax by systematically applying "to be" in Present Simple and Present Progressive.',
-        'Apply plural suffixes (-s, -es) and irregular plurals with accurate subject-verb agreement.',
-        'Form affirmative, negative, and interrogative sentences from Hebrew prompts with correct LTR mechanics.',
-        'Master 70+ high-frequency Ministry of Education Band I foundational words across 6 comprehensive units.'
+        'Master the key Israeli phonetic hurdles: P vs F, B vs V, short /ɪ/ vs long /iː/, the interdental "TH" sound, CH vs SH, Soft vs Hard C/G, the 3 sounds of "-ed", and silent letters.',
+        'Overcome Hebrew zero-copula syntax by systematically applying "to be", "There is / There are", and affirmative/negative constructions.',
+        'Apply plural suffixes (-s, -es), 3rd person singular (-s), and -ing aspect with accurate subject-verb agreement.',
+        'Form affirmative, negative, past simple, and future intentions ("going to" / "will") with correct LTR mechanics.',
+        'Master 120+ high-frequency Ministry of Education Band I foundational words across 10 comprehensive units.'
       ],
       he: [
-        'שליטה ב-4 מלכודות ההגייה של ישראלים: P מול F, B מול V, תנועות קצרות וארוכות (ship/sheep), וצליל TH.',
-        'התגברות על השמטת פועל עזר בהווה (Zero Copula) בהווה פשוט ובהווה ממושך (Present Progressive).',
-        'הוספת סיומות ריבוי (-s, -es) ושמות עצם יוצאי דופן (children, feet) בהתאמה לפועל.',
-        'בניית משפטי חיווי, שלילה ושאלות משמאל לימין תוך הקפדה על אותיות רישיות וסימני פיסוק.',
-        'שליטה ב-70+ מילות ליבה חיוניות מרשימת Band I של משרד החינוך ב-6 יחידות לימוד מקיפות.'
+        'שליטה במלכודות ההגייה של ישראלים: P מול F, B מול V, תנועות קצרות וארוכות, צליל TH, עיצורים שורקים (CH/SH), אותיות שקטות ושלושת צלילי הסיומת -ed.',
+        'התגברות על השמטת פועל עזר (Zero Copula) ושימוש מדויק ב-To Be, There is/are, עבר פשוט (Past Simple) וכוונות עתיד.',
+        'הוספת סיומות ריבוי (-s, -es), הטיות גוף שלישי (-s), סיומות -ing ושמות עצם ספירים ובלתי ספירים.',
+        'בניית משפטי חיווי, שלילה, עבר ועתיד משמאל לימין תוך הקפדה על אותיות רישיות ופיסוק תקין.',
+        'שליטה ב-120+ מילות ליבה חיוניות מרשימת Band I של משרד החינוך ב-10 יחידות לימוד מקיפות.'
       ]
     },
     targetLinguisticGaps: [
@@ -1171,6 +1171,663 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'v6_10', word: 'Sun', partOfSpeech: 'noun', hebrewTranslation: 'שמש', ipa: '/sʌn/', exampleSentenceEn: 'The sun rises in the morning.', exampleSentenceHe: 'השמש זורחת בבוקר.', band: 'Band I', category: 'טבע' },
         { id: 'v6_11', word: 'Big', partOfSpeech: 'adjective', hebrewTranslation: 'גדול', ipa: '/bɪɡ/', phoneticTrap: 'B', exampleSentenceEn: 'The elephant is very big.', exampleSentenceHe: 'הפיל גדול מאוד.', band: 'Band I', category: 'תכונות' },
         { id: 'v6_12', word: 'Small', partOfSpeech: 'adjective', hebrewTranslation: 'קטן', ipa: '/smɔːl/', exampleSentenceEn: 'The mouse is very small.', exampleSentenceHe: 'העכבר קטן מאוד.', band: 'Band I', category: 'תכונות' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 7: Food, Weather & The Market
+    // ==========================================
+    {
+      id: 'unit-7',
+      unitNumber: 7,
+      titleEn: 'Food, Weather & The Market',
+      titleHe: 'שוק האוכל, מזג האוויר והבריאות',
+      themeHe: 'סיווג מאכלים, מזג אוויר ועיצורי CH מול SH',
+      descriptionHe: 'נבדיל בין צליל CH (צ׳) לצליל SH (שׁ), נשאל מה יש במקרר עם There is / There are, ונלמד על עונות השנה!',
+      badgeIcon: 'Award',
+      xpReward: 200,
+      phonicsGapName: 'CH vs SH Consonant Digraphs',
+      grammarFocusName: 'There is / There are & Countables',
+      phonicsExercises: [
+        {
+          id: 'u7-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'כיסא נוח (Chair) או לחלוק (Share)?',
+          instructionHe: 'האזינו לצליל הפותח של המילה: עצירה חדה או זרימת רוח?',
+          targetLetter: 'CH',
+          distractorLetter: 'SH',
+          targetWord: {
+            id: 'w-chair',
+            letter: 'CH',
+            word: 'Chair',
+            ipa: '/tʃɛər/',
+            hebrewTranslation: 'כיסא',
+            audioText: 'chair',
+            hebrewLetterEquivalent: 'צ׳ (כמו צ׳יפס)',
+            exampleSentence: 'Sit down on the wooden chair.'
+          },
+          distractorWord: {
+            id: 'w-share',
+            letter: 'SH',
+            word: 'Share',
+            ipa: '/ʃɛər/',
+            hebrewTranslation: 'לחלוק / לשתף',
+            audioText: 'share',
+            hebrewLetterEquivalent: 'שׁ (רוח שוקטת)',
+            exampleSentence: 'Good friends share their toys.'
+          },
+          hebrewHint: 'צליל CH מתחיל בעצירה חדה ופיצוץ קטן (צ׳) כמו צ׳יפס!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/tʃ/ Affricate Digraph',
+            soundNameHe: 'צליל CH (צ׳)',
+            hebrewRule: 'הלשון עוצרת את האוויר לרגע ואז משחררת בפיצוץ צ׳.',
+            mnemonicHe: 'CH כמו צ׳יפס קראנצ׳י וטעים!',
+            articulationCueEn: 'Stop air behind teeth, then release sharply.'
+          },
+          explanationHe: 'מצוין! Chair מתחיל ב-CH חדה, בעוד ש-Share מתחיל ב-SH רכה וזורמת.'
+        },
+        {
+          id: 'u7-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'חנות גדולה (Shop) או לקצוץ סלט (Chop)?',
+          instructionHe: 'הקשיבו היטב: האם שומעים ששש... או צ׳ופ חד?',
+          targetLetter: 'SH',
+          distractorLetter: 'CH',
+          targetWord: {
+            id: 'w-shop',
+            letter: 'SH',
+            word: 'Shop',
+            ipa: '/ʃɒp/',
+            hebrewTranslation: 'חנות',
+            audioText: 'shop',
+            hebrewLetterEquivalent: 'שׁ',
+            exampleSentence: 'We buy apples at the food shop.'
+          },
+          distractorWord: {
+            id: 'w-chop',
+            letter: 'CH',
+            word: 'Chop',
+            ipa: '/tʃɒp/',
+            hebrewTranslation: 'לקצוץ',
+            audioText: 'chop',
+            hebrewLetterEquivalent: 'צ׳',
+            exampleSentence: 'Chop the fresh vegetables.'
+          },
+          hebrewHint: 'צליל SH הוא זרימת אוויר רציפה כמו שקט בכיתה: שששש...',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/ʃ/ Sibilant Fricative',
+            soundNameHe: 'צליל SH (שׁ)',
+            hebrewRule: 'השפתיים מעוגלות קלות והאוויר זורם ברציפות.',
+            mnemonicHe: 'SH כמו שקט: שששש...',
+            articulationCueEn: 'Lips rounded, continuous airflow.'
+          },
+          explanationHe: 'כל הכבוד! Shop (חנות) מתחילה ב-SH עם זרימת רוח רכה.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u7-v1',
+          hebrewPromptSentence: 'יש תפוח אדום ועסיסי אחד בסל.',
+          subject: 'There',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'There',
+          baseTemplateAfter: 'a juicy red apple in the basket.',
+          correctAnswer: 'is',
+          options: ['is', 'are', 'has'],
+          hebrewContrastLesson: 'כאשר מדברים על פריט יחיד (a red apple), משתמשים ב-There is!',
+          fullSentenceEn: 'There is a juicy red apple in the basket.',
+          audioText: 'There is a juicy red apple in the basket.'
+        },
+        {
+          id: 'u7-v2',
+          hebrewPromptSentence: 'יש שלושה בקבוקי חלב קרים על השולחן.',
+          subject: 'There',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'There',
+          baseTemplateAfter: 'three cold bottles of milk on the table.',
+          correctAnswer: 'are',
+          options: ['are', 'is', 'be'],
+          hebrewContrastLesson: 'כאשר מדובר ברבים (three bottles), חובה להשתמש ב-There are!',
+          fullSentenceEn: 'There are three cold bottles of milk on the table.',
+          audioText: 'There are three cold bottles of milk on the table.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u7-s1',
+          hebrewPromptSentence: 'יש גבינה טרייה במטבח שלנו.',
+          targetSentenceTokens: ['There', 'is', 'fresh', 'cheese', 'in', 'our', 'kitchen', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'There' },
+            { id: 't2', text: 'is' },
+            { id: 't3', text: 'fresh' },
+            { id: 't4', text: 'cheese' },
+            { id: 't5', text: 'in' },
+            { id: 't6', text: 'our' },
+            { id: 't7', text: 'kitchen' },
+            { id: 't8', text: '.', isPunctuation: true },
+            { id: 't9', text: 'are', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'There מתחיל באות T גדולה.',
+          ruleExplanationHe: 'גבינה (cheese) היא שם עצם בלתי ספיר, ולכן משתמשים ב-There is.',
+          audioFullSentence: 'There is fresh cheese in our kitchen.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-14', baseWord: 'dish', targetSuffix: '-es', fullWord: 'dishes', hebrewMeaning: 'צלחות (ריבוי)', ruleHintHe: 'אחרי צליל sh מוסיפים es' },
+        { id: 'suf-15', baseWord: 'peach', targetSuffix: '-es', fullWord: 'peaches', hebrewMeaning: 'אפרסקים (ריבוי)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
+        { id: 'suf-16', baseWord: 'cook', targetSuffix: '-ing', fullWord: 'cooking', hebrewMeaning: 'מבשל עכשיו', ruleHintHe: 'תוספת ing לפעולה המתרחשת כרגע' }
+      ],
+      vocabulary: [
+        { id: 'v7_1', word: 'Bread', partOfSpeech: 'noun', hebrewTranslation: 'לחם', ipa: '/bred/', phoneticTrap: 'B', hebrewPhoneticTip: 'B פותחת חזקה עם שפתיים.', exampleSentenceEn: 'We eat warm bread with butter.', exampleSentenceHe: 'אנחנו אוכלים לחם חם עם חמאה.', band: 'Band I', category: 'אוכל' },
+        { id: 'v7_2', word: 'Cheese', partOfSpeech: 'noun', hebrewTranslation: 'גבינה', ipa: '/tʃiːz/', hebrewPhoneticTip: 'צליל CH פותח וסיומת S שנשמעת כמו Z.', exampleSentenceEn: 'Yellow cheese is delicious in a toast.', exampleSentenceHe: 'גבינה צהובה טעימה מאוד בטוסט.', band: 'Band I', category: 'אוכל' },
+        { id: 'v7_3', word: 'Milk', partOfSpeech: 'noun', hebrewTranslation: 'חלב', ipa: '/mɪlk/', exampleSentenceEn: 'A glass of cold milk is healthy.', exampleSentenceHe: 'כוס חלב קר היא בריאה.', band: 'Band I', category: 'אוכל' },
+        { id: 'v7_4', word: 'Egg', partOfSpeech: 'noun', hebrewTranslation: 'ביצה', ipa: '/eɡ/', exampleSentenceEn: 'I eat an egg for breakfast.', exampleSentenceHe: 'אני אוכל ביצה לארוחת בוקר.', band: 'Band I', category: 'אוכל' },
+        { id: 'v7_5', word: 'Apple', partOfSpeech: 'noun', hebrewTranslation: 'תפוח', ipa: '/ˈæpəl/', phoneticTrap: 'P', hebrewPhoneticTip: 'אות P כפולה באמצע עם פיצוץ שפתיים.', exampleSentenceEn: 'A sweet red apple fell from the tree.', exampleSentenceHe: 'תפוח אדום ומתוק נפל מהעץ.', band: 'Band I', category: 'אוכל' },
+        { id: 'v7_6', word: 'Kitchen', partOfSpeech: 'noun', hebrewTranslation: 'מטבח', ipa: '/ˈkɪtʃɪn/', hebrewPhoneticTip: 'אותיות tch נשמעות כמו צ׳ (ch).', exampleSentenceEn: 'Mother cooks dinner in the kitchen.', exampleSentenceHe: 'אמא מבשלת ארוחת ערב במטבח.', band: 'Band I', category: 'בית' },
+        { id: 'v7_7', word: 'Weather', partOfSpeech: 'noun', hebrewTranslation: 'מזג אוויר', ipa: '/ˈweðər/', phoneticTrap: 'TH', hebrewPhoneticTip: 'אותיות th מבוטאות עם לשון בין השיניים.', exampleSentenceEn: 'The weather today is sunny and pleasant.', exampleSentenceHe: 'מזג האוויר היום שמשי ונעים.', band: 'Band I', category: 'טבע' },
+        { id: 'v7_8', word: 'Rainy', partOfSpeech: 'adjective', hebrewTranslation: 'גשום', ipa: '/ˈreɪni/', exampleSentenceEn: 'Take an umbrella on a rainy day.', exampleSentenceHe: 'קחו מטריה ביום גשום.', band: 'Band I', category: 'טבע' },
+        { id: 'v7_9', word: 'Sunny', partOfSpeech: 'adjective', hebrewTranslation: 'שמשי', ipa: '/ˈsʌni/', exampleSentenceEn: 'It is a warm sunny afternoon.', exampleSentenceHe: 'זהו אחר צהריים שמשי וחם.', band: 'Band I', category: 'טבע' },
+        { id: 'v7_10', word: 'Cold', partOfSpeech: 'adjective', hebrewTranslation: 'קר', ipa: '/koʊld/', exampleSentenceEn: 'In winter it is very cold outside.', exampleSentenceHe: 'בחורף קר מאוד בחוץ.', band: 'Band I', category: 'תכונות' },
+        { id: 'v7_11', word: 'Hot', partOfSpeech: 'adjective', hebrewTranslation: 'חם', ipa: '/hɒt/', exampleSentenceEn: 'Be careful, the soup is very hot.', exampleSentenceHe: 'היזהרו, המרק חם מאוד.', band: 'Band I', category: 'תכונות' },
+        { id: 'v7_12', word: 'Cook', partOfSpeech: 'verb', hebrewTranslation: 'לבשל', ipa: '/kʊk/', exampleSentenceEn: 'We cook healthy food together.', exampleSentenceHe: 'אנחנו מבשלים אוכל בריא יחד.', band: 'Band I', category: 'פעולות' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 8: City Explorer & Community Helpers
+    // ==========================================
+    {
+      id: 'unit-8',
+      unitNumber: 8,
+      titleEn: 'City Explorer & Community Helpers',
+      titleHe: 'מפת העיר ובעלי המקצוע',
+      themeHe: 'מקומות בעיר, מילות יחס למיקום והבדלי C ו-G רכות מול קשות',
+      descriptionHe: 'נלמד מתי האות C נשמעת כמו S ומתי כמו K, נתרגל מילות יחס (between, next to) ונכיר את בעלי המקצוע בקהילה!',
+      badgeIcon: 'Search',
+      xpReward: 220,
+      phonicsGapName: 'Hard vs Soft C and G',
+      grammarFocusName: 'Prepositions of Place & Community Helpers',
+      phonicsExercises: [
+        {
+          id: 'u8-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'עיר גדולה (City) או חתול בית (Cat)?',
+          instructionHe: 'האם האות C נשמעת כסמ״ך רכה או כק״ף קשה?',
+          targetLetter: 'Soft C',
+          distractorLetter: 'Hard C',
+          targetWord: {
+            id: 'w-city',
+            letter: 'Soft C',
+            word: 'City',
+            ipa: '/ˈsɪti/',
+            hebrewTranslation: 'עיר',
+            audioText: 'city',
+            hebrewLetterEquivalent: 'ס (סמ״ך רכה)',
+            exampleSentence: 'Tel Aviv is a big coastal city.'
+          },
+          distractorWord: {
+            id: 'w-cat',
+            letter: 'Hard C',
+            word: 'Cat',
+            ipa: '/kæt/',
+            hebrewTranslation: 'חתול',
+            audioText: 'cat',
+            hebrewLetterEquivalent: 'ק / כּ (קשה)',
+            exampleSentence: 'The little cat drinks milk.'
+          },
+          hebrewHint: 'לפני האותיות E, I ו-Y, האות C הופכת לרכה ונשמעת כמו סמ״ך (City, Center)!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/s/ Soft C Rule',
+            soundNameHe: 'צליל C רכה (סמ״ך)',
+            hebrewRule: 'C שלפני E, I או Y מבוטאת כמו ס (סמ״ך).',
+            mnemonicHe: 'City ב-C נשמעת כמו סביון!',
+            articulationCueEn: 'Tongue close to roof of mouth, air hisses.'
+          },
+          explanationHe: 'נכון מאוד! במילה City האות C נמצאת לפני i ולכן היא נשמעת כמו ס (Soft C).'
+        },
+        {
+          id: 'u8-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'ג׳ירפה גבוהה (Giraffe) או משחק כיפי (Game)?',
+          instructionHe: 'הקשיבו לאות G: האם היא ג׳ רכה או גימ״ל קשה?',
+          targetLetter: 'Soft G',
+          distractorLetter: 'Hard G',
+          targetWord: {
+            id: 'w-giraffe',
+            letter: 'Soft G',
+            word: 'Giraffe',
+            ipa: '/dʒɪˈrɑːf/',
+            hebrewTranslation: 'ג׳ירפה',
+            audioText: 'giraffe',
+            hebrewLetterEquivalent: 'ג׳ (ג׳וק, ג׳ירפה)',
+            exampleSentence: 'The giraffe has a very long neck.'
+          },
+          distractorWord: {
+            id: 'w-game',
+            letter: 'Hard G',
+            word: 'Game',
+            ipa: '/ɡeɪm/',
+            hebrewTranslation: 'משחק',
+            audioText: 'game',
+            hebrewLetterEquivalent: 'ג (גימ״ל רגילה)',
+            exampleSentence: 'Let us play a board game.'
+          },
+          hebrewHint: 'לפני האותיות E, I או Y, האות G נשמעת לרוב כמו ג׳ רכה (Giraffe, Orange)!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/dʒ/ Soft G Rule',
+            soundNameHe: 'צליל G רכה (ג׳)',
+            hebrewRule: 'G שלפני E, I או Y נהגית כמו ג׳.',
+            mnemonicHe: 'Giraffe עם ג׳ כמו ג׳מבו!',
+            articulationCueEn: 'Voiced affricate like J.'
+          },
+          explanationHe: 'מדויק! Giraffe נפתחת ב-G רכה שנשמעת כמו ג׳, בעוד ש-Game היא G קשה.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u8-v1',
+          hebrewPromptSentence: 'בית החולים נמצא ליד תחנת המשטרה.',
+          subject: 'The hospital',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'The hospital',
+          baseTemplateAfter: 'next to the police station.',
+          correctAnswer: 'is',
+          options: ['is', 'are', 'has'],
+          hebrewContrastLesson: 'בית החולים הוא יחיד (It). לכן מחברים פועל עזר is: The hospital is next to...',
+          fullSentenceEn: 'The hospital is next to the police station.',
+          audioText: 'The hospital is next to the police station.'
+        },
+        {
+          id: 'u8-v2',
+          hebrewPromptSentence: 'השוטר והרופאה עוזרים לאנשים בעיר.',
+          subject: 'The officer and doctor',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'The police officer and the doctor',
+          baseTemplateAfter: 'people in the city every day.',
+          correctAnswer: 'help',
+          options: ['help', 'helps', 'is help'],
+          hebrewContrastLesson: 'הנושא הוא רבים (שני אנשים), לכן הפועל בהווה נשאר בצורת המקור: help!',
+          fullSentenceEn: 'The police officer and the doctor help people in the city every day.',
+          audioText: 'The police officer and the doctor help people in the city every day.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u8-s1',
+          hebrewPromptSentence: 'הבנק החדש נמצא בין הפארק לספרייה.',
+          targetSentenceTokens: ['The', 'new', 'bank', 'is', 'between', 'the', 'park', 'and', 'the', 'library', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'The' },
+            { id: 't2', text: 'new' },
+            { id: 't3', text: 'bank' },
+            { id: 't4', text: 'is' },
+            { id: 't5', text: 'between' },
+            { id: 't6', text: 'the' },
+            { id: 't7', text: 'park' },
+            { id: 't8', text: 'and' },
+            { id: 't9', text: 'the' },
+            { id: 't10', text: 'library' },
+            { id: 't11', text: '.', isPunctuation: true },
+            { id: 't12', text: 'are', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'The מתחיל באות T גדולה.',
+          ruleExplanationHe: 'בנק הוא יחיד, ולכן מחברים is ולא משמיטים אותו: The bank is between...',
+          audioFullSentence: 'The new bank is between the park and the library.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-17', baseWord: 'help', targetSuffix: '-s', fullWord: 'helps', hebrewMeaning: 'עוזר (גוף שלישי)', ruleHintHe: 'הוספת s לפועל ביחיד' },
+        { id: 'suf-18', baseWord: 'bus', targetSuffix: '-es', fullWord: 'buses', hebrewMeaning: 'אוטובוסים (ריבוי)', ruleHintHe: 'אחרי אות s מוסיפים es' },
+        { id: 'suf-19', baseWord: 'drive', targetSuffix: '-ing', fullWord: 'driving', hebrewMeaning: 'נוהג עכשיו', ruleHintHe: 'משמיטים את ה-e הסופית ומוסיפים ing' }
+      ],
+      vocabulary: [
+        { id: 'v8_1', word: 'Hospital', partOfSpeech: 'noun', hebrewTranslation: 'בית חולים', ipa: '/ˈhɒspɪtəl/', exampleSentenceEn: 'Doctors work at the hospital.', exampleSentenceHe: 'רופאים עובדים בבית החולים.', band: 'Band I', category: 'מקומות' },
+        { id: 'v8_2', word: 'Library', partOfSpeech: 'noun', hebrewTranslation: 'ספרייה', ipa: '/ˈlaɪbrəri/', exampleSentenceEn: 'We read quiet books at the library.', exampleSentenceHe: 'אנחנו קוראים ספרים בשקט בספרייה.', band: 'Band I', category: 'מקומות' },
+        { id: 'v8_3', word: 'Bank', partOfSpeech: 'noun', hebrewTranslation: 'בנק', ipa: '/bæŋk/', phoneticTrap: 'B', exampleSentenceEn: 'The bank opens in the morning.', exampleSentenceHe: 'הבנק נפתח בבוקר.', band: 'Band I', category: 'מקומות' },
+        { id: 'v8_4', word: 'Street', partOfSpeech: 'noun', hebrewTranslation: 'רחוב', ipa: '/striːt/', exampleSentenceEn: 'Look both ways before crossing the street.', exampleSentenceHe: 'הביטו לשני הצדדים לפני שחוצים את הרחוב.', band: 'Band I', category: 'מקומות' },
+        { id: 'v8_5', word: 'Doctor', partOfSpeech: 'noun', hebrewTranslation: 'רופא / רופאה', ipa: '/ˈdɒktər/', exampleSentenceEn: 'The kind doctor helps sick patients.', exampleSentenceHe: 'הרופא האדיב עוזר לחולים.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v8_6', word: 'Nurse', partOfSpeech: 'noun', hebrewTranslation: 'אח / אחות רפואית', ipa: '/nɜːrs/', exampleSentenceEn: 'The nurse smiles at the child.', exampleSentenceHe: 'האחות מחייכת אל הילד.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v8_7', word: 'Firefighter', partOfSpeech: 'noun', hebrewTranslation: 'לוחם אש / כבאי', ipa: '/ˈfaɪərfaɪtər/', phoneticTrap: 'F', exampleSentenceEn: 'A brave firefighter puts out fires.', exampleSentenceHe: 'לוחם אש אמיץ מכבה שריפות.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v8_8', word: 'Teacher', partOfSpeech: 'noun', hebrewTranslation: 'מורה', ipa: '/ˈtiːtʃər/', hebrewPhoneticTip: 'צליל ch באמצע נהגה כ-צ׳.', exampleSentenceEn: 'Our teacher teaches English well.', exampleSentenceHe: 'המורה שלנו מלמדת אנגלית היטב.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v8_9', word: 'Driver', partOfSpeech: 'noun', hebrewTranslation: 'נהג / נהגת', ipa: '/ˈdraɪvər/', phoneticTrap: 'V', hebrewPhoneticTip: 'אות V שיניים על שפה רוטטת.', exampleSentenceEn: 'The bus driver stops at the station.', exampleSentenceHe: 'נהג האוטובוס עוצר בתחנה.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v8_10', word: 'Between', partOfSpeech: 'preposition', hebrewTranslation: 'בין (שני דברים)', ipa: '/bɪˈtwiːn/', phoneticTrap: 'B', exampleSentenceEn: 'The park is between the school and mall.', exampleSentenceHe: 'הפארק נמצא בין בית הספר לקניון.', band: 'Band I', category: 'מיקום' },
+        { id: 'v8_11', word: 'Behind', partOfSpeech: 'preposition', hebrewTranslation: 'מאחורי', ipa: '/bɪˈhaɪnd/', phoneticTrap: 'B', exampleSentenceEn: 'The garden is behind our house.', exampleSentenceHe: 'הגינה נמצאת מאחורי הבית שלנו.', band: 'Band I', category: 'מיקום' },
+        { id: 'v8_12', word: 'City', partOfSpeech: 'noun', hebrewTranslation: 'עיר', ipa: '/ˈsɪti/', hebrewPhoneticTip: 'C רכה שנשמעת כמו סמ״ך!', exampleSentenceEn: 'Jerusalem is an ancient city.', exampleSentenceHe: 'ירושלים היא עיר עתיקה.', band: 'Band I', category: 'מקומות' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 9: Past Adventures & Story Time
+    // ==========================================
+    {
+      id: 'unit-9',
+      unitNumber: 9,
+      titleEn: 'Past Adventures & Story Time',
+      titleHe: 'הרפתקאות בעבר ומכונת הזמן',
+      themeHe: 'עבר פשוט (Past Simple) ושלושת הצלילים של סיומת -ed',
+      descriptionHe: 'נפצח את המלכודת הגדולה של דוברי עברית: איך מבטאים -ed בלי להוסיף הברה מיותרת, ונספר מה קרה אתמול!',
+      badgeIcon: 'Zap',
+      xpReward: 240,
+      phonicsGapName: 'The 3 Sounds of -ed (/t/, /d/, /ɪd/)',
+      grammarFocusName: 'Past Simple Basics (Regular -ed & Key Irregulars)',
+      phonicsExercises: [
+        {
+          id: 'u9-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'הלך ברגל (Walked) או רצה (Wanted)?',
+          instructionHe: 'האזינו לסיומת: האם שומעים נקישת /t/ אחת או הברה נוספת /ɪd/?',
+          targetLetter: '/t/ sound',
+          distractorLetter: '/ɪd/ sound',
+          targetWord: {
+            id: 'w-walked',
+            letter: '/t/ sound',
+            word: 'Walked',
+            ipa: '/wɔːkt/',
+            hebrewTranslation: 'הלך ברגל (הברה אחת!)',
+            audioText: 'walked',
+            hebrewLetterEquivalent: 'תּ (נקישה חדה ללא אד)',
+            exampleSentence: 'We walked to school yesterday.'
+          },
+          distractorWord: {
+            id: 'w-wanted',
+            letter: '/ɪd/ sound',
+            word: 'Wanted',
+            ipa: '/ˈwɒntɪd/',
+            hebrewTranslation: 'רצה (שתי הברות: וונ-טיד)',
+            audioText: 'wanted',
+            hebrewLetterEquivalent: 'איד (רק אחרי T או D)',
+            exampleSentence: 'She wanted a glass of cold water.'
+          },
+          hebrewHint: 'דוברי עברית טועים ואומרים "ווק-אד"! באנגלית המילה Walked היא הברה אחת שמסתיימת ב-T: /wɔːkt/!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/t/ Voiceless -ed Ending',
+            soundNameHe: 'צליל /t/ בסיומת -ed',
+            hebrewRule: 'אחרי עיצור אטום (כמו k, p, s, sh, ch) ה-ed נהגית כ-תּ חדה בלבד ללא שום תנועה!',
+            mnemonicHe: 'Walked נשמע כמו ווקט!',
+            articulationCueEn: 'Sharp voiceless tap /t/ at end.'
+          },
+          explanationHe: 'מדהים! ב-Walked סיומת ה-ed מבוטאת כנקישת /t/ חדה ולא כהברה נוספת.'
+        },
+        {
+          id: 'u9-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'שיחק בכדור (Played) או עזר לחבר (Helped)?',
+          instructionHe: 'האזינו לצליל הסיום: האם שומעים /d/ רוטטת או /t/ חדה?',
+          targetLetter: '/d/ sound',
+          distractorLetter: '/t/ sound',
+          targetWord: {
+            id: 'w-played',
+            letter: '/d/ sound',
+            word: 'Played',
+            ipa: '/pleɪd/',
+            hebrewTranslation: 'שיחק (צליל ד׳ רוטט)',
+            audioText: 'played',
+            hebrewLetterEquivalent: 'ד (דלת ללא אד)',
+            exampleSentence: 'The boys played football in the yard.'
+          },
+          distractorWord: {
+            id: 'w-helped',
+            letter: '/t/ sound',
+            word: 'Helped',
+            ipa: '/helpt/',
+            hebrewTranslation: 'עזר (צליל ת׳ חד)',
+            audioText: 'helped',
+            hebrewLetterEquivalent: 'תּ',
+            exampleSentence: 'I helped my grandmother carry bags.'
+          },
+          hebrewHint: 'במילה Played מיתרי הקול רוטטים והסיומת נשמעת /d/ ללא שום "אד": /pleɪd/!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: '/d/ Voiced -ed Ending',
+            soundNameHe: 'צליל /d/ בסיומת -ed',
+            hebrewRule: 'אחרי תנועה או עיצור קולי, סיומת ה-ed נשמעת כ-דּ עדינה.',
+            mnemonicHe: 'Played נשמע כמו פלייד!',
+            articulationCueEn: 'Voiced tap /d/ without extra vowel.'
+          },
+          explanationHe: 'מעולה! Played נשמעת /pleɪd/ עם סיומת /d/ רוטטת.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u9-v1',
+          hebrewPromptSentence: 'דני שיחק כדורגל בפארק אתמול אחר הצהריים.',
+          subject: 'Danny',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'Danny',
+          baseTemplateAfter: 'football in the park yesterday.',
+          correctAnswer: 'played',
+          options: ['played', 'plays', 'is playing'],
+          hebrewContrastLesson: 'מילת הזמן yesterday מחייבת עבר פשוט: מוסיפים ed לפועל הרגיל (played)!',
+          fullSentenceEn: 'Danny played football in the park yesterday.',
+          audioText: 'Danny played football in the park yesterday.'
+        },
+        {
+          id: 'u9-v2',
+          hebrewPromptSentence: 'הילדים הלכו למוזיאון המדע ביום שני.',
+          subject: 'The children',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'The children',
+          baseTemplateAfter: 'to the science museum on Monday.',
+          correctAnswer: 'went',
+          options: ['went', 'go', 'goed'],
+          hebrewContrastLesson: 'הפועל go הוא יוצא דופן בעבר – צורת העבר שלו היא went (ולא goed)!',
+          fullSentenceEn: 'The children went to the science museum on Monday.',
+          audioText: 'The children went to the science museum on Monday.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u9-s1',
+          hebrewPromptSentence: 'ראינו סרט מעניין אתמול בערב.',
+          targetSentenceTokens: ['We', 'saw', 'an', 'interesting', 'movie', 'yesterday', 'evening', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'We' },
+            { id: 't2', text: 'saw' },
+            { id: 't3', text: 'an' },
+            { id: 't4', text: 'interesting' },
+            { id: 't5', text: 'movie' },
+            { id: 't6', text: 'yesterday' },
+            { id: 't7', text: 'evening' },
+            { id: 't8', text: '.', isPunctuation: true },
+            { id: 't9', text: 'see', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'We מתחיל באות W גדולה.',
+          ruleExplanationHe: 'עבר של see הוא saw (יוצא דופן).',
+          audioFullSentence: 'We saw an interesting movie yesterday evening.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-20', baseWord: 'start', targetSuffix: '-s', fullWord: 'starts', hebrewMeaning: 'מתחיל (יחיד)', ruleHintHe: 'הוספת s לפועל בהווה' },
+        { id: 'suf-21', baseWord: 'watch', targetSuffix: '-es', fullWord: 'watches', hebrewMeaning: 'צופה (יחיד)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
+        { id: 'suf-22', baseWord: 'play', targetSuffix: '-ing', fullWord: 'playing', hebrewMeaning: 'משחק כעת', ruleHintHe: 'תוספת ing לפעולה ממושכת' }
+      ],
+      vocabulary: [
+        { id: 'v9_1', word: 'Yesterday', partOfSpeech: 'noun', hebrewTranslation: 'אתמול', ipa: '/ˈjestərdeɪ/', exampleSentenceEn: 'Yesterday we had a fun picnic.', exampleSentenceHe: 'אתמול היה לנו פיקניק מהנה.', band: 'Band I', category: 'זמן' },
+        { id: 'v9_2', word: 'Ago', partOfSpeech: 'preposition', hebrewTranslation: 'לפני (זמן מה)', ipa: '/əˈɡoʊ/', exampleSentenceEn: 'Two days ago I visited my grandma.', exampleSentenceHe: 'לפני יומיים ביקרתי את סבתא שלי.', band: 'Band I', category: 'זמן' },
+        { id: 'v9_3', word: 'Visited', partOfSpeech: 'verb', hebrewTranslation: 'ביקר (בעבר)', ipa: '/ˈvɪzɪtɪd/', phoneticTrap: 'V', exampleSentenceEn: 'We visited the ancient castle.', exampleSentenceHe: 'ביקרנו בטירה העתיקה.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_4', word: 'Played', partOfSpeech: 'verb', hebrewTranslation: 'שיחק (בעבר)', ipa: '/pleɪd/', phoneticTrap: 'P', exampleSentenceEn: 'They played basketball together.', exampleSentenceHe: 'הם שיחקו כדורסל יחד.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_5', word: 'Watched', partOfSpeech: 'verb', hebrewTranslation: 'צפה (בעבר)', ipa: '/wɒtʃt/', exampleSentenceEn: 'She watched the stars last night.', exampleSentenceHe: 'היא צפתה בכוכבים אמש.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_6', word: 'Went', partOfSpeech: 'verb', hebrewTranslation: 'הלך (עבר של go)', ipa: '/went/', exampleSentenceEn: 'He went to school on foot.', exampleSentenceHe: 'הוא הלך לבית הספר ברגל.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_7', word: 'Saw', partOfSpeech: 'verb', hebrewTranslation: 'ראה (עבר של see)', ipa: '/sɔː/', exampleSentenceEn: 'I saw a colorful rainbow.', exampleSentenceHe: 'ראיתי קשת צבעונית.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_8', word: 'Ate', partOfSpeech: 'verb', hebrewTranslation: 'אכל (עבר של eat)', ipa: '/eɪt/', exampleSentenceEn: 'We ate delicious chocolate cake.', exampleSentenceHe: 'אכלנו עוגת שוקולד טעימה.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_9', word: 'Had', partOfSpeech: 'verb', hebrewTranslation: 'היה לו (עבר של have)', ipa: '/hæd/', exampleSentenceEn: 'They had a wonderful vacation.', exampleSentenceHe: 'הייתה להם חופשה נפלאה.', band: 'Band I', category: 'פעולות' },
+        { id: 'v9_10', word: 'Story', partOfSpeech: 'noun', hebrewTranslation: 'סיפור', ipa: '/ˈstɔːri/', exampleSentenceEn: 'Grandpa told us an exciting story.', exampleSentenceHe: 'סבא סיפר לנו סיפור מרתק.', band: 'Band I', category: 'שונות' },
+        { id: 'v9_11', word: 'Museum', partOfSpeech: 'noun', hebrewTranslation: 'מוזיאון', ipa: '/mjuːˈziːəm/', exampleSentenceEn: 'The museum has dinosaur bones.', exampleSentenceHe: 'במוזיאון יש עצמות דינוזאור.', band: 'Band I', category: 'מקומות' },
+        { id: 'v9_12', word: 'Movie', partOfSpeech: 'noun', hebrewTranslation: 'סרט', ipa: '/ˈmuːvi/', phoneticTrap: 'V', exampleSentenceEn: 'We watched a funny movie.', exampleSentenceHe: 'צפינו בסרט מצחיק.', band: 'Band I', category: 'שונות' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 10: Future Dreams & Grand Capstone
+    // ==========================================
+    {
+      id: 'unit-10',
+      unitNumber: 10,
+      titleEn: 'Future Dreams & Master Capstone',
+      titleHe: 'חלומות לעתיד ומבחן הסיום החגיגי',
+      themeHe: 'תוכניות לעתיד (going to / will), אותיות שקטות ומבחן מסכם',
+      descriptionHe: 'נלמד לתאר שאיפות ומקצועות לעתיד, נזהה אותיות שקטות (K ב-knife, W ב-write), ונשלים את תעודת הגמר של Band I!',
+      badgeIcon: 'Award',
+      xpReward: 300,
+      phonicsGapName: 'Silent Letters (K, W, B, L)',
+      grammarFocusName: 'Future Intentions (going to) & Modals (can/must)',
+      phonicsExercises: [
+        {
+          id: 'u10-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'סכין חדה (Knife) או מלך בממלכה (King)?',
+          instructionHe: 'האזינו לאות הפותחת: האם ה-K נהגית או שהיא שקטה לחלוטין?',
+          targetLetter: 'Silent K',
+          distractorLetter: 'Sounded K',
+          targetWord: {
+            id: 'w-knife',
+            letter: 'Silent K',
+            word: 'Knife',
+            ipa: '/naɪf/',
+            hebrewTranslation: 'סכין (ה-K שקטה לחלוטין!)',
+            audioText: 'knife',
+            hebrewLetterEquivalent: 'N (מתחיל ב-N)',
+            exampleSentence: 'Use the butter knife to spread jam.'
+          },
+          distractorWord: {
+            id: 'w-king',
+            letter: 'Sounded K',
+            word: 'King',
+            ipa: '/kɪŋ/',
+            hebrewTranslation: 'מלך (ה-K נשמעת בבירור)',
+            audioText: 'king',
+            hebrewLetterEquivalent: 'ק (קשה)',
+            exampleSentence: 'The king wears a shiny gold crown.'
+          },
+          hebrewHint: 'כש-K מופיעה לפני N (knife, know, knee) – ה-K שקטה לגמרי ומתחילים ישר מה-N!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: 'Silent K Rule',
+            soundNameHe: 'אות K שקטה',
+            hebrewRule: 'הצירוף KN בתחילת מילה נהגה כ-N בלבד.',
+            mnemonicHe: 'Knife מתחיל ב-נַייף, ה-K נחה!',
+            articulationCueEn: 'Start directly with tongue tip on upper ridge for /n/.'
+          },
+          explanationHe: 'כל הכבוד! ב-Knife האות K שקטה לחלוטין והמילה נשמעת "נַייף".'
+        },
+        {
+          id: 'u10-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'לכתוב מכתב (Write) או מים צלולים (Water)?',
+          instructionHe: 'האזינו: האם ה-W נשמעת (ווא) או שהיא שקטה לחלוטין לפני R?',
+          targetLetter: 'Silent W',
+          distractorLetter: 'Sounded W',
+          targetWord: {
+            id: 'w-write',
+            letter: 'Silent W',
+            word: 'Write',
+            ipa: '/raɪt/',
+            hebrewTranslation: 'לכתוב (ה-W שקטה לגמרי!)',
+            audioText: 'write',
+            hebrewLetterEquivalent: 'R (מתחיל ב-ר)',
+            exampleSentence: 'I write my name with a pencil.'
+          },
+          distractorWord: {
+            id: 'w-water',
+            letter: 'Sounded W',
+            word: 'Water',
+            ipa: '/ˈwɔːtər/',
+            hebrewTranslation: 'מים (W נשמעת כמו ווא)',
+            audioText: 'water',
+            hebrewLetterEquivalent: 'וּ (שפתיים עגולות)',
+            exampleSentence: 'Drink cold water after sports.'
+          },
+          hebrewHint: 'כאשר W מופיעה לפני R בתחילת מילה (write, wrong) – ה-W שקטה ומתחילים ישר מה-R!',
+          articulationGuide: {
+            mouthShape: 'teeth_on_lip_air',
+            soundNameEn: 'Silent W Rule',
+            soundNameHe: 'אות W שקטה',
+            hebrewRule: 'הצירוף WR נהגה כ-R בלבד.',
+            mnemonicHe: 'Write מתחיל ב-רַייט, ה-W שותקת!',
+            articulationCueEn: 'Start tongue curling back for /r/.'
+          },
+          explanationHe: 'מדויק! במילה Write האות W שקטה ומתחילים ישירות בצליל R.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u10-v1',
+          hebrewPromptSentence: 'אני עומד ללמוד רפואה באוניברסיטה בעתיד.',
+          subject: 'I',
+          subjectType: 'first_singular',
+          baseTemplateBefore: 'I',
+          baseTemplateAfter: 'going to study medicine in the future.',
+          correctAnswer: 'am',
+          options: ['am', 'is', 'are'],
+          hebrewContrastLesson: 'עם הגוף I בביטוי עתיד (going to) חובה להשתמש ב-am: I am going to study!',
+          fullSentenceEn: 'I am going to study medicine in the future.',
+          audioText: 'I am going to study medicine in the future.'
+        },
+        {
+          id: 'u10-v2',
+          hebrewPromptSentence: 'תלמידים חכמים יכולים להשיג כל מטרה וחלום.',
+          subject: 'Smart students',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'Smart students',
+          baseTemplateAfter: 'achieve any dream with hard work.',
+          correctAnswer: 'can',
+          options: ['can', 'are can', 'canning'],
+          hebrewContrastLesson: 'פועל העזר can מבטא יכולת ולא מוסיפים לו s, ed או ing לעולם!',
+          fullSentenceEn: 'Smart students can achieve any dream with hard work.',
+          audioText: 'Smart students can achieve any dream with hard work.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u10-s1',
+          hebrewPromptSentence: 'אנחנו עומדים לבנות רובוט חכם מחר.',
+          targetSentenceTokens: ['We', 'are', 'going', 'to', 'build', 'a', 'smart', 'robot', 'tomorrow', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'We' },
+            { id: 't2', text: 'are' },
+            { id: 't3', text: 'going' },
+            { id: 't4', text: 'to' },
+            { id: 't5', text: 'build' },
+            { id: 't6', text: 'a' },
+            { id: 't7', text: 'smart' },
+            { id: 't8', text: 'robot' },
+            { id: 't9', text: 'tomorrow' },
+            { id: 't10', text: '.', isPunctuation: true },
+            { id: 't11', text: 'is', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'We מתחיל באות W גדולה.',
+          ruleExplanationHe: 'מבנה עתיד עם We דורש are going to: We are going to build...',
+          audioFullSentence: 'We are going to build a smart robot tomorrow.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-23', baseWord: 'learn', targetSuffix: '-ing', fullWord: 'learning', hebrewMeaning: 'לומד כעת', ruleHintHe: 'תוספת ing ללמידה ממושכת' },
+        { id: 'suf-24', baseWord: 'dream', targetSuffix: '-s', fullWord: 'dreams', hebrewMeaning: 'חלומות (ריבוי)', ruleHintHe: 'הוספת s רגילה לריבוי' },
+        { id: 'suf-25', baseWord: 'teach', targetSuffix: '-es', fullWord: 'teaches', hebrewMeaning: 'מלמד (יחיד)', ruleHintHe: 'אחרי צליל ch מוסיפים es' }
+      ],
+      vocabulary: [
+        { id: 'v10_1', word: 'Tomorrow', partOfSpeech: 'noun', hebrewTranslation: 'מחר', ipa: '/təˈmɒroʊ/', exampleSentenceEn: 'Tomorrow is a new day full of hope.', exampleSentenceHe: 'מחר הוא יום חדש מלא תקווה.', band: 'Band I', category: 'זמן' },
+        { id: 'v10_2', word: 'Future', partOfSpeech: 'noun', hebrewTranslation: 'עתיד', ipa: '/ˈfjuːtʃər/', phoneticTrap: 'F', exampleSentenceEn: 'The future of science is bright.', exampleSentenceHe: 'עתיד המדע מזהיר.', band: 'Band I', category: 'זמן' },
+        { id: 'v10_3', word: 'Dream', partOfSpeech: 'noun', hebrewTranslation: 'חלום / לחלום', ipa: '/driːm/', exampleSentenceEn: 'Follow your biggest dream.', exampleSentenceHe: 'לכו בעקבות החלום הגדול ביותר שלכם.', band: 'Band I', category: 'שונות' },
+        { id: 'v10_4', word: 'Build', partOfSpeech: 'verb', hebrewTranslation: 'לבנות', ipa: '/bɪld/', phoneticTrap: 'B', exampleSentenceEn: 'Engineers build tall bridges.', exampleSentenceHe: 'מהנדסים בונים גשרים גבוהים.', band: 'Band I', category: 'פעולות' },
+        { id: 'v10_5', word: 'Scientist', partOfSpeech: 'noun', hebrewTranslation: 'מדען / מדענית', ipa: '/ˈsaɪəntɪst/', exampleSentenceEn: 'The scientist discovered a new cure.', exampleSentenceHe: 'המדענית גילתה תרופה חדשה.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v10_6', word: 'Astronaut', partOfSpeech: 'noun', hebrewTranslation: 'אסטרונאוט', ipa: '/ˈæstrənɔːt/', exampleSentenceEn: 'The astronaut flies into deep space.', exampleSentenceHe: 'האסטרונאוט טס לחלל העמוק.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v10_7', word: 'Artist', partOfSpeech: 'noun', hebrewTranslation: 'אמן / צייר', ipa: '/ˈɑːrtɪst/', exampleSentenceEn: 'The creative artist painted a picture.', exampleSentenceHe: 'האמן היצירתי צייר תמונה.', band: 'Band I', category: 'מקצועות' },
+        { id: 'v10_8', word: 'Can', partOfSpeech: 'verb', hebrewTranslation: 'יכול / מסוגל', ipa: '/kæn/', exampleSentenceEn: 'You can do anything you believe in.', exampleSentenceHe: 'אתם יכולים לעשות כל דבר שאתם מאמינים בו.', band: 'Band I', category: 'פעולות' },
+        { id: 'v10_9', word: 'Learn', partOfSpeech: 'verb', hebrewTranslation: 'ללמוד', ipa: '/lɜːrn/', exampleSentenceEn: 'We love to learn new English words.', exampleSentenceHe: 'אנחנו אוהבים ללמוד מילים חדשות באנגלית.', band: 'Band I', category: 'פעולות' },
+        { id: 'v10_10', word: 'Create', partOfSpeech: 'verb', hebrewTranslation: 'ליצור', ipa: '/kriˈeɪt/', exampleSentenceEn: 'Children create beautiful models.', exampleSentenceHe: 'ילדים יוצרים דגמים יפהפיים.', band: 'Band I', category: 'פעולות' },
+        { id: 'v10_11', word: 'World', partOfSpeech: 'noun', hebrewTranslation: 'עולם', ipa: '/wɜːrld/', exampleSentenceEn: 'English connects people around the world.', exampleSentenceHe: 'אנגלית מחברת אנשים מסביב לעולם.', band: 'Band I', category: 'שונות' },
+        { id: 'v10_12', word: 'Win', partOfSpeech: 'verb', hebrewTranslation: 'לנצח / לזכות', ipa: '/wɪn/', exampleSentenceEn: 'With practice you will win the trophy.', exampleSentenceHe: 'עם תרגול תזכו בגביע.', band: 'Band I', category: 'פעולות' }
       ]
     }
   ]
