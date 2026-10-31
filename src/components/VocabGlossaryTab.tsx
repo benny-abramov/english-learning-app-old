@@ -425,6 +425,9 @@ export const VocabGlossaryTab: React.FC<VocabGlossaryTabProps> = ({
               <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md border border-sky-200/60">
                 {combinedWordList.length} מילים פעילות במאגר
               </span>
+              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200/60">
+                🇮🇱 תוכנית הלימודים משרד החינוך Band I & II
+              </span>
               {customWords.length > 0 && (
                 <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200/60">
                   {customWords.length} מילים אישיות שהוספת

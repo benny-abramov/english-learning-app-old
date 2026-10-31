@@ -1,4 +1,18 @@
 import { CurriculumModule } from '../types/curriculum';
+import {
+  unit1Vocab,
+  unit2Vocab,
+  unit3Vocab,
+  unit4Vocab,
+  unit5Vocab,
+  unit6Vocab,
+  unit7Vocab,
+  unit8Vocab,
+  unit9Vocab,
+  unit10Vocab,
+  unit11Vocab,
+  unit12Vocab
+} from './curriculumVocabData';
 
 export const fullCurriculumData: CurriculumModule = {
   id: 'moe-band1-full-suite',
@@ -18,14 +32,14 @@ export const fullCurriculumData: CurriculumModule = {
         'Overcome Hebrew zero-copula syntax by systematically applying "to be", "There is / There are", past simple, future intentions, and modals of obligation.',
         'Apply plural suffixes (-s, -es), 3rd person singular (-s), -ing aspect, and comparative degrees (-er, -est) with accurate subject-verb agreement.',
         'Form affirmative, negative, question inversions, and complex sentences with correct left-to-right mechanics.',
-        'Master 144+ high-frequency Ministry of Education Band I & Band II foundational words across 12 comprehensive units.'
+        'Master 320+ high-frequency Ministry of Education Band I & Band II foundational words across 12 comprehensive units.'
       ],
       he: [
         'שליטה במלכודות ההגייה של ישראלים: P מול F, B מול V, תנועות קצרות וארוכות, צליל TH, עיצורים שורקים (CH/SH), אותיות שקטות, סיומות -ed ותארי השוואה.',
         'התגברות על השמטת פועל עזר (Zero Copula) ושימוש מדויק ב-To Be, There is/are, עבר פשוט, עתיד ופעלי מודל (must, should, have to).',
         'הוספת סיומות ריבוי (-s, -es), הטיות גוף שלישי (-s), סיומות -ing והשוואות (-er, -est) עם התאם תקין.',
         'בניית משפטי חיווי, שלילה, שאלות ועמדות משמאל לימין תוך הקפדה על אותיות רישיות ופיסוק תקין.',
-        'שליטה ב-144+ מילות ליבה חיוניות מרשימות Band I ו-Band II של משרד החינוך ב-12 יחידות לימוד מקיפות.'
+        'שליטה ב-320+ מילות ליבה חיוניות מרשימות Band I ו-Band II של משרד החינוך ב-12 יחידות לימוד מקיפות.'
       ]
     },
     targetLinguisticGaps: [
@@ -321,20 +335,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-1', baseWord: 'play', targetSuffix: '-s', fullWord: 'plays', hebrewMeaning: 'משחק (הוא/היא)', ruleHintHe: 'מוסיפים s עם he/she/it' },
         { id: 'suf-2', baseWord: 'eat', targetSuffix: '-s', fullWord: 'eats', hebrewMeaning: 'אוכל (יחיד)', ruleHintHe: 'תוספת s ליחיד בהווה' }
       ],
-      vocabulary: [
-        { id: 'v1', word: 'Family', partOfSpeech: 'noun', hebrewTranslation: 'משפחה', ipa: '/ˈfæməli/', phoneticTrap: 'F', hebrewPhoneticTip: 'מתחיל ב-F (שיניים על שפה).', exampleSentenceEn: 'I love my family.', exampleSentenceHe: 'אני אוהב את המשפחה שלי.', band: 'Band I', category: 'משפחה' },
-        { id: 'v2', word: 'Park', partOfSpeech: 'noun', hebrewTranslation: 'פארק / גן ציבורי', ipa: '/pɑːrk/', phoneticTrap: 'P', hebrewPhoneticTip: 'מתחיל ב-P (שפתיים נסגרות).', exampleSentenceEn: 'Let us run to the park.', exampleSentenceHe: 'בואו נרוץ לפארק.', band: 'Band I', category: 'מקומות' },
-        { id: 'v3', word: 'Friend', partOfSpeech: 'noun', hebrewTranslation: 'חבר / חברה', ipa: '/frend/', phoneticTrap: 'F', hebrewPhoneticTip: 'מתחיל באות F (נשיפה רצופה).', exampleSentenceEn: 'Maya is my best friend.', exampleSentenceHe: 'מאיה היא החברה הכי טובה שלי.', band: 'Band I', category: 'אנשים' },
-        { id: 'v4', word: 'Happy', partOfSpeech: 'adjective', hebrewTranslation: 'שמח / מאושר', ipa: '/ˈhæpi/', phoneticTrap: 'P', hebrewPhoneticTip: 'אות P כפולה באמצע (פיצוץ שפתיים).', exampleSentenceEn: 'I am happy today.', exampleSentenceHe: 'אני שמח היום.', band: 'Band I', category: 'רגשות' },
-        { id: 'v1_5', word: 'Pencil', partOfSpeech: 'noun', hebrewTranslation: 'עיפרון', ipa: '/ˈpensəl/', phoneticTrap: 'P', hebrewPhoneticTip: 'מתחיל ב-P חזקה.', exampleSentenceEn: 'I write with a yellow pencil.', exampleSentenceHe: 'אני כותב בעיפרון צהוב.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v1_6', word: 'Picture', partOfSpeech: 'noun', hebrewTranslation: 'תמונה / ציור', ipa: '/ˈpɪktʃər/', phoneticTrap: 'P', hebrewPhoneticTip: 'P פותחת ותנועת i קצרה.', exampleSentenceEn: 'Look at this beautiful picture.', exampleSentenceHe: 'הביטו בתמונה היפה הזו.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v1_7', word: 'Father', partOfSpeech: 'noun', hebrewTranslation: 'אבא', ipa: '/ˈfɑːðər/', phoneticTrap: 'F', hebrewPhoneticTip: 'מתחיל ב-F ומסתיים ב-TH.', exampleSentenceEn: 'My father is a doctor.', exampleSentenceHe: 'אבא שלי הוא רופא.', band: 'Band I', category: 'משפחה' },
-        { id: 'v1_8', word: 'Flower', partOfSpeech: 'noun', hebrewTranslation: 'פרח', ipa: '/ˈflaʊər/', phoneticTrap: 'F', hebrewPhoneticTip: 'צליל FL פותח.', exampleSentenceEn: 'The red flower smells good.', exampleSentenceHe: 'הפרח האדום מריח נהדר.', band: 'Band I', category: 'טבע' },
-        { id: 'v1_9', word: 'Play', partOfSpeech: 'verb', hebrewTranslation: 'לשחק / לנגן', ipa: '/pleɪ/', phoneticTrap: 'P', hebrewPhoneticTip: 'שפתיים נצמדות ומתפרצות.', exampleSentenceEn: 'We play games together.', exampleSentenceHe: 'אנחנו משחקים במשחקים יחד.', band: 'Band I', category: 'פעולות' },
-        { id: 'v1_10', word: 'Food', partOfSpeech: 'noun', hebrewTranslation: 'אוכל / מזון', ipa: '/fuːd/', phoneticTrap: 'F', hebrewPhoneticTip: 'מתחיל ב-F ותנועת oo ארוכה.', exampleSentenceEn: 'Healthy food gives energy.', exampleSentenceHe: 'אוכל בריא מעניק אנרגיה.', band: 'Band I', category: 'אוכל' },
-        { id: 'v1_11', word: 'People', partOfSpeech: 'noun', hebrewTranslation: 'אנשים', ipa: '/ˈpiːpəl/', phoneticTrap: 'P', hebrewPhoneticTip: 'שתי אותיות P במילה אחת!', exampleSentenceEn: 'Many people live in the city.', exampleSentenceHe: 'אנשים רבים גרים בעיר.', band: 'Band I', category: 'אנשים' },
-        { id: 'v1_12', word: 'Fast', partOfSpeech: 'adjective', hebrewTranslation: 'מהיר', ipa: '/fæst/', phoneticTrap: 'F', hebrewPhoneticTip: 'נשיפת F שיניים-שפה.', exampleSentenceEn: 'The lion runs very fast.', exampleSentenceHe: 'האריה רץ מהר מאוד.', band: 'Band I', category: 'תכונות' }
-      ]
+      vocabulary: unit1Vocab
     },
 
     // ==========================================
@@ -555,20 +556,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-4', baseWord: 'jump', targetSuffix: '-ing', fullWord: 'jumping', hebrewMeaning: 'קופץ עכשיו', ruleHintHe: 'תוספת -ing פשוטה' },
         { id: 'suf-5', baseWord: 'swim', targetSuffix: '-ing', fullWord: 'swimming', hebrewMeaning: 'שוחה עכשיו', ruleHintHe: 'הכפלת m לפני -ing' }
       ],
-      vocabulary: [
-        { id: 'v5', word: 'Banana', partOfSpeech: 'noun', hebrewTranslation: 'בננה', ipa: '/bəˈnænə/', phoneticTrap: 'B', hebrewPhoneticTip: 'אות B חזקה עם שתי שפתיים.', exampleSentenceEn: 'The monkey eats a sweet banana.', exampleSentenceHe: 'הקוף אוכל בננה מתוקה.', band: 'Band I', category: 'אוכל' },
-        { id: 'v6', word: 'Very', partOfSpeech: 'adjective', hebrewTranslation: 'מאוד', ipa: '/ˈveri/', phoneticTrap: 'V', hebrewPhoneticTip: 'מתחיל באות V (שיניים על שפה תחתונה).', exampleSentenceEn: 'It is very cold outside.', exampleSentenceHe: 'קר מאוד בחוץ.', band: 'Band I', category: 'תכונות' },
-        { id: 'v7', word: 'Run', partOfSpeech: 'verb', hebrewTranslation: 'לרוץ', ipa: '/rʌn/', exampleSentenceEn: 'The children run fast in the yard.', exampleSentenceHe: 'הילדים רצים מהר בחצר.', band: 'Band I', category: 'פעולות' },
-        { id: 'v8', word: 'Read', partOfSpeech: 'verb', hebrewTranslation: 'לקרוא', ipa: '/riːd/', exampleSentenceEn: 'I read interesting English stories.', exampleSentenceHe: 'אני קורא סיפורים מעניינים באנגלית.', band: 'Band I', category: 'פעולות' },
-        { id: 'v2_9', word: 'Brother', partOfSpeech: 'noun', hebrewTranslation: 'אח', ipa: '/ˈbrʌðər/', phoneticTrap: 'B', hebrewPhoneticTip: 'מתחיל ב-B רטט שפתיים.', exampleSentenceEn: 'My brother plays football.', exampleSentenceHe: 'אחי משחק כדורגל.', band: 'Band I', category: 'משפחה' },
-        { id: 'v2_10', word: 'Boy', partOfSpeech: 'noun', hebrewTranslation: 'ילד / נער', ipa: '/bɔɪ/', phoneticTrap: 'B', hebrewPhoneticTip: 'B פותחת חזקה.', exampleSentenceEn: 'The boy is singing a song.', exampleSentenceHe: 'הילד שר שיר.', band: 'Band I', category: 'אנשים' },
-        { id: 'v2_11', word: 'Bird', partOfSpeech: 'noun', hebrewTranslation: 'ציפור', ipa: '/bɜːrd/', phoneticTrap: 'B', hebrewPhoneticTip: 'B פותחת רטט שפתיים.', exampleSentenceEn: 'The blue bird flies high.', exampleSentenceHe: 'הציפור הכחולה עפה גבוה.', band: 'Band I', category: 'חיות' },
-        { id: 'v2_12', word: 'Blue', partOfSpeech: 'adjective', hebrewTranslation: 'כחול', ipa: '/bluː/', phoneticTrap: 'B', hebrewPhoneticTip: 'צליל BL פותח.', exampleSentenceEn: 'The sky is clear and blue.', exampleSentenceHe: 'השמיים בהירים וכחולים.', band: 'Band I', category: 'צבעים' },
-        { id: 'v2_13', word: 'Village', partOfSpeech: 'noun', hebrewTranslation: 'כפר', ipa: '/ˈvɪlɪdʒ/', phoneticTrap: 'V', hebrewPhoneticTip: 'אות V פותחת בנשיפה.', exampleSentenceEn: 'My grandmother lives in a small village.', exampleSentenceHe: 'סבתא שלי גרה בכפר קטן.', band: 'Band I', category: 'מקומות' },
-        { id: 'v2_14', word: 'Vegetable', partOfSpeech: 'noun', hebrewTranslation: 'ירק', ipa: '/ˈvedʒtəbəl/', phoneticTrap: 'V', hebrewPhoneticTip: 'שיניים על שפה ב-V.', exampleSentenceEn: 'Carrot is a healthy vegetable.', exampleSentenceHe: 'גזר הוא ירק בריא.', band: 'Band I', category: 'אוכל' },
-        { id: 'v2_15', word: 'Visit', partOfSpeech: 'verb', hebrewTranslation: 'לבקר (מישהו)', ipa: '/ˈvɪzɪt/', phoneticTrap: 'V', hebrewPhoneticTip: 'נשיפת V בשיניים.', exampleSentenceEn: 'We visit our friends on Friday.', exampleSentenceHe: 'אנחנו מבקרים את החברים שלנו ביום שישי.', band: 'Band I', category: 'פעולות' },
-        { id: 'v2_16', word: 'Voice', partOfSpeech: 'noun', hebrewTranslation: 'קול', ipa: '/vɔɪs/', phoneticTrap: 'V', hebrewPhoneticTip: 'צליל V פותח.', exampleSentenceEn: 'She has a beautiful singing voice.', exampleSentenceHe: 'יש לה קול שירה יפה.', band: 'Band I', category: 'גוף' }
-      ]
+      vocabulary: unit2Vocab
     },
 
     // ==========================================
@@ -716,20 +704,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-7', baseWord: 'box', targetSuffix: '-es', fullWord: 'boxes', hebrewMeaning: 'קופסאות', ruleHintHe: 'אחרי x מוסיפים es' },
         { id: 'suf-8', baseWord: 'watch', targetSuffix: '-es', fullWord: 'watches', hebrewMeaning: 'שעונים', ruleHintHe: 'אחרי ch מוסיפים es' }
       ],
-      vocabulary: [
-        { id: 'v9', word: 'Child', partOfSpeech: 'noun', hebrewTranslation: 'ילד / ילדה (יחיד)', ipa: '/tʃaɪld/', exampleSentenceEn: 'The child is smiling.', exampleSentenceHe: 'הילד מחייך.', band: 'Band I', category: 'אנשים' },
-        { id: 'v10', word: 'Children', partOfSpeech: 'noun', hebrewTranslation: 'ילדים (רבים יוצא דופן!)', ipa: '/ˈtʃɪldrən/', exampleSentenceEn: 'The children play football together.', exampleSentenceHe: 'הילדים משחקים כדורגל יחד.', band: 'Band I', category: 'אנשים' },
-        { id: 'v11', word: 'Book', partOfSpeech: 'noun', hebrewTranslation: 'ספר', ipa: '/bʊk/', exampleSentenceEn: 'Open your English book.', exampleSentenceHe: 'פתחו את ספר האנגלית שלכם.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v3_4', word: 'Box', partOfSpeech: 'noun', hebrewTranslation: 'קופסה (רבים: boxes)', ipa: '/bɒks/', exampleSentenceEn: 'What is inside the big box?', exampleSentenceHe: 'מה יש בתוך הקופסה הגדולה?', band: 'Band I', category: 'חפצים' },
-        { id: 'v3_5', word: 'Fish', partOfSpeech: 'noun', hebrewTranslation: 'דג (תנועת i קצרה)', ipa: '/fɪʃ/', phoneticTrap: 'short_vowel', hebrewPhoneticTip: 'חיריק חטוף קצר.', exampleSentenceEn: 'The gold fish swims in water.', exampleSentenceHe: 'דג הזהב שוחה במים.', band: 'Band I', category: 'חיות' },
-        { id: 'v3_6', word: 'Sheep', partOfSpeech: 'noun', hebrewTranslation: 'כבשה (תנועת ee ארוכה)', ipa: '/ʃiːp/', phoneticTrap: 'short_vowel', hebrewPhoneticTip: 'תנועת אי מתוחה כמו חיוך.', exampleSentenceEn: 'The white sheep eats green grass.', exampleSentenceHe: 'הכבשה הלבנה אוכלת עשב ירוק.', band: 'Band I', category: 'חיות' },
-        { id: 'v3_7', word: 'Ship', partOfSpeech: 'noun', hebrewTranslation: 'אונייה / ספינה (תנועה קצרה)', ipa: '/ʃɪp/', phoneticTrap: 'short_vowel', hebrewPhoneticTip: 'תנועת אי קצרה וחטופה.', exampleSentenceEn: 'The ship travels on the blue sea.', exampleSentenceHe: 'האונייה מפליגה בים הכחול.', band: 'Band I', category: 'כלי תחבורה' },
-        { id: 'v3_8', word: 'Tree', partOfSpeech: 'noun', hebrewTranslation: 'עץ', ipa: '/triː/', exampleSentenceEn: 'Apples grow on the apple tree.', exampleSentenceHe: 'תפוחים גדלים על עץ התפוח.', band: 'Band I', category: 'טבע' },
-        { id: 'v3_9', word: 'Green', partOfSpeech: 'adjective', hebrewTranslation: 'ירוק', ipa: '/ɡriːn/', exampleSentenceEn: 'The frog is bright green.', exampleSentenceHe: 'הצפרדע ירוקה וזוהרת.', band: 'Band I', category: 'צבעים' },
-        { id: 'v3_10', word: 'Foot', partOfSpeech: 'noun', hebrewTranslation: 'כף רגל (יחיד)', ipa: '/fʊt/', exampleSentenceEn: 'He hurt his right foot.', exampleSentenceHe: 'הוא קיבל מכה בכף רגלו הימנית.', band: 'Band I', category: 'גוף' },
-        { id: 'v3_11', word: 'Feet', partOfSpeech: 'noun', hebrewTranslation: 'כפות רגליים (רבים יוצא דופן!)', ipa: '/fiːt/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'I have two strong feet.', exampleSentenceHe: 'יש לי שתי רגליים חזקות.', band: 'Band I', category: 'גוף' },
-        { id: 'v3_12', word: 'Sleep', partOfSpeech: 'verb', hebrewTranslation: 'לישון (תנועה ארוכה)', ipa: '/sliːp/', exampleSentenceEn: 'Babies sleep many hours.', exampleSentenceHe: 'תינוקות ישנים שעות רבות.', band: 'Band I', category: 'פעולות' }
-      ]
+      vocabulary: unit3Vocab
     },
 
     // ==========================================
@@ -875,20 +850,7 @@ export const fullCurriculumData: CurriculumModule = {
       suffixItems: [
         { id: 'suf-9', baseWord: 'ask', targetSuffix: '-s', fullWord: 'asks', hebrewMeaning: 'שואל (יחיד)', ruleHintHe: 'הוספת s לשאלות בהווה' }
       ],
-      vocabulary: [
-        { id: 'v12', word: 'Three', partOfSpeech: 'noun', hebrewTranslation: 'שלוש (3)', ipa: '/θriː/', phoneticTrap: 'TH', hebrewPhoneticTip: 'אותיות TH עם לשון בין השיניים (לא ס׳ ולא ת׳).', exampleSentenceEn: 'I have three red pencils.', exampleSentenceHe: 'יש לי שלושה עפרונות אדומים.', band: 'Band I', category: 'מספרים' },
-        { id: 'v13', word: 'Where', partOfSpeech: 'pronoun', hebrewTranslation: 'איפה / להיכן', ipa: '/weər/', exampleSentenceEn: 'Where is my friend Maya?', exampleSentenceHe: 'איפה החברה שלי מאיה?', band: 'Band I', category: 'שאלות' },
-        { id: 'v14', word: 'Thank you', partOfSpeech: 'verb', hebrewTranslation: 'תודה רבה', ipa: '/ˈθæŋk juː/', phoneticTrap: 'TH', hebrewPhoneticTip: 'צליל TH עדין עם הוצאת לשון.', exampleSentenceEn: 'Thank you very much for helping me.', exampleSentenceHe: 'תודה רבה לך על העזרה.', band: 'Band I', category: 'נימוסים' },
-        { id: 'v4_4', word: 'This', partOfSpeech: 'pronoun', hebrewTranslation: 'זה / זו (קרוב)', ipa: '/ðɪs/', phoneticTrap: 'TH', hebrewPhoneticTip: 'צליל TH קולי (כמו דלת עם לשון).', exampleSentenceEn: 'This is my favorite game.', exampleSentenceHe: 'זהו המשחק האהוב עלי.', band: 'Band I', category: 'כינויי גוף' },
-        { id: 'v4_5', word: 'That', partOfSpeech: 'pronoun', hebrewTranslation: 'ההוא / ההיא (רחוק)', ipa: '/ðæt/', phoneticTrap: 'TH', hebrewPhoneticTip: 'צליל TH קולי.', exampleSentenceEn: 'That bird is flying high.', exampleSentenceHe: 'הציפור ההיא עפה גבוה.', band: 'Band I', category: 'כינויי גוף' },
-        { id: 'v4_6', word: 'Mother', partOfSpeech: 'noun', hebrewTranslation: 'אמא', ipa: '/ˈmʌðər/', phoneticTrap: 'TH', hebrewPhoneticTip: 'אותיות TH באמצע המילה.', exampleSentenceEn: 'My mother is reading a book.', exampleSentenceHe: 'אמא שלי קוראת ספר.', band: 'Band I', category: 'משפחה' },
-        { id: 'v4_7', word: 'Brother', partOfSpeech: 'noun', hebrewTranslation: 'אח', ipa: '/ˈbrʌðər/', phoneticTrap: 'TH', hebrewPhoneticTip: 'אותיות TH באמצע.', exampleSentenceEn: 'I help my little brother.', exampleSentenceHe: 'אני עוזר לאחי הקטן.', band: 'Band I', category: 'משפחה' },
-        { id: 'v4_8', word: 'What', partOfSpeech: 'pronoun', hebrewTranslation: 'מה / איזה', ipa: '/wɒt/', exampleSentenceEn: 'What is your name?', exampleSentenceHe: 'מה שמך?', band: 'Band I', category: 'שאלות' },
-        { id: 'v4_9', word: 'Who', partOfSpeech: 'pronoun', hebrewTranslation: 'מי', ipa: '/huː/', exampleSentenceEn: 'Who is at the door?', exampleSentenceHe: 'מי נמצא ליד הדלת?', band: 'Band I', category: 'שאלות' },
-        { id: 'v4_10', word: 'When', partOfSpeech: 'pronoun', hebrewTranslation: 'מתי', ipa: '/wen/', exampleSentenceEn: 'When do we go home?', exampleSentenceHe: 'מתי אנחנו הולכים הביתה?', band: 'Band I', category: 'שאלות' },
-        { id: 'v4_11', word: 'Think', partOfSpeech: 'verb', hebrewTranslation: 'לחשוב', ipa: '/θɪŋk/', phoneticTrap: 'TH', hebrewPhoneticTip: 'הוצאת לשון קלה ב-TH.', exampleSentenceEn: 'I think English is fun.', exampleSentenceHe: 'אני חושב שאנגלית זה כיף.', band: 'Band I', category: 'פעולות' },
-        { id: 'v4_12', word: 'Thin', partOfSpeech: 'adjective', hebrewTranslation: 'רזה / דק', ipa: '/θɪn/', phoneticTrap: 'TH', hebrewPhoneticTip: 'צליל TH עדין ותנועת i קצרה.', exampleSentenceEn: 'This notebook is thin.', exampleSentenceHe: 'המחברת הזו דקה.', band: 'Band I', category: 'תכונות' }
-      ]
+      vocabulary: unit4Vocab
     },
 
     // ==========================================
@@ -1035,20 +997,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-10', baseWord: 'write', targetSuffix: '-s', fullWord: 'writes', hebrewMeaning: 'כותב (יחיד)', ruleHintHe: 'הוספת s לפועל שמסתיים ב-e' },
         { id: 'suf-11', baseWord: 'teach', targetSuffix: '-es', fullWord: 'teaches', hebrewMeaning: 'מלמד (יחיד)', ruleHintHe: 'אחרי ch מוסיפים es' }
       ],
-      vocabulary: [
-        { id: 'v5_1', word: 'School', partOfSpeech: 'noun', hebrewTranslation: 'בית ספר', ipa: '/skuːl/', exampleSentenceEn: 'I walk to school every morning.', exampleSentenceHe: 'אני הולך לבית הספר בכל בוקר.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_2', word: 'Teacher', partOfSpeech: 'noun', hebrewTranslation: 'מורה', ipa: '/ˈtiːtʃər/', exampleSentenceEn: 'Our teacher explains the lesson clearly.', exampleSentenceHe: 'המורה שלנו מסביר את השיעור בבהירות.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_3', word: 'Classroom', partOfSpeech: 'noun', hebrewTranslation: 'כיתת לימוד', ipa: '/ˈklɑːsruːm/', exampleSentenceEn: 'Our classroom has sunny windows.', exampleSentenceHe: 'בכיתה שלנו יש חלונות שטופי שמש.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_4', word: 'Desk', partOfSpeech: 'noun', hebrewTranslation: 'שולחן כתיבה / שולחן תלמיד', ipa: '/desk/', exampleSentenceEn: 'Put your books on the wooden desk.', exampleSentenceHe: 'שימו את הספרים על שולחן העץ.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_5', word: 'Bag', partOfSpeech: 'noun', hebrewTranslation: 'תיק / ילקוט', ipa: '/bæɡ/', exampleSentenceEn: 'My school bag is blue and black.', exampleSentenceHe: 'תיק בית הספר שלי כחול ושחור.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_6', word: 'Ruler', partOfSpeech: 'noun', hebrewTranslation: 'סרגל', ipa: '/ˈruːlər/', exampleSentenceEn: 'Draw a straight line with a ruler.', exampleSentenceHe: 'ציירו קו ישר בעזרת סרגל.', band: 'Band I', category: 'בית ספר' },
-        { id: 'v5_7', word: 'White', partOfSpeech: 'adjective', hebrewTranslation: 'לבן', ipa: '/waɪt/', exampleSentenceEn: 'The clouds are fluffy and white.', exampleSentenceHe: 'העננים רכים ולבנים.', band: 'Band I', category: 'צבעים' },
-        { id: 'v5_8', word: 'Black', partOfSpeech: 'adjective', hebrewTranslation: 'שחור', ipa: '/blæk/', exampleSentenceEn: 'The cat has black fur.', exampleSentenceHe: 'לחתול יש פרווה שחורה.', band: 'Band I', category: 'צבעים' },
-        { id: 'v5_9', word: 'Yellow', partOfSpeech: 'adjective', hebrewTranslation: 'צהוב', ipa: '/ˈjeləʊ/', exampleSentenceEn: 'The warm sun is yellow.', exampleSentenceHe: 'השמש החמימה צהובה.', band: 'Band I', category: 'צבעים' },
-        { id: 'v5_10', word: 'Red', partOfSpeech: 'adjective', hebrewTranslation: 'אדום', ipa: '/red/', exampleSentenceEn: 'She picked a ripe red apple.', exampleSentenceHe: 'היא קטפה תפוח אדום ובשל.', band: 'Band I', category: 'צבעים' },
-        { id: 'v5_11', word: 'Write', partOfSpeech: 'verb', hebrewTranslation: 'לכתוב (עם E שקטה)', ipa: '/raɪt/', phoneticTrap: 'magic_e', exampleSentenceEn: 'Please write your name in English.', exampleSentenceHe: 'אנא כתבו את שמכם באנגלית.', band: 'Band I', category: 'פעולות' },
-        { id: 'v5_12', word: 'Listen', partOfSpeech: 'verb', hebrewTranslation: 'להקשיב / להאזין', ipa: '/ˈlɪsən/', exampleSentenceEn: 'Listen carefully to the teacher.', exampleSentenceHe: 'הקשיבו היטב למורה.', band: 'Band I', category: 'פעולות' }
-      ]
+      vocabulary: unit5Vocab
     },
 
     // ==========================================
@@ -1158,20 +1107,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-12', baseWord: 'drink', targetSuffix: '-s', fullWord: 'drinks', hebrewMeaning: 'שותה (יחיד)', ruleHintHe: 'הוספת s להרגל של יחיד' },
         { id: 'suf-13', baseWord: 'sleep', targetSuffix: '-s', fullWord: 'sleeps', hebrewMeaning: 'ישן (יחיד)', ruleHintHe: 'הוספת s ליחיד בהווה' }
       ],
-      vocabulary: [
-        { id: 'v6_1', word: 'Lion', partOfSpeech: 'noun', hebrewTranslation: 'אריה', ipa: '/ˈlaɪən/', exampleSentenceEn: 'The lion is king of the jungle.', exampleSentenceHe: 'האריה הוא מלך הג׳ונגל.', band: 'Band I', category: 'חיות' },
-        { id: 'v6_2', word: 'Elephant', partOfSpeech: 'noun', hebrewTranslation: 'פיל', ipa: '/ˈelɪfənt/', phoneticTrap: 'F', hebrewPhoneticTip: 'אותיות ph נשמעות כמו F.', exampleSentenceEn: 'An elephant has large ears.', exampleSentenceHe: 'לפיל יש אוזניים גדולות.', band: 'Band I', category: 'חיות' },
-        { id: 'v6_3', word: 'Monkey', partOfSpeech: 'noun', hebrewTranslation: 'קוף', ipa: '/ˈmʌŋki/', exampleSentenceEn: 'The monkey climbs the green tree.', exampleSentenceHe: 'הקוף מטפס על העץ הירוק.', band: 'Band I', category: 'חיות' },
-        { id: 'v6_4', word: 'Zebra', partOfSpeech: 'noun', hebrewTranslation: 'זברה', ipa: '/ˈzebrə/', exampleSentenceEn: 'A zebra has black and white stripes.', exampleSentenceHe: 'לזברה יש פסים שחורים ולבנים.', band: 'Band I', category: 'חיות' },
-        { id: 'v6_5', word: 'Water', partOfSpeech: 'noun', hebrewTranslation: 'מים', ipa: '/ˈwɔːtər/', exampleSentenceEn: 'Drink clean fresh water.', exampleSentenceHe: 'שתו מים טריים ונקיים.', band: 'Band I', category: 'אוכל' },
-        { id: 'v6_6', word: 'Morning', partOfSpeech: 'noun', hebrewTranslation: 'בוקר', ipa: '/ˈmɔːrnɪŋ/', exampleSentenceEn: 'Good morning to all students.', exampleSentenceHe: 'בוקר טוב לכל התלמידים.', band: 'Band I', category: 'זמן' },
-        { id: 'v6_7', word: 'Night', partOfSpeech: 'noun', hebrewTranslation: 'לילה', ipa: '/naɪt/', exampleSentenceEn: 'Stars shine in the dark night.', exampleSentenceHe: 'כוכבים זורחים בלילה החשוך.', band: 'Band I', category: 'זמן' },
-        { id: 'v6_8', word: 'Drink', partOfSpeech: 'verb', hebrewTranslation: 'לשתות', ipa: '/drɪŋk/', exampleSentenceEn: 'I drink orange juice for breakfast.', exampleSentenceHe: 'אני שותה מיץ תפוזים לארוחת בוקר.', band: 'Band I', category: 'פעולות' },
-        { id: 'v6_9', word: 'Walk', partOfSpeech: 'verb', hebrewTranslation: 'ללכת ברגל', ipa: '/wɔːk/', exampleSentenceEn: 'We walk together in the park.', exampleSentenceHe: 'אנחנו הולכים יחד בפארק.', band: 'Band I', category: 'פעולות' },
-        { id: 'v6_10', word: 'Sun', partOfSpeech: 'noun', hebrewTranslation: 'שמש', ipa: '/sʌn/', exampleSentenceEn: 'The sun rises in the morning.', exampleSentenceHe: 'השמש זורחת בבוקר.', band: 'Band I', category: 'טבע' },
-        { id: 'v6_11', word: 'Big', partOfSpeech: 'adjective', hebrewTranslation: 'גדול', ipa: '/bɪɡ/', phoneticTrap: 'B', exampleSentenceEn: 'The elephant is very big.', exampleSentenceHe: 'הפיל גדול מאוד.', band: 'Band I', category: 'תכונות' },
-        { id: 'v6_12', word: 'Small', partOfSpeech: 'adjective', hebrewTranslation: 'קטן', ipa: '/smɔːl/', exampleSentenceEn: 'The mouse is very small.', exampleSentenceHe: 'העכבר קטן מאוד.', band: 'Band I', category: 'תכונות' }
-      ]
+      vocabulary: unit6Vocab
     },
 
     // ==========================================
@@ -1321,20 +1257,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-15', baseWord: 'peach', targetSuffix: '-es', fullWord: 'peaches', hebrewMeaning: 'אפרסקים (ריבוי)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
         { id: 'suf-16', baseWord: 'cook', targetSuffix: '-ing', fullWord: 'cooking', hebrewMeaning: 'מבשל עכשיו', ruleHintHe: 'תוספת ing לפעולה המתרחשת כרגע' }
       ],
-      vocabulary: [
-        { id: 'v7_1', word: 'Bread', partOfSpeech: 'noun', hebrewTranslation: 'לחם', ipa: '/bred/', phoneticTrap: 'B', hebrewPhoneticTip: 'B פותחת חזקה עם שפתיים.', exampleSentenceEn: 'We eat warm bread with butter.', exampleSentenceHe: 'אנחנו אוכלים לחם חם עם חמאה.', band: 'Band I', category: 'אוכל' },
-        { id: 'v7_2', word: 'Cheese', partOfSpeech: 'noun', hebrewTranslation: 'גבינה', ipa: '/tʃiːz/', hebrewPhoneticTip: 'צליל CH פותח וסיומת S שנשמעת כמו Z.', exampleSentenceEn: 'Yellow cheese is delicious in a toast.', exampleSentenceHe: 'גבינה צהובה טעימה מאוד בטוסט.', band: 'Band I', category: 'אוכל' },
-        { id: 'v7_3', word: 'Milk', partOfSpeech: 'noun', hebrewTranslation: 'חלב', ipa: '/mɪlk/', exampleSentenceEn: 'A glass of cold milk is healthy.', exampleSentenceHe: 'כוס חלב קר היא בריאה.', band: 'Band I', category: 'אוכל' },
-        { id: 'v7_4', word: 'Egg', partOfSpeech: 'noun', hebrewTranslation: 'ביצה', ipa: '/eɡ/', exampleSentenceEn: 'I eat an egg for breakfast.', exampleSentenceHe: 'אני אוכל ביצה לארוחת בוקר.', band: 'Band I', category: 'אוכל' },
-        { id: 'v7_5', word: 'Apple', partOfSpeech: 'noun', hebrewTranslation: 'תפוח', ipa: '/ˈæpəl/', phoneticTrap: 'P', hebrewPhoneticTip: 'אות P כפולה באמצע עם פיצוץ שפתיים.', exampleSentenceEn: 'A sweet red apple fell from the tree.', exampleSentenceHe: 'תפוח אדום ומתוק נפל מהעץ.', band: 'Band I', category: 'אוכל' },
-        { id: 'v7_6', word: 'Kitchen', partOfSpeech: 'noun', hebrewTranslation: 'מטבח', ipa: '/ˈkɪtʃɪn/', hebrewPhoneticTip: 'אותיות tch נשמעות כמו צ׳ (ch).', exampleSentenceEn: 'Mother cooks dinner in the kitchen.', exampleSentenceHe: 'אמא מבשלת ארוחת ערב במטבח.', band: 'Band I', category: 'בית' },
-        { id: 'v7_7', word: 'Weather', partOfSpeech: 'noun', hebrewTranslation: 'מזג אוויר', ipa: '/ˈweðər/', phoneticTrap: 'TH', hebrewPhoneticTip: 'אותיות th מבוטאות עם לשון בין השיניים.', exampleSentenceEn: 'The weather today is sunny and pleasant.', exampleSentenceHe: 'מזג האוויר היום שמשי ונעים.', band: 'Band I', category: 'טבע' },
-        { id: 'v7_8', word: 'Rainy', partOfSpeech: 'adjective', hebrewTranslation: 'גשום', ipa: '/ˈreɪni/', exampleSentenceEn: 'Take an umbrella on a rainy day.', exampleSentenceHe: 'קחו מטריה ביום גשום.', band: 'Band I', category: 'טבע' },
-        { id: 'v7_9', word: 'Sunny', partOfSpeech: 'adjective', hebrewTranslation: 'שמשי', ipa: '/ˈsʌni/', exampleSentenceEn: 'It is a warm sunny afternoon.', exampleSentenceHe: 'זהו אחר צהריים שמשי וחם.', band: 'Band I', category: 'טבע' },
-        { id: 'v7_10', word: 'Cold', partOfSpeech: 'adjective', hebrewTranslation: 'קר', ipa: '/koʊld/', exampleSentenceEn: 'In winter it is very cold outside.', exampleSentenceHe: 'בחורף קר מאוד בחוץ.', band: 'Band I', category: 'תכונות' },
-        { id: 'v7_11', word: 'Hot', partOfSpeech: 'adjective', hebrewTranslation: 'חם', ipa: '/hɒt/', exampleSentenceEn: 'Be careful, the soup is very hot.', exampleSentenceHe: 'היזהרו, המרק חם מאוד.', band: 'Band I', category: 'תכונות' },
-        { id: 'v7_12', word: 'Cook', partOfSpeech: 'verb', hebrewTranslation: 'לבשל', ipa: '/kʊk/', exampleSentenceEn: 'We cook healthy food together.', exampleSentenceHe: 'אנחנו מבשלים אוכל בריא יחד.', band: 'Band I', category: 'פעולות' }
-      ]
+      vocabulary: unit7Vocab
     },
 
     // ==========================================
@@ -1487,20 +1410,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-18', baseWord: 'bus', targetSuffix: '-es', fullWord: 'buses', hebrewMeaning: 'אוטובוסים (ריבוי)', ruleHintHe: 'אחרי אות s מוסיפים es' },
         { id: 'suf-19', baseWord: 'drive', targetSuffix: '-ing', fullWord: 'driving', hebrewMeaning: 'נוהג עכשיו', ruleHintHe: 'משמיטים את ה-e הסופית ומוסיפים ing' }
       ],
-      vocabulary: [
-        { id: 'v8_1', word: 'Hospital', partOfSpeech: 'noun', hebrewTranslation: 'בית חולים', ipa: '/ˈhɒspɪtəl/', exampleSentenceEn: 'Doctors work at the hospital.', exampleSentenceHe: 'רופאים עובדים בבית החולים.', band: 'Band I', category: 'מקומות' },
-        { id: 'v8_2', word: 'Library', partOfSpeech: 'noun', hebrewTranslation: 'ספרייה', ipa: '/ˈlaɪbrəri/', exampleSentenceEn: 'We read quiet books at the library.', exampleSentenceHe: 'אנחנו קוראים ספרים בשקט בספרייה.', band: 'Band I', category: 'מקומות' },
-        { id: 'v8_3', word: 'Bank', partOfSpeech: 'noun', hebrewTranslation: 'בנק', ipa: '/bæŋk/', phoneticTrap: 'B', exampleSentenceEn: 'The bank opens in the morning.', exampleSentenceHe: 'הבנק נפתח בבוקר.', band: 'Band I', category: 'מקומות' },
-        { id: 'v8_4', word: 'Street', partOfSpeech: 'noun', hebrewTranslation: 'רחוב', ipa: '/striːt/', exampleSentenceEn: 'Look both ways before crossing the street.', exampleSentenceHe: 'הביטו לשני הצדדים לפני שחוצים את הרחוב.', band: 'Band I', category: 'מקומות' },
-        { id: 'v8_5', word: 'Doctor', partOfSpeech: 'noun', hebrewTranslation: 'רופא / רופאה', ipa: '/ˈdɒktər/', exampleSentenceEn: 'The kind doctor helps sick patients.', exampleSentenceHe: 'הרופא האדיב עוזר לחולים.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v8_6', word: 'Nurse', partOfSpeech: 'noun', hebrewTranslation: 'אח / אחות רפואית', ipa: '/nɜːrs/', exampleSentenceEn: 'The nurse smiles at the child.', exampleSentenceHe: 'האחות מחייכת אל הילד.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v8_7', word: 'Firefighter', partOfSpeech: 'noun', hebrewTranslation: 'לוחם אש / כבאי', ipa: '/ˈfaɪərfaɪtər/', phoneticTrap: 'F', exampleSentenceEn: 'A brave firefighter puts out fires.', exampleSentenceHe: 'לוחם אש אמיץ מכבה שריפות.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v8_8', word: 'Teacher', partOfSpeech: 'noun', hebrewTranslation: 'מורה', ipa: '/ˈtiːtʃər/', hebrewPhoneticTip: 'צליל ch באמצע נהגה כ-צ׳.', exampleSentenceEn: 'Our teacher teaches English well.', exampleSentenceHe: 'המורה שלנו מלמדת אנגלית היטב.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v8_9', word: 'Driver', partOfSpeech: 'noun', hebrewTranslation: 'נהג / נהגת', ipa: '/ˈdraɪvər/', phoneticTrap: 'V', hebrewPhoneticTip: 'אות V שיניים על שפה רוטטת.', exampleSentenceEn: 'The bus driver stops at the station.', exampleSentenceHe: 'נהג האוטובוס עוצר בתחנה.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v8_10', word: 'Between', partOfSpeech: 'preposition', hebrewTranslation: 'בין (שני דברים)', ipa: '/bɪˈtwiːn/', phoneticTrap: 'B', exampleSentenceEn: 'The park is between the school and mall.', exampleSentenceHe: 'הפארק נמצא בין בית הספר לקניון.', band: 'Band I', category: 'מיקום' },
-        { id: 'v8_11', word: 'Behind', partOfSpeech: 'preposition', hebrewTranslation: 'מאחורי', ipa: '/bɪˈhaɪnd/', phoneticTrap: 'B', exampleSentenceEn: 'The garden is behind our house.', exampleSentenceHe: 'הגינה נמצאת מאחורי הבית שלנו.', band: 'Band I', category: 'מיקום' },
-        { id: 'v8_12', word: 'City', partOfSpeech: 'noun', hebrewTranslation: 'עיר', ipa: '/ˈsɪti/', hebrewPhoneticTip: 'C רכה שנשמעת כמו סמ״ך!', exampleSentenceEn: 'Jerusalem is an ancient city.', exampleSentenceHe: 'ירושלים היא עיר עתיקה.', band: 'Band I', category: 'מקומות' }
-      ]
+      vocabulary: unit8Vocab
     },
 
     // ==========================================
@@ -1650,20 +1560,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-21', baseWord: 'watch', targetSuffix: '-es', fullWord: 'watches', hebrewMeaning: 'צופה (יחיד)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
         { id: 'suf-22', baseWord: 'play', targetSuffix: '-ing', fullWord: 'playing', hebrewMeaning: 'משחק כעת', ruleHintHe: 'תוספת ing לפעולה ממושכת' }
       ],
-      vocabulary: [
-        { id: 'v9_1', word: 'Yesterday', partOfSpeech: 'noun', hebrewTranslation: 'אתמול', ipa: '/ˈjestərdeɪ/', exampleSentenceEn: 'Yesterday we had a fun picnic.', exampleSentenceHe: 'אתמול היה לנו פיקניק מהנה.', band: 'Band I', category: 'זמן' },
-        { id: 'v9_2', word: 'Ago', partOfSpeech: 'preposition', hebrewTranslation: 'לפני (זמן מה)', ipa: '/əˈɡoʊ/', exampleSentenceEn: 'Two days ago I visited my grandma.', exampleSentenceHe: 'לפני יומיים ביקרתי את סבתא שלי.', band: 'Band I', category: 'זמן' },
-        { id: 'v9_3', word: 'Visited', partOfSpeech: 'verb', hebrewTranslation: 'ביקר (בעבר)', ipa: '/ˈvɪzɪtɪd/', phoneticTrap: 'V', exampleSentenceEn: 'We visited the ancient castle.', exampleSentenceHe: 'ביקרנו בטירה העתיקה.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_4', word: 'Played', partOfSpeech: 'verb', hebrewTranslation: 'שיחק (בעבר)', ipa: '/pleɪd/', phoneticTrap: 'P', exampleSentenceEn: 'They played basketball together.', exampleSentenceHe: 'הם שיחקו כדורסל יחד.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_5', word: 'Watched', partOfSpeech: 'verb', hebrewTranslation: 'צפה (בעבר)', ipa: '/wɒtʃt/', exampleSentenceEn: 'She watched the stars last night.', exampleSentenceHe: 'היא צפתה בכוכבים אמש.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_6', word: 'Went', partOfSpeech: 'verb', hebrewTranslation: 'הלך (עבר של go)', ipa: '/went/', exampleSentenceEn: 'He went to school on foot.', exampleSentenceHe: 'הוא הלך לבית הספר ברגל.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_7', word: 'Saw', partOfSpeech: 'verb', hebrewTranslation: 'ראה (עבר של see)', ipa: '/sɔː/', exampleSentenceEn: 'I saw a colorful rainbow.', exampleSentenceHe: 'ראיתי קשת צבעונית.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_8', word: 'Ate', partOfSpeech: 'verb', hebrewTranslation: 'אכל (עבר של eat)', ipa: '/eɪt/', exampleSentenceEn: 'We ate delicious chocolate cake.', exampleSentenceHe: 'אכלנו עוגת שוקולד טעימה.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_9', word: 'Had', partOfSpeech: 'verb', hebrewTranslation: 'היה לו (עבר של have)', ipa: '/hæd/', exampleSentenceEn: 'They had a wonderful vacation.', exampleSentenceHe: 'הייתה להם חופשה נפלאה.', band: 'Band I', category: 'פעולות' },
-        { id: 'v9_10', word: 'Story', partOfSpeech: 'noun', hebrewTranslation: 'סיפור', ipa: '/ˈstɔːri/', exampleSentenceEn: 'Grandpa told us an exciting story.', exampleSentenceHe: 'סבא סיפר לנו סיפור מרתק.', band: 'Band I', category: 'שונות' },
-        { id: 'v9_11', word: 'Museum', partOfSpeech: 'noun', hebrewTranslation: 'מוזיאון', ipa: '/mjuːˈziːəm/', exampleSentenceEn: 'The museum has dinosaur bones.', exampleSentenceHe: 'במוזיאון יש עצמות דינוזאור.', band: 'Band I', category: 'מקומות' },
-        { id: 'v9_12', word: 'Movie', partOfSpeech: 'noun', hebrewTranslation: 'סרט', ipa: '/ˈmuːvi/', phoneticTrap: 'V', exampleSentenceEn: 'We watched a funny movie.', exampleSentenceHe: 'צפינו בסרט מצחיק.', band: 'Band I', category: 'שונות' }
-      ]
+      vocabulary: unit9Vocab
     },
 
     // ==========================================
@@ -1815,20 +1712,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-24', baseWord: 'dream', targetSuffix: '-s', fullWord: 'dreams', hebrewMeaning: 'חלומות (ריבוי)', ruleHintHe: 'הוספת s רגילה לריבוי' },
         { id: 'suf-25', baseWord: 'teach', targetSuffix: '-es', fullWord: 'teaches', hebrewMeaning: 'מלמד (יחיד)', ruleHintHe: 'אחרי צליל ch מוסיפים es' }
       ],
-      vocabulary: [
-        { id: 'v10_1', word: 'Tomorrow', partOfSpeech: 'noun', hebrewTranslation: 'מחר', ipa: '/təˈmɒroʊ/', exampleSentenceEn: 'Tomorrow is a new day full of hope.', exampleSentenceHe: 'מחר הוא יום חדש מלא תקווה.', band: 'Band I', category: 'זמן' },
-        { id: 'v10_2', word: 'Future', partOfSpeech: 'noun', hebrewTranslation: 'עתיד', ipa: '/ˈfjuːtʃər/', phoneticTrap: 'F', exampleSentenceEn: 'The future of science is bright.', exampleSentenceHe: 'עתיד המדע מזהיר.', band: 'Band I', category: 'זמן' },
-        { id: 'v10_3', word: 'Dream', partOfSpeech: 'noun', hebrewTranslation: 'חלום / לחלום', ipa: '/driːm/', exampleSentenceEn: 'Follow your biggest dream.', exampleSentenceHe: 'לכו בעקבות החלום הגדול ביותר שלכם.', band: 'Band I', category: 'שונות' },
-        { id: 'v10_4', word: 'Build', partOfSpeech: 'verb', hebrewTranslation: 'לבנות', ipa: '/bɪld/', phoneticTrap: 'B', exampleSentenceEn: 'Engineers build tall bridges.', exampleSentenceHe: 'מהנדסים בונים גשרים גבוהים.', band: 'Band I', category: 'פעולות' },
-        { id: 'v10_5', word: 'Scientist', partOfSpeech: 'noun', hebrewTranslation: 'מדען / מדענית', ipa: '/ˈsaɪəntɪst/', exampleSentenceEn: 'The scientist discovered a new cure.', exampleSentenceHe: 'המדענית גילתה תרופה חדשה.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v10_6', word: 'Astronaut', partOfSpeech: 'noun', hebrewTranslation: 'אסטרונאוט', ipa: '/ˈæstrənɔːt/', exampleSentenceEn: 'The astronaut flies into deep space.', exampleSentenceHe: 'האסטרונאוט טס לחלל העמוק.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v10_7', word: 'Artist', partOfSpeech: 'noun', hebrewTranslation: 'אמן / צייר', ipa: '/ˈɑːrtɪst/', exampleSentenceEn: 'The creative artist painted a picture.', exampleSentenceHe: 'האמן היצירתי צייר תמונה.', band: 'Band I', category: 'מקצועות' },
-        { id: 'v10_8', word: 'Can', partOfSpeech: 'verb', hebrewTranslation: 'יכול / מסוגל', ipa: '/kæn/', exampleSentenceEn: 'You can do anything you believe in.', exampleSentenceHe: 'אתם יכולים לעשות כל דבר שאתם מאמינים בו.', band: 'Band I', category: 'פעולות' },
-        { id: 'v10_9', word: 'Learn', partOfSpeech: 'verb', hebrewTranslation: 'ללמוד', ipa: '/lɜːrn/', exampleSentenceEn: 'We love to learn new English words.', exampleSentenceHe: 'אנחנו אוהבים ללמוד מילים חדשות באנגלית.', band: 'Band I', category: 'פעולות' },
-        { id: 'v10_10', word: 'Create', partOfSpeech: 'verb', hebrewTranslation: 'ליצור', ipa: '/kriˈeɪt/', exampleSentenceEn: 'Children create beautiful models.', exampleSentenceHe: 'ילדים יוצרים דגמים יפהפיים.', band: 'Band I', category: 'פעולות' },
-        { id: 'v10_11', word: 'World', partOfSpeech: 'noun', hebrewTranslation: 'עולם', ipa: '/wɜːrld/', exampleSentenceEn: 'English connects people around the world.', exampleSentenceHe: 'אנגלית מחברת אנשים מסביב לעולם.', band: 'Band I', category: 'שונות' },
-        { id: 'v10_12', word: 'Win', partOfSpeech: 'verb', hebrewTranslation: 'לנצח / לזכות', ipa: '/wɪn/', exampleSentenceEn: 'With practice you will win the trophy.', exampleSentenceHe: 'עם תרגול תזכו בגביע.', band: 'Band I', category: 'פעולות' }
-      ]
+      vocabulary: unit10Vocab
     },
 
     // ==========================================
@@ -2012,20 +1896,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-27', baseWord: 'catch', targetSuffix: '-es', fullWord: 'catches', hebrewMeaning: 'תופס', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
         { id: 'suf-28', baseWord: 'hunt', targetSuffix: '-ing', fullWord: 'hunting', hebrewMeaning: 'צד כעת', ruleHintHe: 'סיומת ing לפעולה מתמשכת' }
       ],
-      vocabulary: [
-        { id: 'v11_1', word: 'Cheetah', partOfSpeech: 'noun', hebrewTranslation: 'ברדלס / צ׳יטה', ipa: '/ˈtʃiːtə/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'The cheetah is the fastest animal on land.', exampleSentenceHe: 'הברדלס הוא החיה המהירה ביותר ביבשה.', band: 'Band II', category: 'חיות' },
-        { id: 'v11_2', word: 'Whale', partOfSpeech: 'noun', hebrewTranslation: 'לווייתן', ipa: '/weɪl/', exampleSentenceEn: 'The giant blue whale lives in deep oceans.', exampleSentenceHe: 'הלווייתן הכחול הענק חי באוקיינוסים עמוקים.', band: 'Band II', category: 'חיות' },
-        { id: 'v11_3', word: 'Eagle', partOfSpeech: 'noun', hebrewTranslation: 'נשר / עיט', ipa: '/ˈiːɡəl/', exampleSentenceEn: 'An eagle flies high above the green mountains.', exampleSentenceHe: 'הנשר עף גבוה מעל ההרים הירוקים.', band: 'Band II', category: 'חיות' },
-        { id: 'v11_4', word: 'Elephant', partOfSpeech: 'noun', hebrewTranslation: 'פיל', ipa: '/ˈɛlɪfənt/', phoneticTrap: 'F', exampleSentenceEn: 'The African elephant has very big ears.', exampleSentenceHe: 'לפיל האפריקאי יש אוזניים גדולות מאוד.', band: 'Band II', category: 'חיות' },
-        { id: 'v11_5', word: 'Faster', partOfSpeech: 'adjective', hebrewTranslation: 'מהיר יותר', ipa: '/ˈfæstər/', exampleSentenceEn: 'Cars are faster than bicycles.', exampleSentenceHe: 'מכוניות מהירות יותר מאופניים.', band: 'Band II', category: 'תארים' },
-        { id: 'v11_6', word: 'Slow', partOfSpeech: 'adjective', hebrewTranslation: 'איטי', ipa: '/sloʊ/', exampleSentenceEn: 'The desert tortoise walks at a slow pace.', exampleSentenceHe: 'צב המדבר צועד בקצב איטי.', band: 'Band II', category: 'תארים' },
-        { id: 'v11_7', word: 'Heavier', partOfSpeech: 'adjective', hebrewTranslation: 'כבד יותר', ipa: '/ˈhɛviər/', exampleSentenceEn: 'Gold is heavier than silver.', exampleSentenceHe: 'זהב כבד יותר מכסף.', band: 'Band II', category: 'תארים' },
-        { id: 'v11_8', word: 'Strong', partOfSpeech: 'adjective', hebrewTranslation: 'חזק', ipa: '/strɔːŋ/', exampleSentenceEn: 'An ant is very strong for its small size.', exampleSentenceHe: 'הנמלה חזקה מאוד ביחס לגודלה הקטן.', band: 'Band II', category: 'תארים' },
-        { id: 'v11_9', word: 'Tallest', partOfSpeech: 'adjective', hebrewTranslation: 'הכי גבוה', ipa: '/ˈtɔːlɪst/', exampleSentenceEn: 'The giraffe is the tallest animal in the zoo.', exampleSentenceHe: 'הג׳ירפה היא החיה הגבוהה ביותר בגן החיות.', band: 'Band II', category: 'תארים' },
-        { id: 'v11_10', word: 'Nature', partOfSpeech: 'noun', hebrewTranslation: 'טבע', ipa: '/ˈneɪtʃər/', exampleSentenceEn: 'Israel has rich and diverse nature reserves.', exampleSentenceHe: 'בישראל יש שמורות טבע עשירות ומגוונות.', band: 'Band II', category: 'טבע' },
-        { id: 'v11_11', word: 'Forest', partOfSpeech: 'noun', hebrewTranslation: 'יער', ipa: '/ˈfɒrɪst/', phoneticTrap: 'F', exampleSentenceEn: 'Birds sing sweet songs in the green forest.', exampleSentenceHe: 'ציפורים שרות שירים מתוקים ביער הירוק.', band: 'Band II', category: 'טבע' },
-        { id: 'v11_12', word: 'Ocean', partOfSpeech: 'noun', hebrewTranslation: 'אוקיינוס / ים עמוק', ipa: '/ˈoʊʃən/', exampleSentenceEn: 'Dolphins jump playfully in the blue ocean.', exampleSentenceHe: 'דולפינים קופצים בשובבות באוקיינוס הכחול.', band: 'Band II', category: 'טבע' }
-      ]
+      vocabulary: unit11Vocab
     },
 
     // ==========================================
@@ -2211,20 +2082,7 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'suf-30', baseWord: 'teach', targetSuffix: '-es', fullWord: 'teaches', hebrewMeaning: 'מלמד (מורה)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
         { id: 'suf-31', baseWord: 'help', targetSuffix: '-ing', fullWord: 'helping', hebrewMeaning: 'עוזר כעת', ruleHintHe: 'תוספת ing לפעולה המתרחשת כעת' }
       ],
-      vocabulary: [
-        { id: 'v12_1', word: 'Must', partOfSpeech: 'verb', hebrewTranslation: 'חייב / מוכרח', ipa: '/mʌst/', exampleSentenceEn: 'You must wear a seatbelt in the car.', exampleSentenceHe: 'אתם חייבים לחגור חגורת בטיחות ברכב.', band: 'Band II', category: 'פעלי מודל' },
-        { id: 'v12_2', word: 'Should', partOfSpeech: 'verb', hebrewTranslation: 'כדאי / צריך (המלצה)', ipa: '/ʃʊd/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'You should drink plenty of water.', exampleSentenceHe: 'כדאי לכם לשתות הרבה מים.', band: 'Band II', category: 'פעלי מודל' },
-        { id: 'v12_3', word: 'Rule', partOfSpeech: 'noun', hebrewTranslation: 'חוק / כלל', ipa: '/ruːl/', exampleSentenceEn: 'Classroom rules keep everyone safe and happy.', exampleSentenceHe: 'כללי הכיתה שומרים על כולם בטוחים ושמחים.', band: 'Band II', category: 'בית ספר' },
-        { id: 'v12_4', word: 'Respect', partOfSpeech: 'verb', hebrewTranslation: 'לכבד', ipa: '/rɪˈspɛkt/', exampleSentenceEn: 'We must respect our friends and teachers.', exampleSentenceHe: 'אנחנו חייבים לכבד את החברים והמורים שלנו.', band: 'Band II', category: 'ערכים' },
-        { id: 'v12_5', word: 'Listen', partOfSpeech: 'verb', hebrewTranslation: 'להקשיב', ipa: '/ˈlɪsən/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'Listen carefully to the instructions.', exampleSentenceHe: 'הקשיבו היטב להוראות.', band: 'Band II', category: 'פעולות' },
-        { id: 'v12_6', word: 'Uniform', partOfSpeech: 'noun', hebrewTranslation: 'תלבושת אחידה', ipa: '/ˈjuːnɪfɔːrm/', exampleSentenceEn: 'Students wear a blue school uniform.', exampleSentenceHe: 'תלמידים לובשים תלבושת אחידה כחולה של בית הספר.', band: 'Band II', category: 'בית ספר' },
-        { id: 'v12_7', word: 'Safe', partOfSpeech: 'adjective', hebrewTranslation: 'בטוח / מוגן', ipa: '/seɪf/', phoneticTrap: 'magic_e', exampleSentenceEn: 'Cross the road only at a safe zebra crossing.', exampleSentenceHe: 'חצו את הכביש רק במעבר חצייה בטוח.', band: 'Band II', category: 'תארים' },
-        { id: 'v12_8', word: 'Important', partOfSpeech: 'adjective', hebrewTranslation: 'חשוב', ipa: '/ɪmˈpɔːrtənt/', exampleSentenceEn: 'Education is an important key to success.', exampleSentenceHe: 'חינוך הוא מפתח חשוב להצלחה.', band: 'Band II', category: 'תארים' },
-        { id: 'v12_9', word: 'Homework', partOfSpeech: 'noun', hebrewTranslation: 'שיעורי בית', ipa: '/ˈhoʊmwɜːrk/', exampleSentenceEn: 'Finish your English homework before dinner.', exampleSentenceHe: 'סיימו את שיעורי הבית באנגלית לפני ארוחת הערב.', band: 'Band II', category: 'בית ספר' },
-        { id: 'v12_10', word: 'Careful', partOfSpeech: 'adjective', hebrewTranslation: 'זהיר', ipa: '/ˈkɛərfʊl/', phoneticTrap: 'F', exampleSentenceEn: 'Be careful when carrying hot soup.', exampleSentenceHe: 'היו זהירים כשאתם נושאים מרק חם.', band: 'Band II', category: 'תארים' },
-        { id: 'v12_11', word: 'Polite', partOfSpeech: 'adjective', hebrewTranslation: 'מנומס', ipa: '/pəˈlaɪt/', phoneticTrap: 'P', exampleSentenceEn: 'Saying please and thank you is polite.', exampleSentenceHe: 'לומר בבקשה ותודה זה מנומס.', band: 'Band II', category: 'ערכים' },
-        { id: 'v12_12', word: 'Library', partOfSpeech: 'noun', hebrewTranslation: 'ספרייה', ipa: '/ˈlaɪbrəri/', exampleSentenceEn: 'We read wonderful storybooks in the school library.', exampleSentenceHe: 'אנחנו קוראים ספרי סיפורים נפלאים בספריית בית הספר.', band: 'Band II', category: 'בית ספר' }
-      ]
+      vocabulary: unit12Vocab
     }
   ]
 };
