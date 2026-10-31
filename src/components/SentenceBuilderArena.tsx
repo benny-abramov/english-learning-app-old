@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Volume2, RotateCcw, CheckCircle2, Sparkles, ChevronRight, ChevronLeft, ArrowLeftRight, HelpCircle } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Volume2, RotateCcw, CheckCircle2, Sparkles, ChevronRight, ChevronLeft, ArrowLeftRight, HelpCircle, Shuffle } from 'lucide-react';
 import { SentenceBuildingExercise } from '../types/curriculum';
 import { speakEnglish, playSuccessSound, playSoftRetrySound, playPopSound, triggerCelebration } from '../utils/audio';
 
@@ -15,6 +15,32 @@ export const SentenceBuilderArena: React.FC<SentenceBuilderArenaProps> = ({ exer
   const [showHint, setShowHint] = useState(false);
 
   const currentExercise = exercises[currentIndex];
+  const [shuffleSeed, setShuffleSeed] = useState(0);
+
+  // Guarantee that tokens are always scrambled and never appear in the exact target sentence order
+  const scrambledWordBank = useMemo(() => {
+    if (!currentExercise || !currentExercise.scrambledTokens) return [];
+    const tokens = [...currentExercise.scrambledTokens];
+
+    // Fisher-Yates shuffle
+    for (let i = tokens.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tokens[i], tokens[j]] = [tokens[j], tokens[i]];
+    }
+
+    // Double check that it does not match the target sentence order
+    const target = currentExercise.targetSentenceTokens || [];
+    const isIdentical =
+      tokens.length > 2 &&
+      target.length > 2 &&
+      tokens.slice(0, target.length).every((t, idx) => t.text === target[idx]);
+
+    if (isIdentical && tokens.length > 1) {
+      [tokens[0], tokens[1]] = [tokens[1], tokens[0]];
+    }
+
+    return tokens;
+  }, [currentExercise?.id, shuffleSeed]);
 
   const handleAddToken = (tokenId: string) => {
     if (placedTokenIds.includes(tokenId)) return;
@@ -204,12 +230,23 @@ export const SentenceBuilderArena: React.FC<SentenceBuilderArenaProps> = ({ exer
 
             {/* Word Bank Area */}
             <div className="mt-6">
-              <span className="text-xs font-semibold text-slate-500 block mb-3 font-hebrew">
-                בנק הלבנים (הקישו להוספה למשפט):
-              </span>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold text-slate-500 font-hebrew">
+                  בנק הלבנים (הקישו להוספה למשפט):
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShuffleSeed(prev => prev + 1)}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-violet-600 hover:text-violet-800 bg-violet-50 hover:bg-violet-100 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                  title="ערבב את הלבנים בסדר שונה"
+                >
+                  <Shuffle className="w-3.5 h-3.5" />
+                  <span>ערבב לבנים 🔀</span>
+                </button>
+              </div>
 
               <div className="flex flex-wrap gap-2.5 dir-ltr" dir="ltr">
-                {currentExercise.scrambledTokens.map((token) => {
+                {scrambledWordBank.map((token) => {
                   const isPlaced = placedTokenIds.includes(token.id);
 
                   return (
