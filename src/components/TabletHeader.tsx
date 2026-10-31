@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen, FileText, Mic, Gamepad2, User, CloudCheck } from 'lucide-react';
+import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen, FileText, Mic, Gamepad2, User, CloudCheck, HelpCircle } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
 import { VoiceSettingsModal } from './VoiceSettingsModal';
+import { CurriculumGuideModal } from './CurriculumGuideModal';
 import { useAuth } from '../contexts/AuthContext';
 import { UNIT_STAGES, isUnitStageTab } from '../data/unitStages';
 
@@ -38,6 +39,7 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
   const currentUnit = units.find(u => u.id === currentUnitId) || units[0];
   const [muted, setMuted] = useState(isSoundMuted());
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
+  const [isCurriculumGuideOpen, setIsCurriculumGuideOpen] = useState(false);
 
   const handleToggleMute = () => {
     const newMuted = toggleSoundMute();
@@ -236,6 +238,16 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             <span className="hidden xl:inline text-xs font-bold text-sky-700">קול מורה</span>
           </button>
 
+          {/* Curriculum Guide & About Button */}
+          <button
+            onClick={() => setIsCurriculumGuideOpen(true)}
+            className="p-2 text-slate-500 hover:text-indigo-700 hover:bg-indigo-50 rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+            title="מדריך פדגוגי: כיצד בנויות 12 היחידות?"
+          >
+            <HelpCircle className="w-4 h-4 text-indigo-600" />
+            <span className="hidden xl:inline text-xs font-bold text-indigo-700">מבנה היחידות</span>
+          </button>
+
           {/* Gamification Points Badge - clickable to view achievements */}
           <button
             onClick={() => onTabChange('achievements')}
@@ -372,6 +384,13 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
       <VoiceSettingsModal
         isOpen={isVoiceModalOpen}
         onClose={() => setIsVoiceModalOpen(false)}
+      />
+
+      {/* Pedagogical Curriculum Guide Modal */}
+      <CurriculumGuideModal
+        isOpen={isCurriculumGuideOpen}
+        onClose={() => setIsCurriculumGuideOpen(false)}
+        onSelectUnit={onSelectUnit}
       />
     </header>
   );

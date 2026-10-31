@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Award, Printer, Clock, BookOpen, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Award, Printer, Clock, BookOpen, Sparkles, CheckCircle2, Layers } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { Achievements } from './Achievements';
 import { WeeklyConsistencyChart } from './WeeklyConsistencyChart';
 import { ClassroomLeaderboard } from './ClassroomLeaderboard';
+import { CurriculumGuideModal } from './CurriculumGuideModal';
 
 interface ParentTeacherPortalProps {
   units: CurriculumUnit[];
@@ -18,6 +19,7 @@ export const ParentTeacherPortal: React.FC<ParentTeacherPortalProps> = ({
 }) => {
   const [studentName, setStudentName] = useState('יוסי אברמוב');
   const [showCertificate, setShowCertificate] = useState(false);
+  const [isCurriculumModalOpen, setIsCurriculumModalOpen] = useState(false);
 
   const handlePrint = () => {
     window.print();
@@ -45,13 +47,23 @@ export const ParentTeacherPortal: React.FC<ParentTeacherPortalProps> = ({
             </p>
           </div>
 
-          <button
-            onClick={() => setShowCertificate(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-xs transition-colors cursor-pointer self-start sm:self-auto"
-          >
-            <Award className="w-4 h-4" />
-            <span>הנפקת תעודת הצטיינות</span>
-          </button>
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <button
+              onClick={() => setIsCurriculumModalOpen(true)}
+              className="flex items-center gap-2 px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl font-bold text-xs shadow-xs transition-colors cursor-pointer"
+            >
+              <Layers className="w-4 h-4 text-sky-600" />
+              <span>מדריך 12 היחידות</span>
+            </button>
+
+            <button
+              onClick={() => setShowCertificate(true)}
+              className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold text-xs shadow-xs transition-colors cursor-pointer"
+            >
+              <Award className="w-4 h-4" />
+              <span>הנפקת תעודת הצטיינות</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -256,6 +268,12 @@ export const ParentTeacherPortal: React.FC<ParentTeacherPortalProps> = ({
           </div>
         </div>
       )}
+
+      {/* Curriculum Guide Modal */}
+      <CurriculumGuideModal
+        isOpen={isCurriculumModalOpen}
+        onClose={() => setIsCurriculumModalOpen(false)}
+      />
     </div>
   );
 };
