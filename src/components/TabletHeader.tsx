@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones } from 'lucide-react';
+import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
 import { VoiceSettingsModal } from './VoiceSettingsModal';
@@ -144,6 +144,18 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             }`}
           >
             אוסף סיומות
+          </button>
+
+          <button
+            onClick={() => onTabChange('vocab_glossary')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+              activeTab === 'vocab_glossary'
+                ? 'bg-white text-rose-700 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5 text-rose-500" />
+            <span>אוצר מילים + הוספה</span>
           </button>
 
           <button
@@ -329,6 +341,14 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             }`}
           >
             סיומות
+          </button>
+          <button
+            onClick={() => onTabChange('vocab_glossary')}
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
+              activeTab === 'vocab_glossary' ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-700'
+            }`}
+          >
+            אוצר מילים +
           </button>
           <button
             onClick={() => onTabChange('achievements')}

@@ -449,6 +449,10 @@ export function playSoftRetrySound(): void {
   osc.stop(now + 0.22);
 }
 
+export function playIncorrectTone(): void {
+  playSoftRetrySound();
+}
+
 /**
  * Bubble pop sound for tapping word tokens
  */

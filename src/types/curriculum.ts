@@ -96,11 +96,13 @@ export interface Band1VocabWord {
   partOfSpeech: 'noun' | 'verb' | 'adjective' | 'pronoun' | 'preposition';
   hebrewTranslation: string;
   ipa: string;
-  phoneticTrap?: 'P' | 'F' | 'B' | 'V' | 'TH' | 'short_vowel';
+  phoneticTrap?: 'P' | 'F' | 'B' | 'V' | 'TH' | 'short_vowel' | 'magic_e';
   hebrewPhoneticTip?: string;
   exampleSentenceEn: string;
   exampleSentenceHe: string;
-  band: 'Band I';
+  band: 'Band I' | 'Band II' | 'Custom';
+  category?: string;
+  isCustom?: boolean;
 }
 
 export interface CurriculumUnit {

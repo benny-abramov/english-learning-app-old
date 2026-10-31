@@ -88,6 +88,9 @@ export default function App() {
           <VocabGlossaryTab
             key={`vocab-${currentUnit.id}`}
             vocabList={currentUnit.vocabulary}
+            currentUnit={currentUnit}
+            allUnits={fullCurriculumData.units}
+            onReward={handleReward}
           />
         );
       case 'achievements':
