@@ -47,8 +47,10 @@ export interface ReadingPassage {
 
 export interface CobeOralTask {
   id: string;
+  unitId?: string;
+  unitNumber?: number;
   taskNumber: number;
-  category: 'interview' | 'picture_project' | 'dilemma_opinion';
+  category: 'interview' | 'picture_project' | 'dilemma_opinion' | 'unit_speaking';
   titleEn: string;
   titleHe: string;
   instructionHe: string;

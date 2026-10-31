@@ -148,7 +148,10 @@ function SababaAppContent() {
       case 'cobe_oral':
         return (
           <CobeOralLab
+            key={`cobe-oral-${currentUnit.id}`}
+            currentUnit={currentUnit}
             onReward={handleReward}
+            onNavigateToUnit={(unitId) => setCurrentUnitId(unitId)}
           />
         );
       case 'achievements':

@@ -85,11 +85,11 @@ export const UNIT_STAGES: UnitStage[] = [
   {
     id: 'cobe_oral',
     stepNumber: 8,
-    titleHe: 'מבחן דיבור בעל פה',
-    shortTitleHe: 'דיבור (COBE)',
+    titleHe: 'סטודיו דיבור והקלטה',
+    shortTitleHe: 'דיבור',
     icon: '🎙️',
-    subtitleHe: 'תרגול דיבור והקלטה מול מורה',
-    badgeLabel: 'COBE Oral',
+    subtitleHe: 'תרגול דיבור והקלטה קצרה באנגלית (20-30 שנ׳)',
+    badgeLabel: 'סטודיו דיבור',
     colorScheme: 'purple'
   }
 ];
