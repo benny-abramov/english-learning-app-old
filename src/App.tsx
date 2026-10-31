@@ -14,6 +14,7 @@ import { WeeklyConsistencyChart } from './components/WeeklyConsistencyChart';
 import { ClassroomLeaderboard } from './components/ClassroomLeaderboard';
 import { UnseenReadingLab } from './components/UnseenReadingLab';
 import { CobeOralLab } from './components/CobeOralLab';
+import { VocabChallengeArena } from './components/VocabChallengeArena';
 import { SchemaInspectorModal } from './components/SchemaInspectorModal';
 import { fullCurriculumData } from './data/curriculumData';
 import { playXpEarnedTone } from './utils/audio';
@@ -93,6 +94,15 @@ export default function App() {
             currentUnit={currentUnit}
             allUnits={fullCurriculumData.units}
             onReward={handleReward}
+          />
+        );
+      case 'vocab_challenge':
+        return (
+          <VocabChallengeArena
+            key={`vocab-challenge-${currentUnit.id}`}
+            initialUnitId={currentUnit.id}
+            onReward={handleReward}
+            onNavigateToUnit={(unitId) => setCurrentUnitId(unitId)}
           />
         );
       case 'unseen_lab':
