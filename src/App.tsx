@@ -21,6 +21,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { fullCurriculumData } from './data/curriculumData';
 import { playXpEarnedTone } from './utils/audio';
 import { BookOpen, RotateCw, MapPin } from 'lucide-react';
+import { UnitStagesStepper, UnitBottomStageNavigator } from './components/UnitStagesStepper';
+import { isUnitStageTab } from './data/unitStages';
 
 function SababaAppContent() {
   const { user, profile, isAuthModalOpen, setIsAuthModalOpen, recordExerciseReward } = useAuth();
@@ -192,6 +194,42 @@ function SababaAppContent() {
     );
   };
 
+  // Wrap active module with Right Stepper Rail (in RTL) and Bottom Stage Navigator when inside a unit stage
+  const renderModuleWithNavigation = () => {
+    if (!isUnitStageTab(activeTab)) {
+      return renderAnimatedModuleContent();
+    }
+
+    return (
+      <div className="flex flex-col lg:flex-row gap-5 items-start w-full">
+        {/* RTL Right Sidebar: Unit Progress & Rolling Stepper Rail */}
+        <UnitStagesStepper
+          currentUnit={currentUnit}
+          units={fullCurriculumData.units}
+          activeTab={activeTab}
+          onNavigateToTab={(tab) => setActiveTab(tab)}
+          onSelectUnit={(unitId) => setCurrentUnitId(unitId)}
+        />
+
+        {/* Main Arena Workspace */}
+        <div className="flex-1 w-full min-w-0 space-y-4">
+          <div>
+            {renderAnimatedModuleContent()}
+          </div>
+
+          {/* Bottom Stage Progress Navigator */}
+          <UnitBottomStageNavigator
+            currentUnit={currentUnit}
+            activeTab={activeTab}
+            onNavigateToTab={(tab) => setActiveTab(tab)}
+            units={fullCurriculumData.units}
+            onSelectUnit={(unitId) => setCurrentUnitId(unitId)}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col text-slate-800 font-hebrew">
       {/* Top Application Bar */}
@@ -222,7 +260,7 @@ function SababaAppContent() {
                 <span className="text-slate-400">יחידה {currentUnit.unitNumber}: {currentUnit.titleHe}</span>
               </div>
               <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 overflow-hidden min-h-[580px]">
-                {renderAnimatedModuleContent()}
+                {renderModuleWithNavigation()}
               </div>
             </div>
           </div>
@@ -245,7 +283,7 @@ function SababaAppContent() {
                 </button>
               </div>
               <div className="bg-slate-50 rounded-2xl p-4 overflow-hidden min-h-[640px]">
-                {renderAnimatedModuleContent()}
+                {renderModuleWithNavigation()}
               </div>
             </div>
           </div>
@@ -256,7 +294,7 @@ function SababaAppContent() {
             <div className="bg-slate-900 p-3 sm:p-4 rounded-[42px] shadow-2xl border-4 border-slate-700">
               <div className="w-24 h-4 bg-slate-800 rounded-full mx-auto mb-2.5"></div>
               <div className="bg-slate-50 rounded-3xl p-3.5 overflow-hidden min-h-[620px]">
-                {renderAnimatedModuleContent()}
+                {renderModuleWithNavigation()}
               </div>
             </div>
           </div>
@@ -264,95 +302,61 @@ function SababaAppContent() {
 
         {deviceMode === 'fluid' && (
           <div className="max-w-6xl mx-auto space-y-4">
-            {/* Guest Welcome & Sign-In Callout */}
-            {!profile && (
-              <div className="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-3xl p-4 sm:p-5 text-white shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fadeIn">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shrink-0 shadow-inner">
-                    👋
+            {/* If on roadmap: show roadmap hub with goals, charts, and unit cards */}
+            {activeTab === 'roadmap' ? (
+              <div className="space-y-4">
+                {/* Guest Welcome & Sign-In Callout */}
+                {!profile && (
+                  <div className="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-3xl p-4 sm:p-5 text-white shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fadeIn">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shrink-0 shadow-inner">
+                        👋
+                      </div>
+                      <div>
+                        <h3 className="font-black text-base sm:text-lg tracking-tight">
+                          ברוכים הבאים ל-Sababa English! רוצים לשמור נקודות ורצף יומי?
+                        </h3>
+                        <p className="text-xs sm:text-sm text-sky-100 font-medium mt-0.5">
+                          התחברו בשניות עם שם וכיתה (ללא צורך במייל!), עם חשבון Google או אימייל בית-ספרי, והתחרו בלוח המובילים!
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="px-5 py-2.5 rounded-2xl bg-white text-indigo-700 hover:bg-sky-50 active:scale-95 font-black text-xs sm:text-sm transition-all shadow-sm cursor-pointer whitespace-nowrap self-stretch sm:self-auto text-center shrink-0"
+                    >
+                      כניסת תלמידים 🚀
+                    </button>
                   </div>
-                  <div>
-                    <h3 className="font-black text-base sm:text-lg tracking-tight">
-                      ברוכים הבאים ל-Sababa English! רוצים לשמור נקודות ורצף יומי?
-                    </h3>
-                    <p className="text-xs sm:text-sm text-sky-100 font-medium mt-0.5">
-                      התחברו בשניות עם שם וכיתה (ללא צורך במייל!), עם חשבון Google או אימייל בית-ספרי, והתחרו בלוח המובילים!
-                    </p>
-                  </div>
+                )}
+
+                {/* Daily Goal & Habit Tracker */}
+                <DailyGoalWidget
+                  completedExercises={completedExercisesToday}
+                  currentXpEarnedToday={130}
+                  streakDays={streakDays}
+                />
+
+                {/* Analytics & Social Engagement Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <WeeklyConsistencyChart
+                    completedToday={completedExercisesToday}
+                    dailyGoal={profile?.dailyGoal || 5}
+                  />
+                  <ClassroomLeaderboard
+                    xpPoints={xpPoints}
+                    streakDays={streakDays}
+                    compact={true}
+                    onNavigateToExercise={(tab) => setActiveTab(tab)}
+                  />
                 </div>
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="px-5 py-2.5 rounded-2xl bg-white text-indigo-700 hover:bg-sky-50 active:scale-95 font-black text-xs sm:text-sm transition-all shadow-sm cursor-pointer whitespace-nowrap self-stretch sm:self-auto text-center shrink-0"
-                >
-                  כניסת תלמידים 🚀
-                </button>
+
+                {/* Full Unit Roadmap */}
+                {renderAnimatedModuleContent()}
               </div>
+            ) : (
+              renderModuleWithNavigation()
             )}
-
-            {/* Daily Goal & Habit Tracker */}
-            <DailyGoalWidget
-              completedExercises={completedExercisesToday}
-              currentXpEarnedToday={130}
-              streakDays={streakDays}
-            />
-
-            {/* Analytics & Social Engagement Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <WeeklyConsistencyChart
-                completedToday={completedExercisesToday}
-                dailyGoal={profile?.dailyGoal || 5}
-              />
-              <ClassroomLeaderboard
-                xpPoints={xpPoints}
-                streakDays={streakDays}
-                compact={true}
-                onNavigateToExercise={(tab) => setActiveTab(tab)}
-              />
-            </div>
-
-            {/* Quick Context & Active Unit Banner */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <span className="w-7 h-7 rounded-lg bg-sky-600 text-white font-bold font-mono text-xs flex items-center justify-center shrink-0">
-                  {currentUnit.unitNumber}
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-english">
-                      Current Unit
-                    </span>
-                    <span className="text-xs font-bold text-slate-900">
-                      {currentUnit.titleHe}
-                    </span>
-                  </div>
-                  <span className="text-xs text-sky-700 font-medium block">
-                    {currentUnit.themeHe}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
-                <button
-                  onClick={() => setActiveTab('roadmap')}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
-                >
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>כל {fullCurriculumData.units.length} היחידות</span>
-                </button>
-                <button
-                  onClick={() => setIsSchemaModalOpen(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition-colors cursor-pointer"
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>סכמת JSON</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Current Active Module Arena */}
-            <div>
-              {renderAnimatedModuleContent()}
-            </div>
           </div>
         )}
       </main>

@@ -4,6 +4,7 @@ import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
 import { VoiceSettingsModal } from './VoiceSettingsModal';
 import { useAuth } from '../contexts/AuthContext';
+import { UNIT_STAGES, isUnitStageTab } from '../data/unitStages';
 
 export type ActiveTab = 'roadmap' | 'phonics' | 'verb_to_be' | 'sentence_builder' | 'suffix_collector' | 'vocab_glossary' | 'vocab_challenge' | 'unseen_lab' | 'cobe_oral' | 'achievements' | 'leaderboard' | 'parent_portal';
 export type DeviceMode = 'fluid' | 'tablet_landscape' | 'tablet_portrait' | 'mobile';
@@ -90,8 +91,8 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
           </div>
         </div>
 
-        {/* Zone 2: Navigation Tabs (Single-Line, Ergonomic) */}
-        <nav className="hidden lg:flex items-center gap-1 p-1 bg-slate-100/90 rounded-2xl">
+        {/* Zone 2: Navigation Tabs (Clean, Structured & Focused) */}
+        <nav className="hidden lg:flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-2xl">
           <button
             onClick={() => onTabChange('roadmap')}
             className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
@@ -100,113 +101,38 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
-            <span>מפת המסע</span>
+            <Compass className="w-3.5 h-3.5 text-sky-600" />
+            <span>מפת כל 12 היחידות</span>
           </button>
 
-          <button
-            onClick={() => onTabChange('phonics')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-              activeTab === 'phonics'
-                ? 'bg-white text-sky-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+          {/* Unit Learning Mode Pill / Quick Stage Selector */}
+          <div
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-xl transition-all ${
+              isUnitStageTab(activeTab)
+                ? 'bg-white text-slate-900 shadow-xs ring-2 ring-sky-300'
+                : 'bg-transparent text-slate-600'
             }`}
           >
-            אתגר צלילים
-          </button>
+            <span className="w-5 h-5 rounded-md bg-sky-600 text-white font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+              {currentUnit.unitNumber}
+            </span>
+            <span className="text-xs font-bold text-slate-800 whitespace-nowrap">
+              {currentUnit.titleHe}
+            </span>
 
-          <button
-            onClick={() => onTabChange('verb_to_be')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-              activeTab === 'verb_to_be'
-                ? 'bg-white text-emerald-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            טכנאי פועל עזר
-          </button>
-
-          <button
-            onClick={() => onTabChange('sentence_builder')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-              activeTab === 'sentence_builder'
-                ? 'bg-white text-violet-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            בנאי משפטים
-          </button>
-
-          <button
-            onClick={() => onTabChange('suffix_collector')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
-              activeTab === 'suffix_collector'
-                ? 'bg-white text-amber-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            אוסף סיומות
-          </button>
-
-          <button
-            onClick={() => onTabChange('vocab_glossary')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'vocab_glossary'
-                ? 'bg-white text-rose-700 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5 text-rose-500" />
-            <span>אוצר מילים</span>
-          </button>
-
-          <button
-            onClick={() => onTabChange('vocab_challenge')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'vocab_challenge'
-                ? 'bg-white text-amber-700 shadow-xs ring-1 ring-amber-300'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Gamepad2 className="w-3.5 h-3.5 text-amber-500" />
-            <span>אתגר תמונה-מילה</span>
-          </button>
-
-          <button
-            onClick={() => onTabChange('unseen_lab')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'unseen_lab'
-                ? 'bg-white text-teal-700 shadow-xs ring-1 ring-teal-200'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <FileText className="w-3.5 h-3.5 text-teal-600" />
-            <span>הבנת הנקרא Unseen</span>
-          </button>
-
-          <button
-            onClick={() => onTabChange('cobe_oral')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'cobe_oral'
-                ? 'bg-white text-indigo-700 shadow-xs ring-1 ring-indigo-200'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Mic className="w-3.5 h-3.5 text-indigo-600" />
-            <span>דיבור COBE</span>
-          </button>
-
-          <button
-            onClick={() => onTabChange('achievements')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'achievements'
-                ? 'bg-white text-amber-800 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>תגים והישגים</span>
-          </button>
+            <select
+              value={activeTab}
+              onChange={(e) => onTabChange(e.target.value as ActiveTab)}
+              className="text-xs font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 px-2 py-0.5 rounded-lg border border-sky-200 outline-none cursor-pointer"
+              title="מעבר מהיר בין שלבי היחידה"
+            >
+              {UNIT_STAGES.map((stage) => (
+                <option key={stage.id} value={stage.id}>
+                  שלב {stage.stepNumber}: {stage.titleHe} {stage.icon}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             onClick={() => onTabChange('leaderboard')}
@@ -221,14 +147,26 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
           </button>
 
           <button
-            onClick={() => onTabChange('parent_portal')}
+            onClick={() => onTabChange('achievements')}
             className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
-              activeTab === 'parent_portal'
+              activeTab === 'achievements'
                 ? 'bg-white text-indigo-700 shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Users className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            <span>הישגים</span>
+          </button>
+
+          <button
+            onClick={() => onTabChange('parent_portal')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+              activeTab === 'parent_portal'
+                ? 'bg-white text-emerald-700 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 text-emerald-600" />
             <span>הורים ומורים</span>
           </button>
         </nav>
@@ -387,102 +325,45 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
           </button>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={() => onTabChange('roadmap')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 flex items-center gap-1 ${
               activeTab === 'roadmap' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'
             }`}
           >
-            מפה
+            <span>🗺️</span>
+            <span>כל היחידות</span>
           </button>
-          <button
-            onClick={() => onTabChange('phonics')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'phonics' ? 'bg-sky-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            צלילים
-          </button>
-          <button
-            onClick={() => onTabChange('verb_to_be')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'verb_to_be' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            פועל עזר
-          </button>
-          <button
-            onClick={() => onTabChange('sentence_builder')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'sentence_builder' ? 'bg-violet-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            משפטים
-          </button>
-          <button
-            onClick={() => onTabChange('suffix_collector')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'suffix_collector' ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            סיומות
-          </button>
-          <button
-            onClick={() => onTabChange('vocab_glossary')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'vocab_glossary' ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            אוצר מילים
-          </button>
-          <button
-            onClick={() => onTabChange('vocab_challenge')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'vocab_challenge' ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            אתגר מילים
-          </button>
-          <button
-            onClick={() => onTabChange('unseen_lab')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'unseen_lab' ? 'bg-teal-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            הבנת הנקרא
-          </button>
-          <button
-            onClick={() => onTabChange('cobe_oral')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'cobe_oral' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            דיבור COBE
-          </button>
-          <button
-            onClick={() => onTabChange('achievements')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'achievements' ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-700'
-            }`}
-          >
-            הישגים
-          </button>
+
           <button
             onClick={() => onTabChange('leaderboard')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 flex items-center gap-1 ${
               activeTab === 'leaderboard' ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-700'
             }`}
           >
-            מובילים
+            <span>🏆</span>
+            <span>מובילים</span>
           </button>
+
           <button
-            onClick={() => onTabChange('parent_portal')}
-            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
-              activeTab === 'parent_portal' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
+            onClick={() => onTabChange('achievements')}
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 flex items-center gap-1 ${
+              activeTab === 'achievements' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
             }`}
           >
-            דוח הורים
+            <span>⭐</span>
+            <span>הישגים</span>
+          </button>
+
+          <button
+            onClick={() => onTabChange('parent_portal')}
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 flex items-center gap-1 ${
+              activeTab === 'parent_portal' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700'
+            }`}
+          >
+            <span>👨‍🏫</span>
+            <span>הורים/מורים</span>
           </button>
         </div>
       </div>
