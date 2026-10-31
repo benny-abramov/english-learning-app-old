@@ -14,18 +14,18 @@ export const fullCurriculumData: CurriculumModule = {
     authors: 'Ministry of Education Band I Curriculum Consultant & Senior Tech Architect',
     learningObjectives: {
       en: [
-        'Master the key Israeli phonetic hurdles: P vs F, B vs V, short /ɪ/ vs long /iː/, the interdental "TH" sound, CH vs SH, Soft vs Hard C/G, the 3 sounds of "-ed", and silent letters.',
-        'Overcome Hebrew zero-copula syntax by systematically applying "to be", "There is / There are", and affirmative/negative constructions.',
-        'Apply plural suffixes (-s, -es), 3rd person singular (-s), and -ing aspect with accurate subject-verb agreement.',
-        'Form affirmative, negative, past simple, and future intentions ("going to" / "will") with correct LTR mechanics.',
-        'Master 120+ high-frequency Ministry of Education Band I foundational words across 10 comprehensive units.'
+        'Master the key Israeli phonetic hurdles: P vs F, B vs V, short /ɪ/ vs long /iː/, interdental "TH", CH vs SH, Soft vs Hard C/G, the 3 sounds of "-ed", silent letters, and comparative /ər/ sounds.',
+        'Overcome Hebrew zero-copula syntax by systematically applying "to be", "There is / There are", past simple, future intentions, and modals of obligation.',
+        'Apply plural suffixes (-s, -es), 3rd person singular (-s), -ing aspect, and comparative degrees (-er, -est) with accurate subject-verb agreement.',
+        'Form affirmative, negative, question inversions, and complex sentences with correct left-to-right mechanics.',
+        'Master 144+ high-frequency Ministry of Education Band I & Band II foundational words across 12 comprehensive units.'
       ],
       he: [
-        'שליטה במלכודות ההגייה של ישראלים: P מול F, B מול V, תנועות קצרות וארוכות, צליל TH, עיצורים שורקים (CH/SH), אותיות שקטות ושלושת צלילי הסיומת -ed.',
-        'התגברות על השמטת פועל עזר (Zero Copula) ושימוש מדויק ב-To Be, There is/are, עבר פשוט (Past Simple) וכוונות עתיד.',
-        'הוספת סיומות ריבוי (-s, -es), הטיות גוף שלישי (-s), סיומות -ing ושמות עצם ספירים ובלתי ספירים.',
-        'בניית משפטי חיווי, שלילה, עבר ועתיד משמאל לימין תוך הקפדה על אותיות רישיות ופיסוק תקין.',
-        'שליטה ב-120+ מילות ליבה חיוניות מרשימת Band I של משרד החינוך ב-10 יחידות לימוד מקיפות.'
+        'שליטה במלכודות ההגייה של ישראלים: P מול F, B מול V, תנועות קצרות וארוכות, צליל TH, עיצורים שורקים (CH/SH), אותיות שקטות, סיומות -ed ותארי השוואה.',
+        'התגברות על השמטת פועל עזר (Zero Copula) ושימוש מדויק ב-To Be, There is/are, עבר פשוט, עתיד ופעלי מודל (must, should, have to).',
+        'הוספת סיומות ריבוי (-s, -es), הטיות גוף שלישי (-s), סיומות -ing והשוואות (-er, -est) עם התאם תקין.',
+        'בניית משפטי חיווי, שלילה, שאלות ועמדות משמאל לימין תוך הקפדה על אותיות רישיות ופיסוק תקין.',
+        'שליטה ב-144+ מילות ליבה חיוניות מרשימות Band I ו-Band II של משרד החינוך ב-12 יחידות לימוד מקיפות.'
       ]
     },
     targetLinguisticGaps: [
@@ -1828,6 +1828,402 @@ export const fullCurriculumData: CurriculumModule = {
         { id: 'v10_10', word: 'Create', partOfSpeech: 'verb', hebrewTranslation: 'ליצור', ipa: '/kriˈeɪt/', exampleSentenceEn: 'Children create beautiful models.', exampleSentenceHe: 'ילדים יוצרים דגמים יפהפיים.', band: 'Band I', category: 'פעולות' },
         { id: 'v10_11', word: 'World', partOfSpeech: 'noun', hebrewTranslation: 'עולם', ipa: '/wɜːrld/', exampleSentenceEn: 'English connects people around the world.', exampleSentenceHe: 'אנגלית מחברת אנשים מסביב לעולם.', band: 'Band I', category: 'שונות' },
         { id: 'v10_12', word: 'Win', partOfSpeech: 'verb', hebrewTranslation: 'לנצח / לזכות', ipa: '/wɪn/', exampleSentenceEn: 'With practice you will win the trophy.', exampleSentenceHe: 'עם תרגול תזכו בגביע.', band: 'Band I', category: 'פעולות' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 11: Animal Kingdom & Comparatives
+    // ==========================================
+    {
+      id: 'unit-11',
+      unitNumber: 11,
+      titleEn: 'Animal Kingdom & Comparatives',
+      titleHe: 'עולם החי והשוואות (Comparative & Superlative)',
+      themeHe: 'בעלי חיים, טבע פראי, השוואת גדלים ומהירויות (Faster than / The tallest)',
+      descriptionHe: 'הבנת ההבדל בין עברית ("יותר מהיר") לאנגלית (faster than) ושליטה בסיומות er ו-est ללא תוספת שגויה של more.',
+      badgeIcon: 'Compass',
+      xpReward: 160,
+      phonicsGapName: 'צליל /ər/ וסיומות er לעומת est בהטעמה תקנית',
+      grammarFocusName: 'תארי השוואה (Comparative -er than) והפלגה (Superlative the -est)',
+      phonicsExercises: [
+        {
+          id: 'u11-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'אתגר השוואה: Faster מול Fastest',
+          instructionHe: 'האזינו לצליל ובחרו בין השוואה בין שניים (-er) להפלגה מוחלטת (-est):',
+          targetLetter: 'ER',
+          distractorLetter: 'EST',
+          targetWord: {
+            id: 'u11-w1',
+            letter: 'ER',
+            word: 'Faster',
+            ipa: '/ˈfæstər/',
+            hebrewTranslation: 'מהיר יותר',
+            audioText: 'Faster. A cheetah is faster than a lion.',
+            hebrewLetterEquivalent: 'סיומת אר קצרה',
+            exampleSentence: 'A cheetah is faster than a lion.'
+          },
+          distractorWord: {
+            id: 'u11-w2',
+            letter: 'EST',
+            word: 'Fastest',
+            ipa: '/ˈfæstɪst/',
+            hebrewTranslation: 'הכי מהיר (הפלגה)',
+            audioText: 'Fastest. The cheetah is the fastest runner.',
+            hebrewLetterEquivalent: 'סיומת אסט',
+            exampleSentence: 'The cheetah is the fastest runner.'
+          },
+          hebrewHint: 'סיומת er משווה בין שניים (faster than). סיומת est מציינת את הטוב ביותר מכולם (the fastest).',
+          articulationGuide: {
+            mouthShape: 'short_relaxed_vowel',
+            soundNameEn: 'Comparative -er /ər/',
+            soundNameHe: 'סיומת er רפויה',
+            hebrewRule: 'אין להגות R מתגלגלת ישראלית חזקה, אלא שווא רפוי /ər/.',
+            mnemonicHe: 'אר קצרה בסוף מילה',
+            articulationCueEn: 'Relax your tongue at the end of faster.'
+          },
+          explanationHe: 'באנגלית אומרים faster than (ולא more fast than כמו בעברית "יותר מהיר").'
+        },
+        {
+          id: 'u11-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'אתגר השוואה: Taller מול Tallest',
+          instructionHe: 'האזינו ובחרו את המילה הנכונה לגובה העץ או הג׳ירפה:',
+          targetLetter: 'ER',
+          distractorLetter: 'EST',
+          targetWord: {
+            id: 'u11-w3',
+            letter: 'ER',
+            word: 'Taller',
+            ipa: '/ˈtɔːlər/',
+            hebrewTranslation: 'גבוה יותר',
+            audioText: 'Taller. The giraffe is taller than the zebra.',
+            hebrewLetterEquivalent: 'טולר',
+            exampleSentence: 'The giraffe is taller than the zebra.'
+          },
+          distractorWord: {
+            id: 'u11-w4',
+            letter: 'EST',
+            word: 'Tallest',
+            ipa: '/ˈtɔːlɪst/',
+            hebrewTranslation: 'הכי גבוה',
+            audioText: 'Tallest. The giraffe is the tallest animal.',
+            hebrewLetterEquivalent: 'טולסט',
+            exampleSentence: 'The giraffe is the tallest animal.'
+          },
+          hebrewHint: 'שימו לב: להשוואה בין שניים מוסיפים er, ולהכי גבוה מוסיפים the ... est.',
+          articulationGuide: {
+            mouthShape: 'short_relaxed_vowel',
+            soundNameEn: 'Taller vs Tallest',
+            soundNameHe: 'השוואת גובה',
+            hebrewRule: 'הקפידו על the לפני tallest: the tallest animal.',
+            mnemonicHe: 'ג׳ירפה גבוהה יותר מזברה',
+            articulationCueEn: 'Pronounce taller clearly before than.'
+          },
+          explanationHe: 'הג׳ירפה גבוהה מהזברה: The giraffe is taller than the zebra.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u11-v1',
+          hebrewPromptSentence: 'ברדלס (צ׳יטה) מהיר יותר מאריה.',
+          subject: 'A cheetah',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'A cheetah',
+          baseTemplateAfter: 'a lion in the savanna.',
+          correctAnswer: 'is faster than',
+          options: ['is faster than', 'is more fast than', 'faster than'],
+          hebrewContrastLesson: 'בעברית אומרים "יותר מהיר", אך באנגלית למילה קצרה כמו fast מוסיפים er + than בלבד!',
+          fullSentenceEn: 'A cheetah is faster than a lion in the savanna.',
+          audioText: 'A cheetah is faster than a lion in the savanna.'
+        },
+        {
+          id: 'u11-v2',
+          hebrewPromptSentence: 'הלווייתן הכחול הוא בעל החיים הגדול ביותר בים.',
+          subject: 'The blue whale',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'The blue whale',
+          baseTemplateAfter: 'animal in the ocean.',
+          correctAnswer: 'is the biggest',
+          options: ['is the biggest', 'is most big', 'the bigger'],
+          hebrewContrastLesson: 'דרגת הפלגה (הכי גדול) דורשת תמיד the לפני התואר וסיומת est (ומכפילים את ה-g ב-biggest).',
+          fullSentenceEn: 'The blue whale is the biggest animal in the ocean.',
+          audioText: 'The blue whale is the biggest animal in the ocean.'
+        },
+        {
+          id: 'u11-v3',
+          hebrewPromptSentence: 'פילים כבדים יותר מסוסים.',
+          subject: 'Elephants',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'Elephants',
+          baseTemplateAfter: 'horses.',
+          correctAnswer: 'are heavier than',
+          options: ['are heavier than', 'is heavier than', 'are more heavy'],
+          hebrewContrastLesson: 'בנושא רבים (Elephants) משתמשים ב-are, והאות y במילה heavy מתחלפת ב-ier.',
+          fullSentenceEn: 'Elephants are heavier than horses.',
+          audioText: 'Elephants are heavier than horses.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u11-s1',
+          hebrewPromptSentence: 'ברדלס מהיר יותר מצב.',
+          targetSentenceTokens: ['A', 'cheetah', 'is', 'faster', 'than', 'a', 'turtle', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'A' },
+            { id: 't2', text: 'cheetah' },
+            { id: 't3', text: 'is' },
+            { id: 't4', text: 'faster' },
+            { id: 't5', text: 'than' },
+            { id: 't6', text: 'a' },
+            { id: 't7', text: 'turtle' },
+            { id: 't8', text: '.', isPunctuation: true },
+            { id: 't9', text: 'more', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'A מתחילה באות גדולה, וסיומת faster than דורשת than ולא then.',
+          ruleExplanationHe: 'מבנה השוואה: Subject + is + adjective-er + than + object.',
+          audioFullSentence: 'A cheetah is faster than a turtle.'
+        },
+        {
+          id: 'u11-s2',
+          hebrewPromptSentence: 'הר החרמון הוא ההר הגבוה ביותר בישראל.',
+          targetSentenceTokens: ['Mount', 'Hermon', 'is', 'the', 'tallest', 'mountain', 'in', 'Israel', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'Mount' },
+            { id: 't2', text: 'Hermon' },
+            { id: 't3', text: 'is' },
+            { id: 't4', text: 'the' },
+            { id: 't5', text: 'tallest' },
+            { id: 't6', text: 'mountain' },
+            { id: 't7', text: 'in' },
+            { id: 't8', text: 'Israel' },
+            { id: 't9', text: '.', isPunctuation: true },
+            { id: 't10', text: 'most', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'שמות מקומות (Mount Hermon, Israel) נפתחים תמיד באות רישית גדולה.',
+          ruleExplanationHe: 'דרגת הפלגה מחייבת the tallest ולא the most tall.',
+          audioFullSentence: 'Mount Hermon is the tallest mountain in Israel.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-26', baseWord: 'roar', targetSuffix: '-s', fullWord: 'roars', hebrewMeaning: 'שואג (אריה)', ruleHintHe: 'הוספת s לגוף שלישי הווה' },
+        { id: 'suf-27', baseWord: 'catch', targetSuffix: '-es', fullWord: 'catches', hebrewMeaning: 'תופס', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
+        { id: 'suf-28', baseWord: 'hunt', targetSuffix: '-ing', fullWord: 'hunting', hebrewMeaning: 'צד כעת', ruleHintHe: 'סיומת ing לפעולה מתמשכת' }
+      ],
+      vocabulary: [
+        { id: 'v11_1', word: 'Cheetah', partOfSpeech: 'noun', hebrewTranslation: 'ברדלס / צ׳יטה', ipa: '/ˈtʃiːtə/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'The cheetah is the fastest animal on land.', exampleSentenceHe: 'הברדלס הוא החיה המהירה ביותר ביבשה.', band: 'Band II', category: 'חיות' },
+        { id: 'v11_2', word: 'Whale', partOfSpeech: 'noun', hebrewTranslation: 'לווייתן', ipa: '/weɪl/', exampleSentenceEn: 'The giant blue whale lives in deep oceans.', exampleSentenceHe: 'הלווייתן הכחול הענק חי באוקיינוסים עמוקים.', band: 'Band II', category: 'חיות' },
+        { id: 'v11_3', word: 'Eagle', partOfSpeech: 'noun', hebrewTranslation: 'נשר / עיט', ipa: '/ˈiːɡəl/', exampleSentenceEn: 'An eagle flies high above the green mountains.', exampleSentenceHe: 'הנשר עף גבוה מעל ההרים הירוקים.', band: 'Band II', category: 'חיות' },
+        { id: 'v11_4', word: 'Elephant', partOfSpeech: 'noun', hebrewTranslation: 'פיל', ipa: '/ˈɛlɪfənt/', phoneticTrap: 'F', exampleSentenceEn: 'The African elephant has very big ears.', exampleSentenceHe: 'לפיל האפריקאי יש אוזניים גדולות מאוד.', band: 'Band II', category: 'חיות' },
+        { id: 'v11_5', word: 'Faster', partOfSpeech: 'adjective', hebrewTranslation: 'מהיר יותר', ipa: '/ˈfæstər/', exampleSentenceEn: 'Cars are faster than bicycles.', exampleSentenceHe: 'מכוניות מהירות יותר מאופניים.', band: 'Band II', category: 'תארים' },
+        { id: 'v11_6', word: 'Slow', partOfSpeech: 'adjective', hebrewTranslation: 'איטי', ipa: '/sloʊ/', exampleSentenceEn: 'The desert tortoise walks at a slow pace.', exampleSentenceHe: 'צב המדבר צועד בקצב איטי.', band: 'Band II', category: 'תארים' },
+        { id: 'v11_7', word: 'Heavier', partOfSpeech: 'adjective', hebrewTranslation: 'כבד יותר', ipa: '/ˈhɛviər/', exampleSentenceEn: 'Gold is heavier than silver.', exampleSentenceHe: 'זהב כבד יותר מכסף.', band: 'Band II', category: 'תארים' },
+        { id: 'v11_8', word: 'Strong', partOfSpeech: 'adjective', hebrewTranslation: 'חזק', ipa: '/strɔːŋ/', exampleSentenceEn: 'An ant is very strong for its small size.', exampleSentenceHe: 'הנמלה חזקה מאוד ביחס לגודלה הקטן.', band: 'Band II', category: 'תארים' },
+        { id: 'v11_9', word: 'Tallest', partOfSpeech: 'adjective', hebrewTranslation: 'הכי גבוה', ipa: '/ˈtɔːlɪst/', exampleSentenceEn: 'The giraffe is the tallest animal in the zoo.', exampleSentenceHe: 'הג׳ירפה היא החיה הגבוהה ביותר בגן החיות.', band: 'Band II', category: 'תארים' },
+        { id: 'v11_10', word: 'Nature', partOfSpeech: 'noun', hebrewTranslation: 'טבע', ipa: '/ˈneɪtʃər/', exampleSentenceEn: 'Israel has rich and diverse nature reserves.', exampleSentenceHe: 'בישראל יש שמורות טבע עשירות ומגוונות.', band: 'Band II', category: 'טבע' },
+        { id: 'v11_11', word: 'Forest', partOfSpeech: 'noun', hebrewTranslation: 'יער', ipa: '/ˈfɒrɪst/', phoneticTrap: 'F', exampleSentenceEn: 'Birds sing sweet songs in the green forest.', exampleSentenceHe: 'ציפורים שרות שירים מתוקים ביער הירוק.', band: 'Band II', category: 'טבע' },
+        { id: 'v11_12', word: 'Ocean', partOfSpeech: 'noun', hebrewTranslation: 'אוקיינוס / ים עמוק', ipa: '/ˈoʊʃən/', exampleSentenceEn: 'Dolphins jump playfully in the blue ocean.', exampleSentenceHe: 'דולפינים קופצים בשובבות באוקיינוס הכחול.', band: 'Band II', category: 'טבע' }
+      ]
+    },
+
+    // ==========================================
+    // UNIT 12: School Rules & Modals of Obligation
+    // ==========================================
+    {
+      id: 'unit-12',
+      unitNumber: 12,
+      titleEn: 'School Rules & Modals of Obligation',
+      titleHe: 'חוקי בית הספר ופעלי מודל (Modals of Obligation)',
+      themeHe: 'כללים, אחריות הדדית, פעלי עזר לחובה ועצה (Must, Should, Have to, Can)',
+      descriptionHe: 'שליטה בפעלי מודל באנגלית שאינם מקבלים לעולם סיומת s או ing, בניגוד מוחלט להטיות המקבילות בעברית ("הוא חייב / היא חייבת").',
+      badgeIcon: 'Award',
+      xpReward: 170,
+      phonicsGapName: 'אות L שקטה ב-Should/Could ועיצור T בסוף Must',
+      grammarFocusName: 'פעלי מודל (Modals: must, should, have to, cannot)',
+      phonicsExercises: [
+        {
+          id: 'u12-p1',
+          type: 'phonics_minimal_pair',
+          titleHe: 'מלכודת האות השקטה: Should מול Could',
+          instructionHe: 'האזינו היטב ובחרו במילה עם האות L השקטה (אין להגות שולד!):',
+          targetLetter: 'SH',
+          distractorLetter: 'C',
+          targetWord: {
+            id: 'u12-w1',
+            letter: 'SH',
+            word: 'Should',
+            ipa: '/ʃʊd/',
+            hebrewTranslation: 'כדאי / צריך (המלצה)',
+            audioText: 'Should. You should eat healthy apples.',
+            hebrewLetterEquivalent: 'שוד (ה-L שקטה)',
+            exampleSentence: 'You should eat healthy apples.'
+          },
+          distractorWord: {
+            id: 'u12-w2',
+            letter: 'C',
+            word: 'Could',
+            ipa: '/kʊd/',
+            hebrewTranslation: 'יכול היה / אפשר',
+            audioText: 'Could. Could you please help me?',
+            hebrewLetterEquivalent: 'קוד (ה-L שקטה)',
+            exampleSentence: 'Could you please help me?'
+          },
+          hebrewHint: 'האות L במילים should, could, would שקטה לחלוטין! הוגים: שוּד, קוּד.',
+          articulationGuide: {
+            mouthShape: 'short_relaxed_vowel',
+            soundNameEn: 'Silent L in Should /ʃʊd/',
+            soundNameHe: 'האות L השקטה',
+            hebrewRule: 'אל תגידו "שולד". האות L נאלמת: /ʃʊd/.',
+            mnemonicHe: 'כדאי לך להשקיט את הלמ״ד',
+            articulationCueEn: 'Do not touch your tongue to the roof of your mouth for L.'
+          },
+          explanationHe: 'הוגים /ʃʊd/ ללא L: You should listen to the teacher.'
+        },
+        {
+          id: 'u12-p2',
+          type: 'phonics_minimal_pair',
+          titleHe: 'חובת צליל: Must מול Mustn’t',
+          instructionHe: 'האזינו לבחירה בין חובה מוחלטת (Must) לבין איסור מוחלט (Mustn’t):',
+          targetLetter: 'MUST',
+          distractorLetter: 'MUSTNOT',
+          targetWord: {
+            id: 'u12-w3',
+            letter: 'MUST',
+            word: 'Must',
+            ipa: '/mʌst/',
+            hebrewTranslation: 'חייב / מוכרח',
+            audioText: 'Must. You must be quiet in the library.',
+            hebrewLetterEquivalent: 'מאסט',
+            exampleSentence: 'You must be quiet in the library.'
+          },
+          distractorWord: {
+            id: 'u12-w4',
+            letter: 'MUSTNOT',
+            word: "Mustn't",
+            ipa: '/ˈmʌsənt/',
+            hebrewTranslation: 'אסור בהחלט',
+            audioText: "Mustn't. You mustn't run in the corridor.",
+            hebrewLetterEquivalent: 'מאסנט (ה-t הראשונה שקטה)',
+            exampleSentence: "You mustn't run in the corridor."
+          },
+          hebrewHint: 'במילה mustn’t האות t הראשונה כמעט נעלמת: הוגים "מאסנט".',
+          articulationGuide: {
+            mouthShape: 'lips_closed_pop',
+            soundNameEn: 'Must vs Must not',
+            soundNameHe: 'חובה מול איסור',
+            hebrewRule: 'Must מבטא חובה ברורה; אין להוסיף לפועל הבא s לעולם.',
+            mnemonicHe: 'מאסט = חובה מוחלטת',
+            articulationCueEn: 'End must with a crisp /st/ sound.'
+          },
+          explanationHe: 'אחרי must הפועל תמיד בצורת המקור: You must arrive on time.'
+        }
+      ],
+      verbExercises: [
+        {
+          id: 'u12-v1',
+          hebrewPromptSentence: 'תלמידים חייבים להקשיב למורה בכיתה.',
+          subject: 'Students',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'Students',
+          baseTemplateAfter: 'to the teacher in the classroom.',
+          correctAnswer: 'must listen',
+          options: ['must listen', 'must listens', 'must listening'],
+          hebrewContrastLesson: 'אחרי פועל המודל must הפועל הבא מגיע בצורת המקור הנקייה (Base Form) ללא s, ed או ing!',
+          fullSentenceEn: 'Students must listen to the teacher in the classroom.',
+          audioText: 'Students must listen to the teacher in the classroom.'
+        },
+        {
+          id: 'u12-v2',
+          hebrewPromptSentence: 'כדאי לך לאכול אוכל בריא כל יום.',
+          subject: 'You',
+          subjectType: 'plural_or_you',
+          baseTemplateBefore: 'You',
+          baseTemplateAfter: 'healthy food every day for good energy.',
+          correctAnswer: 'should eat',
+          options: ['should eat', 'should to eat', 'should eats'],
+          hebrewContrastLesson: 'אחרי should אין צורך במילת to ואין להוסיף s (לא should to eat, אלא should eat בלבד).',
+          fullSentenceEn: 'You should eat healthy food every day for good energy.',
+          audioText: 'You should eat healthy food every day for good energy.'
+        },
+        {
+          id: 'u12-v3',
+          hebrewPromptSentence: 'הוא חייב להגיע בזמן לבית הספר.',
+          subject: 'He',
+          subjectType: 'third_singular',
+          baseTemplateBefore: 'He',
+          baseTemplateAfter: 'arrive at school on time.',
+          correctAnswer: 'has to',
+          options: ['has to', 'have to', 'must to'],
+          hebrewContrastLesson: 'עם גוף שלישי (He/She) בביטוי have to, הצורה מתחלפת ל-has to. בנוסף, אסור להגיד must to.',
+          fullSentenceEn: 'He has to arrive at school on time.',
+          audioText: 'He has to arrive at school on time.'
+        }
+      ],
+      sentenceExercises: [
+        {
+          id: 'u12-s1',
+          hebrewPromptSentence: 'אתה חייב להרים את היד כדי לשאול שאלה.',
+          targetSentenceTokens: ['You', 'must', 'raise', 'your', 'hand', 'to', 'ask', 'a', 'question', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'You' },
+            { id: 't2', text: 'must' },
+            { id: 't3', text: 'raise' },
+            { id: 't4', text: 'your' },
+            { id: 't5', text: 'hand' },
+            { id: 't6', text: 'to' },
+            { id: 't7', text: 'ask' },
+            { id: 't8', text: 'a' },
+            { id: 't9', text: 'question' },
+            { id: 't10', text: '.', isPunctuation: true },
+            { id: 't11', text: 'to', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'You נפתחת באות גדולה, ולאחר must מגיע ישירות הפועל raise ללא to.',
+          ruleExplanationHe: 'מבנה מודל: Subject + must + Verb 1 + Object.',
+          audioFullSentence: 'You must raise your hand to ask a question.'
+        },
+        {
+          id: 'u12-s2',
+          hebrewPromptSentence: 'תלמידים טובים צריכים לקרוא ספרים באנגלית בכל שבוע.',
+          targetSentenceTokens: ['Good', 'students', 'should', 'read', 'English', 'books', 'every', 'week', '.'],
+          scrambledTokens: [
+            { id: 't1', text: 'Good' },
+            { id: 't2', text: 'students' },
+            { id: 't3', text: 'should' },
+            { id: 't4', text: 'read' },
+            { id: 't5', text: 'English' },
+            { id: 't6', text: 'books' },
+            { id: 't7', text: 'every' },
+            { id: 't8', text: 'week' },
+            { id: 't9', text: '.', isPunctuation: true },
+            { id: 't10', text: 'reads', isDistractor: true }
+          ],
+          grammarFocus: 'to_be_copula',
+          capitalizationTipHe: 'English תמיד נכתבת באות E גדולה, גם באמצע משפט!',
+          ruleExplanationHe: 'אחרי should הפועל read אינו מקבל s: should read.',
+          audioFullSentence: 'Good students should read English books every week.'
+        }
+      ],
+      suffixItems: [
+        { id: 'suf-29', baseWord: 'listen', targetSuffix: '-s', fullWord: 'listens', hebrewMeaning: 'מקשיב (יחיד)', ruleHintHe: 'תוספת s לגוף שלישי הווה' },
+        { id: 'suf-30', baseWord: 'teach', targetSuffix: '-es', fullWord: 'teaches', hebrewMeaning: 'מלמד (מורה)', ruleHintHe: 'אחרי צליל ch מוסיפים es' },
+        { id: 'suf-31', baseWord: 'help', targetSuffix: '-ing', fullWord: 'helping', hebrewMeaning: 'עוזר כעת', ruleHintHe: 'תוספת ing לפעולה המתרחשת כעת' }
+      ],
+      vocabulary: [
+        { id: 'v12_1', word: 'Must', partOfSpeech: 'verb', hebrewTranslation: 'חייב / מוכרח', ipa: '/mʌst/', exampleSentenceEn: 'You must wear a seatbelt in the car.', exampleSentenceHe: 'אתם חייבים לחגור חגורת בטיחות ברכב.', band: 'Band II', category: 'פעלי מודל' },
+        { id: 'v12_2', word: 'Should', partOfSpeech: 'verb', hebrewTranslation: 'כדאי / צריך (המלצה)', ipa: '/ʃʊd/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'You should drink plenty of water.', exampleSentenceHe: 'כדאי לכם לשתות הרבה מים.', band: 'Band II', category: 'פעלי מודל' },
+        { id: 'v12_3', word: 'Rule', partOfSpeech: 'noun', hebrewTranslation: 'חוק / כלל', ipa: '/ruːl/', exampleSentenceEn: 'Classroom rules keep everyone safe and happy.', exampleSentenceHe: 'כללי הכיתה שומרים על כולם בטוחים ושמחים.', band: 'Band II', category: 'בית ספר' },
+        { id: 'v12_4', word: 'Respect', partOfSpeech: 'verb', hebrewTranslation: 'לכבד', ipa: '/rɪˈspɛkt/', exampleSentenceEn: 'We must respect our friends and teachers.', exampleSentenceHe: 'אנחנו חייבים לכבד את החברים והמורים שלנו.', band: 'Band II', category: 'ערכים' },
+        { id: 'v12_5', word: 'Listen', partOfSpeech: 'verb', hebrewTranslation: 'להקשיב', ipa: '/ˈlɪsən/', phoneticTrap: 'short_vowel', exampleSentenceEn: 'Listen carefully to the instructions.', exampleSentenceHe: 'הקשיבו היטב להוראות.', band: 'Band II', category: 'פעולות' },
+        { id: 'v12_6', word: 'Uniform', partOfSpeech: 'noun', hebrewTranslation: 'תלבושת אחידה', ipa: '/ˈjuːnɪfɔːrm/', exampleSentenceEn: 'Students wear a blue school uniform.', exampleSentenceHe: 'תלמידים לובשים תלבושת אחידה כחולה של בית הספר.', band: 'Band II', category: 'בית ספר' },
+        { id: 'v12_7', word: 'Safe', partOfSpeech: 'adjective', hebrewTranslation: 'בטוח / מוגן', ipa: '/seɪf/', phoneticTrap: 'magic_e', exampleSentenceEn: 'Cross the road only at a safe zebra crossing.', exampleSentenceHe: 'חצו את הכביש רק במעבר חצייה בטוח.', band: 'Band II', category: 'תארים' },
+        { id: 'v12_8', word: 'Important', partOfSpeech: 'adjective', hebrewTranslation: 'חשוב', ipa: '/ɪmˈpɔːrtənt/', exampleSentenceEn: 'Education is an important key to success.', exampleSentenceHe: 'חינוך הוא מפתח חשוב להצלחה.', band: 'Band II', category: 'תארים' },
+        { id: 'v12_9', word: 'Homework', partOfSpeech: 'noun', hebrewTranslation: 'שיעורי בית', ipa: '/ˈhoʊmwɜːrk/', exampleSentenceEn: 'Finish your English homework before dinner.', exampleSentenceHe: 'סיימו את שיעורי הבית באנגלית לפני ארוחת הערב.', band: 'Band II', category: 'בית ספר' },
+        { id: 'v12_10', word: 'Careful', partOfSpeech: 'adjective', hebrewTranslation: 'זהיר', ipa: '/ˈkɛərfʊl/', phoneticTrap: 'F', exampleSentenceEn: 'Be careful when carrying hot soup.', exampleSentenceHe: 'היו זהירים כשאתם נושאים מרק חם.', band: 'Band II', category: 'תארים' },
+        { id: 'v12_11', word: 'Polite', partOfSpeech: 'adjective', hebrewTranslation: 'מנומס', ipa: '/pəˈlaɪt/', phoneticTrap: 'P', exampleSentenceEn: 'Saying please and thank you is polite.', exampleSentenceHe: 'לומר בבקשה ותודה זה מנומס.', band: 'Band II', category: 'ערכים' },
+        { id: 'v12_12', word: 'Library', partOfSpeech: 'noun', hebrewTranslation: 'ספרייה', ipa: '/ˈlaɪbrəri/', exampleSentenceEn: 'We read wonderful storybooks in the school library.', exampleSentenceHe: 'אנחנו קוראים ספרי סיפורים נפלאים בספריית בית הספר.', band: 'Band II', category: 'בית ספר' }
       ]
     }
   ]

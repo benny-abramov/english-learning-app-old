@@ -12,6 +12,8 @@ import { Achievements } from './components/Achievements';
 import { DailyGoalWidget } from './components/DailyGoalWidget';
 import { WeeklyConsistencyChart } from './components/WeeklyConsistencyChart';
 import { ClassroomLeaderboard } from './components/ClassroomLeaderboard';
+import { UnseenReadingLab } from './components/UnseenReadingLab';
+import { CobeOralLab } from './components/CobeOralLab';
 import { SchemaInspectorModal } from './components/SchemaInspectorModal';
 import { fullCurriculumData } from './data/curriculumData';
 import { playXpEarnedTone } from './utils/audio';
@@ -90,6 +92,18 @@ export default function App() {
             vocabList={currentUnit.vocabulary}
             currentUnit={currentUnit}
             allUnits={fullCurriculumData.units}
+            onReward={handleReward}
+          />
+        );
+      case 'unseen_lab':
+        return (
+          <UnseenReadingLab
+            onReward={handleReward}
+          />
+        );
+      case 'cobe_oral':
+        return (
+          <CobeOralLab
             onReward={handleReward}
           />
         );
@@ -259,7 +273,7 @@ export default function App() {
                   className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
                 >
                   <MapPin className="w-3.5 h-3.5" />
-                  <span>כל 4 היחידות</span>
+                  <span>כל {fullCurriculumData.units.length} היחידות</span>
                 </button>
                 <button
                   onClick={() => setIsSchemaModalOpen(true)}
@@ -287,9 +301,9 @@ export default function App() {
               Sababa English © 2026
             </span>
             <span className="hidden sm:inline" aria-hidden="true">·</span>
-            <span>Ministry of Education Band I Curriculum (Units 1-4)</span>
+            <span>Ministry of Education Band I & Band II Curriculum (12 Units · 144+ Words)</span>
             <span className="hidden sm:inline" aria-hidden="true">·</span>
-            <span>40+ Interactive Drills · CEFR A1-A2</span>
+            <span>Unseen Reading Lab · COBE Spoken English · CEFR A1-A2</span>
           </div>
 
           <div className="flex items-center gap-3">

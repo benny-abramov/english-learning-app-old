@@ -26,14 +26,14 @@ export const UnitRoadmap: React.FC<UnitRoadmapProps> = ({
                 מסלול הלימודים של משרד החינוך
               </span>
               <span className="text-xs text-slate-500 font-medium">
-                כיתות ד׳-ה׳ · רמת Band I
+                כיתות ד׳-ז׳ · Band I & Band II (12 יחידות לימוד)
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               מפת המסע באנגלית (Learning Journey)
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              בחרו יחידת לימוד כדי להתאמן על מלכודות הצליל ודקדוק ההווה!
+              בחרו יחידת לימוד (1-12) להתאמן על מלכודות הצליל, דקדוק משרד החינוך, ואוצר מילים מורחב!
             </p>
           </div>
 

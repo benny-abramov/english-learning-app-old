@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen } from 'lucide-react';
+import { Sparkles, Flame, Database, Monitor, Tablet, Smartphone, Compass, Users, Volume2, VolumeX, Trophy, Headphones, BookOpen, FileText, Mic } from 'lucide-react';
 import { CurriculumUnit } from '../types/curriculum';
 import { isSoundMuted, toggleSoundMute, playGentleSuccessTone } from '../utils/audio';
 import { VoiceSettingsModal } from './VoiceSettingsModal';
 
-export type ActiveTab = 'roadmap' | 'phonics' | 'verb_to_be' | 'sentence_builder' | 'suffix_collector' | 'vocab_glossary' | 'achievements' | 'leaderboard' | 'parent_portal';
+export type ActiveTab = 'roadmap' | 'phonics' | 'verb_to_be' | 'sentence_builder' | 'suffix_collector' | 'vocab_glossary' | 'unseen_lab' | 'cobe_oral' | 'achievements' | 'leaderboard' | 'parent_portal';
 export type DeviceMode = 'fluid' | 'tablet_landscape' | 'tablet_portrait' | 'mobile';
 
 interface TabletHeaderProps {
@@ -155,7 +155,31 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
             }`}
           >
             <BookOpen className="w-3.5 h-3.5 text-rose-500" />
-            <span>אוצר מילים + הוספה</span>
+            <span>אוצר מילים</span>
+          </button>
+
+          <button
+            onClick={() => onTabChange('unseen_lab')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+              activeTab === 'unseen_lab'
+                ? 'bg-white text-teal-700 shadow-xs ring-1 ring-teal-200'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5 text-teal-600" />
+            <span>הבנת הנקרא Unseen</span>
+          </button>
+
+          <button
+            onClick={() => onTabChange('cobe_oral')}
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+              activeTab === 'cobe_oral'
+                ? 'bg-white text-indigo-700 shadow-xs ring-1 ring-indigo-200'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Mic className="w-3.5 h-3.5 text-indigo-600" />
+            <span>דיבור COBE</span>
           </button>
 
           <button
@@ -348,7 +372,23 @@ export const TabletHeader: React.FC<TabletHeaderProps> = ({
               activeTab === 'vocab_glossary' ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-700'
             }`}
           >
-            אוצר מילים +
+            אוצר מילים
+          </button>
+          <button
+            onClick={() => onTabChange('unseen_lab')}
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
+              activeTab === 'unseen_lab' ? 'bg-teal-600 text-white' : 'bg-slate-100 text-slate-700'
+            }`}
+          >
+            הבנת הנקרא
+          </button>
+          <button
+            onClick={() => onTabChange('cobe_oral')}
+            className={`px-2.5 py-1 text-xs font-bold rounded-lg whitespace-nowrap shrink-0 ${
+              activeTab === 'cobe_oral' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
+            }`}
+          >
+            דיבור COBE
           </button>
           <button
             onClick={() => onTabChange('achievements')}
